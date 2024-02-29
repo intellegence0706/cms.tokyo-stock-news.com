@@ -43,6 +43,7 @@ const SignInPage = () => {
                 }
             }));
     };
+
     return (
         <BlankLayout>
             <Container component='main' maxWidth='xs'>
@@ -55,10 +56,10 @@ const SignInPage = () => {
                         alignItems: 'center'
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main', color: 'white' }}>
                         <LockOutlinedIcon />
                     </Avatar>
-                    <Typography component='h1' variant='h5'>
+                    <Typography component='h1' variant='h1'>
                         STOCK NEWS
                     </Typography>
                     <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -88,12 +89,12 @@ const SignInPage = () => {
                             error={errors.password ? true : false}
                             helperText={errors.password ? errors.password : ''}
                         />
-                        <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
+                        <Button type='submit' fullWidth variant='contained' color='secondary' sx={{ mt: 3, mb: 2 }}>
                             ログイン
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href='/accounts/password/forgot' variant='body2'>
+                                <Link href='/accounts/password/forgot' variant='body2' color='secondary'>
                                     パスワードをお忘れですか？
                                 </Link>
                             </Grid>
