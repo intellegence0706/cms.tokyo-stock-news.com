@@ -12,8 +12,7 @@ const headerSX = {
     '& .MuiCardHeader-action': { mr: 0 }
 };
 
-// ==============================|| CUSTOM MAIN CARD ||============================== //
-
+/* eslint-disable */
 const MainCard = forwardRef(
     (
         {
@@ -85,4 +84,5 @@ MainCard.propTypes = {
     title: PropTypes.oneOfType([PropTypes.node, PropTypes.string, PropTypes.object])
 };
 
+/* eslint-enable */
 export default MainCard;

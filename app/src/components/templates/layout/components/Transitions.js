@@ -6,8 +6,7 @@ import PropTypes from 'prop-types';
 // material-ui
 import { Collapse, Fade, Box, Grow, Slide, Zoom } from '@mui/material';
 
-// ==============================|| TRANSITIONS ||============================== //
-
+/* eslint-disable */
 const Transitions = forwardRef(({ children, position, type, direction, ...others }, ref) => {
     let positionSX = {
         transformOrigin: '0 0 0'
@@ -106,4 +105,5 @@ Transitions.defaultProps = {
     direction: 'up'
 };
 
+/* eslint-enable */
 export default Transitions;

@@ -27,8 +27,6 @@ import { IoMailUnreadOutline } from 'react-icons/io5';
 import MainCard from '../components/MainCard';
 import Transitions from '../components/Transitions';
 
-// assets
-
 // ==============================|| PROFILE MENU ||============================== //
 
 const ProfileSection = () => {
