@@ -9,7 +9,7 @@ import Loading from './Loading';
 interface Props {
     permission: ('super' | 'owner' | 'customer')[];
     role: ('admin' | 'member')[];
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 const PermissionLayout = ({ children, permission, role }: Props) => {

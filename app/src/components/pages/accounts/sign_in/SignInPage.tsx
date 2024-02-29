@@ -1,4 +1,3 @@
-
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -30,18 +29,19 @@ const SignInPage = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        login && (await login(currentItem, user => {
-            if(user){
-                if(user?.permission == "customer"){
-                    router.push('/dashboard');
-                    dispatch(appendMessage({ type: 'success', message: 'ログインしました。' }));
-                }else{
-                    dispatch(appendMessage({ type: 'error', message: 'このアカウントでログインできません。' }));
+        login &&
+            (await login(currentItem, user => {
+                if (user) {
+                    if (user?.permission == 'customer') {
+                        router.push('/dashboard');
+                        dispatch(appendMessage({ type: 'success', message: 'ログインしました。' }));
+                    } else {
+                        dispatch(appendMessage({ type: 'error', message: 'このアカウントでログインできません。' }));
+                    }
+                } else {
+                    dispatch(appendMessage({ type: 'error', message: 'IDまたはパスワードが間違っています。' }));
                 }
-            }else{
-                dispatch(appendMessage({ type: 'error', message: 'IDまたはパスワードが間違っています。' }));
-            }
-        }));
+            }));
     };
     return (
         <BlankLayout>

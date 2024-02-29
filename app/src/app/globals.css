@@ -17,7 +17,6 @@
 }
 
 body {
-  font-family: "Montserrat","Kosugi","Noto Sans Japanese", sans-serif !important;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
@@ -32,3 +31,30 @@ body {
     text-wrap: balance;
   }
 }
+
+*{
+  font-family: "Montserrat","Kosugi","Noto Sans Japanese", sans-serif !important
+}
+
+
+*::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+*::-webkit-scrollbar-track {
+  --bg-opacity: 1;
+  background-color: #EEE4;
+}
+
+*::-webkit-scrollbar-thumb {
+  --bg-opacity: 1;
+  border-color: #573001;
+  background-color: #0008;
+  border-radius: 0.25rem;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 0.25rem;
+}
+

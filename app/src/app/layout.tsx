@@ -1,5 +1,7 @@
 import './globals.css';
+import '@/styles/style.css';
 import '@/styles/custom.css';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
@@ -18,12 +20,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Suspense>
                     <meta name='keywords' content='' />
                 </Suspense>
-                <link rel='preconnect' href='https://fonts.googleapis.com' />
-                <link rel='preconnect' href='https://fonts.gstatic.com' />
-                <link
-                    href='https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap'
-                    rel='stylesheet'
-                ></link>
+
+                <link href='https://fonts.googleapis.com/earlyaccess/notosansjapanese.css' rel='stylesheet' />
+                <link href='https://fonts.googleapis.com/css?family=Kosugi' rel='stylesheet' />
             </head>
             <DefaultLayout>
                 {children}
