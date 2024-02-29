@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, ReactNode, memo } from 'react';
+import { useEffect, ReactNode, memo, Suspense } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
@@ -54,11 +54,15 @@ const DefaultLayout = ({ children }: Props) => {
             <AnimatePresence>
                 <Providers>
                     <AuthProvider>
-                        <ComponentWrapper>
-                            <div id='top'></div>
+                        <Suspense fallback={<Loading />}>
+                            <ComponentWrapper>
+                                <div id='top'></div>
 
-                            <main className='w-full flex-grow tracking-wide font-normal text-[14px]'>{children}</main>
-                        </ComponentWrapper>
+                                <main className='w-full flex-grow tracking-wide font-normal text-[14px]'>
+                                    {children}
+                                </main>
+                            </ComponentWrapper>
+                        </Suspense>
                     </AuthProvider>
                 </Providers>
             </AnimatePresence>

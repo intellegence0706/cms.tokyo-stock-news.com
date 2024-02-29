@@ -1,11 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import Loading from '@/components/templates/Loading';
-
-const SignInPage = dynamic(() => import('@/components/pages/accounts/sign_in/SignInPage'), {
-    loading: () => <Loading />
-});
+import SignInPage from '@/components/pages/accounts/sign_in/SignInPage';
 
 const Page = () => {
     return <SignInPage />;

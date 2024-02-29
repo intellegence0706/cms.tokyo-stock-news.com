@@ -1,11 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
-import Loading from '@/components/templates/Loading';
-
-const DashboardPage = dynamic(() => import('@/components/pages/dashboard/DashboardPage'), {
-    loading: () => <Loading />
-});
+import DashboardPage from '@/components/pages/dashboard/DashboardPage';
 
 const Page = () => {
     return <DashboardPage />;

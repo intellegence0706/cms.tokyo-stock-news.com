@@ -1,11 +1,4 @@
-'use client';
-
-import dynamic from 'next/dynamic';
-import Loading from '@/components/templates/Loading';
-
-const RedirectPage = dynamic(() => import('@/components/templates/RedirectPage'), {
-    loading: () => <Loading />
-});
+import RedirectPage from '@/components/templates/RedirectPage';
 
 const Page = () => {
     return <RedirectPage />;
