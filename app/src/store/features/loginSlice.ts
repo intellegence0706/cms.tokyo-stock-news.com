@@ -6,7 +6,7 @@ type MeState = {
             email: string;
             password: string;
         };
-        error: any;
+        errors: any;
     };
 };
 
@@ -16,7 +16,7 @@ const initialState: MeState = {
             email: '',
             password: ''
         },
-        error: {}
+        errors: {}
     }
 };
 
@@ -46,7 +46,7 @@ export const slice = createSlice({
         setError: (state: MeState, action) => {
             state.item = {
                 ...state.item,
-                error: action.payload
+                errors: action.payload
             };
         }
     }

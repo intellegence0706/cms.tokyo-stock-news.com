@@ -2,6 +2,7 @@
 
 import { useEffect, ReactNode, memo } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Providers } from '@/store/provider';
@@ -19,7 +20,8 @@ interface Props {
     children: ReactNode;
 }
 
-const Auth = ({ children }: { children: React.ReactNode }) => {
+const defaultTheme = createTheme();
+const ComponentWrapper = ({ children }: { children: React.ReactNode }) => {
     const dispatch = useAppDispatch();
     const { loading, pending, isAuthenticated } = useAuth();
     const pathname = usePathname()!;
@@ -30,16 +32,18 @@ const Auth = ({ children }: { children: React.ReactNode }) => {
     }, [pathname, params]);
 
     return (
-        <div className={clsx('flex flex-col w-full min-h-screen overflow-x-hidden', {})}>
-            {loading ? (
-                <Loading />
-            ) : (
-                <>
-                    {children}
-                    <Pending pending={pending} />
-                </>
-            )}
-        </div>
+        <ThemeProvider theme={defaultTheme}>
+            <div className={clsx('flex flex-col w-full min-h-screen overflow-x-hidden', {})}>
+                {loading ? (
+                    <Loading />
+                ) : (
+                    <>
+                        {children}
+                        <Pending pending={pending} />
+                    </>
+                )}
+            </div>
+        </ThemeProvider>
     );
 };
 
@@ -49,13 +53,13 @@ const DefaultLayout = ({ children }: Props) => {
             <AnimatePresence>
                 <Providers>
                     <AuthProvider>
-                        <Auth>
+                        <ComponentWrapper>
                             <div id='top'></div>
 
                             <main className='bg-[#F4F5FA] w-full flex-grow tracking-wide font-normal text-[14px]'>
                                 {children}
                             </main>
-                        </Auth>
+                        </ComponentWrapper>
                     </AuthProvider>
                 </Providers>
             </AnimatePresence>

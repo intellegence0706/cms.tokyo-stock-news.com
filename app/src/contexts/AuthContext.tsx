@@ -76,13 +76,15 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 if (_msg.type == 'success')
                     toast.success(_msg.message, {
                         style: {
-                            padding: '16px'
+                            padding: '16px',
+                            maxWidth: 600
                         }
                     });
                 if (_msg.type == 'warning')
                     toast.success(_msg.message, {
                         style: {
-                            padding: '16px'
+                            padding: '16px',
+                            maxWidth: 600
                         },
                         iconTheme: {
                             primary: '#FFCC33',
@@ -92,7 +94,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 if (_msg.type == 'error')
                     toast.error(_msg.message, {
                         style: {
-                            padding: '16px'
+                            padding: '16px',
+                            maxWidth: 600
                         }
                     });
             });
@@ -164,3 +167,4 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 };
 
 export const useAuth = () => useContext(AuthContext);
+

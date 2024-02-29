@@ -1,14 +1,7 @@
-import AuthLayout from "@/components/templates/AuthLayout";
-
+import AuthLayout from '@/components/templates/AuthLayout';
 
 const DashboardPage = () => {
-
-
-    return(
-        <AuthLayout>
-            
-        </AuthLayout>
-    )
-}
+    return <AuthLayout></AuthLayout>;
+};
 
 export default DashboardPage;
