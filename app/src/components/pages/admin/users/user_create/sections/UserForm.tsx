@@ -22,7 +22,7 @@ const UserForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>氏名</FormLabel>
-                <div className='w-full max-w-[420px] flex gap-[8px]'>
+                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -45,7 +45,7 @@ const UserForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>氏名</FormLabel>
-                <div className='w-full max-w-[420px] flex gap-[8px]'>
+                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -68,7 +68,7 @@ const UserForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>メールアドレス</FormLabel>
-                <div className='w-full max-w-[420px] flex gap-[8px]'>
+                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -83,7 +83,7 @@ const UserForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>電話番号</FormLabel>
-                <div className='w-full max-w-[420px] flex gap-[8px]'>
+                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -98,7 +98,7 @@ const UserForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>権限</FormLabel>
-                <div className='w-full max-w-[420px]'>
+                <div className='w-full lg:max-w-[420px]'>
                     <Select
                         fullWidth
                         size='small'
@@ -121,7 +121,7 @@ const UserForm = () => {
             {/* ************************************************************************ */}
             {/* <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>ステイテス</FormLabel>
-                <div className='w-full max-w-[420px] flex items-center gap-[8px]'>
+                <div className='w-full lg:max-w-[420px] flex items-center gap-[8px]'>
                     <Switch
                         checked={currentItem.is_allowed}
                         onClick={e => dispatch(setCurrentItemValue({ is_allowed: !currentItem.is_allowed }))}

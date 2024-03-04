@@ -20,7 +20,7 @@ const CustomerTable = () => {
                             <SorterItem label='ID' value='id' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='広告' value='ads' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem label='広告媒体' value='ads' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
                             <SorterItem label='名前' value='name' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
