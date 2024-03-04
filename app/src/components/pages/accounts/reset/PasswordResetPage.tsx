@@ -1,7 +1,8 @@
-import { useRouter } from 'next/navigation';
-import { postRequest } from '@/utils/axios';
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { getRequest, postRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setCurrentItemValue, setError, clearError } from '@/store/features/forgot_password';
+import { setCurrentItemValue, setError, clearError } from '@/store/features/reset_password';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -16,18 +17,37 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 import Copyright from '@/components/molecules/Copyright';
 import BlankLayout from '@/components/templates/layout/BlankLayout';
+import Loading from '@/components/templates/Loading';
+import Page_404 from '@/components/templates/Page_404';
+import Page_400 from '@/components/templates/Page_400';
 
-const PasswordForgotPage = () => {
+const PasswordResetPage = () => {
     const router = useRouter();
+    const params = useSearchParams();
     const dispatch = useAppDispatch();
 
-    const currentItem = useAppSelector(state => state.forgot_password.item.form);
-    const errors = useAppSelector(state => state.forgot_password.item.errors);
+    const [loading, setLoading] = useState(0);
+    const currentItem = useAppSelector(state => state.reset_password.item.form);
+    const errors = useAppSelector(state => state.reset_password.item.errors);
+
+    useEffect(() => {
+        validateToken();
+    }, []);
+
+    const validateToken = async () => {
+        const token = params.get('token') || '';
+        const res = await getRequest(`/auth/password/reset?token=${token}`);
+
+        if (res.status == 200) {
+            dispatch(setCurrentItemValue({ token: token }));
+        }
+        setLoading(res.status);
+    };
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        const res = await postRequest('/auth/password/forgot', currentItem);
+        const res = await postRequest('/auth/password/reset', currentItem);
         if (res.status == 200) {
             dispatch(clearError());
             router.push('/accounts/sign_in');
@@ -37,6 +57,12 @@ const PasswordForgotPage = () => {
             dispatch(setError(res.data.errors));
         }
     };
+
+    if (loading == 0) return <Loading />;
+
+    if (loading == 400) return <Page_400 />;
+
+    if (loading == 404) return <Page_404 />;
 
     return (
         <BlankLayout>
@@ -58,23 +84,35 @@ const PasswordForgotPage = () => {
                             STOCK NEWS
                         </Typography>
 
-                        <Typography component='p' sx={{ fontSize: 14, mt: 4, lineHeight: 1.5 }}>
-                            メールアドレスを入力後「パスワードを再設定する」ボタンを押して下さい。ご登録のメールアドレスまでパスワード再設定用のURLが送信されます。
-                        </Typography>
-
                         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ width: '100%', mt: 1 }}>
                             <TextField
                                 margin='normal'
                                 required
                                 fullWidth
-                                label='メールアドレス'
-                                name='email'
-                                autoComplete='email'
+                                type="password"
+                                label='パスワード'
+                                name='new_password'
+                                autoComplete='new_password'
                                 autoFocus
-                                value={currentItem.email}
-                                onChange={e => dispatch(setCurrentItemValue({ email: e.target.value }))}
-                                error={errors.email ? true : false}
-                                helperText={errors.email ? errors.email : ''}
+                                value={currentItem.new_password}
+                                onChange={e => dispatch(setCurrentItemValue({ new_password: e.target.value }))}
+                                error={errors.new_password ? true : false}
+                                helperText={errors.new_password ? errors.new_password : ''}
+                            />
+
+                            <TextField
+                                margin='normal'
+                                required
+                                fullWidth
+                                type="password"
+                                label='パスワード（確認用）'
+                                name='confirm_password'
+                                autoComplete='confirm_password'
+                                autoFocus
+                                value={currentItem.confirm_password}
+                                onChange={e => dispatch(setCurrentItemValue({ confirm_password: e.target.value }))}
+                                error={errors.confirm_password ? true : false}
+                                helperText={errors.confirm_password ? errors.confirm_password : ''}
                             />
 
                             <Button type='submit' fullWidth variant='contained' color='secondary' sx={{ mt: 3, mb: 2 }}>
@@ -82,8 +120,8 @@ const PasswordForgotPage = () => {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href='/accounts/sign_in' variant='body2' color='secondary'>
-                                        ログインはこちら
+                                    <Link href='/accounts/password_forgot' variant='body2' color='secondary'>
+                                        パスワードをお忘れの方
                                     </Link>
                                 </Grid>
                             </Grid>
@@ -96,4 +134,4 @@ const PasswordForgotPage = () => {
     );
 };
 
-export default PasswordForgotPage;
+export default PasswordResetPage;

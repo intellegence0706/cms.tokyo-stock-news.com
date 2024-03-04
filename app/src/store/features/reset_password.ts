@@ -3,8 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 type State = {
     item: {
         form: {
-            email: string;
-            password: string;
+            token: string;
+            new_password: string;
+            confirm_password: string;
         };
         errors: any;
     };
@@ -13,8 +14,9 @@ type State = {
 const initialState: State = {
     item: {
         form: {
-            email: '',
-            password: ''
+            token: '',
+            new_password: '',
+            confirm_password: ''
         },
         errors: {}
     }

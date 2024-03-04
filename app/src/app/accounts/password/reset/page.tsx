@@ -1,9 +1,14 @@
 'use client';
 
-import RedirectPage from '@/components/templates/RedirectPage';
+import dynamic from 'next/dynamic';
+import Loading from '@/components/templates/Loading';
+
+const PasswordResetPage = dynamic(() => import('@/components/pages/accounts/reset/PasswordResetPage'), {
+    loading: () => <Loading />
+});
 
 const Page = () => {
-    return <RedirectPage />;
+    return <PasswordResetPage />;
 };
 
 export default Page;
