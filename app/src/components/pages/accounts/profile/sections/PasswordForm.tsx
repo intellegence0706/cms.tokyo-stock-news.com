@@ -18,7 +18,7 @@ const PasswordForm = () => {
         e.preventDefault();
         setPending!(true);
 
-        const res = await postRequest(`/auth/password`, currentItem);
+        const res = await postRequest(`/account/password`, currentItem);
 
         if (res.status == 200) {
             dispatch(clearError());
