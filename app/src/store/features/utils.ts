@@ -20,7 +20,7 @@ type utilState = {
 const initialState: utilState = {
     loading: false,
     messages: [],
-    navOpen: false,
+    navOpen: true,
     isOpen: [],
     defaultId: 'default',
     fontFamily: config.fontFamily,

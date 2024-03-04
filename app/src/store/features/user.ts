@@ -10,6 +10,7 @@ type State = {
             email: string;
             phone: string;
             role: number;
+            is_allowed: boolean;
         };
         errors: any;
     };
@@ -24,14 +25,15 @@ const initialState: State = {
             first_name_furi: '',
             email: '',
             phone: '',
-            role: 0
+            role: 0,
+            is_allowed: true
         },
         errors: {}
     }
 };
 
 export const slice = createSlice({
-    name: 'profile',
+    name: 'user',
     initialState,
     reducers: {
         reset: () => initialState,

@@ -137,7 +137,7 @@ const ProfileForm = () => {
                             fullWidth
                             size='small'
                             value={currentItem.role}
-                            onChange={e => dispatch(setCurrentItemValue({ phone: e.target.value }))}
+                            onChange={e => dispatch(setCurrentItemValue({ role: e.target.value }))}
                             readOnly
                         >
                             {shared_data.role_data.map(role => (

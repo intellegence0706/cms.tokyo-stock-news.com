@@ -27,14 +27,14 @@ const pages = {
                     id: 'users-list',
                     title: 'ユーザー一覧',
                     type: 'item',
-                    url: '/users/',
+                    url: '/admin/users/',
                     target: true
                 },
                 {
                     id: 'users-create',
                     title: 'ユーザー新規登録',
                     type: 'item',
-                    url: '/users/create',
+                    url: '/admin/users/create',
                     target: true
                 }
             ]
