@@ -20,7 +20,7 @@ const UserEditPage = () => {
     const { setPending } = useAuth();
     const dispatch = useAppDispatch();
 
-    const [ currentDialog, setCurrentDialog ] = useState("");
+    const [currentDialog, setCurrentDialog] = useState('');
     const currentItem = useAppSelector(state => state.user.item.form);
 
     useEffect(() => {
@@ -53,7 +53,7 @@ const UserEditPage = () => {
         }
 
         setPending!(false);
-    }
+    };
 
     return (
         <AuthLayout>
@@ -71,7 +71,12 @@ const UserEditPage = () => {
                                     保存する
                                 </Button>
 
-                                <Button type='button' variant='contained' color='inherit' onClick={()=>setCurrentDialog("delete")}>
+                                <Button
+                                    type='button'
+                                    variant='contained'
+                                    color='inherit'
+                                    onClick={() => setCurrentDialog('delete')}
+                                >
                                     削除する
                                 </Button>
                             </div>
@@ -79,11 +84,10 @@ const UserEditPage = () => {
                     </MainPannel>
 
                     <ConfirmDialog
-                        open={currentDialog === "delete"}
-                        handleClose={()=>setCurrentDialog("")}
+                        open={currentDialog === 'delete'}
+                        handleClose={() => setCurrentDialog('')}
                         handleConfirm={handleDelete}
                     />
-
                 </MainLayout>
             </PermissionLayout>
         </AuthLayout>
