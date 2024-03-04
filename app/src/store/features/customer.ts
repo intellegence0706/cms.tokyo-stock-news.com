@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IUser } from '@/interfaces';
+import { ICustomer, IUser } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -16,7 +16,6 @@ type State = {
             deposit_date: string | null;
             contract_start_date: string | null;
             contract_days: number;
-
             property: number;
             status: number;
             manager?: IUser;
@@ -27,11 +26,12 @@ type State = {
     items: {
         filter: {
             keyword: string;
+            order_by: string;
             page: number;
             pageSize: number;
         };
         result: {
-            data: IUser[];
+            data: ICustomer[];
             total: number;
         };
     };
@@ -60,6 +60,7 @@ const initialState: State = {
     items: {
         filter: {
             keyword: '',
+            order_by: 'id',
             page: 1,
             pageSize: 10
         },
@@ -71,12 +72,12 @@ const initialState: State = {
 };
 
 export const fetchCustomers = createAsyncThunk('customer/fetchCustomers', async (filter: any) => {
-    const res = await getRequest('/v0/member/customers', filter);
+    const res = await getRequest('/v0/customers', filter);
     return res;
 });
 
 export const fetchCustomer = createAsyncThunk('customer/fetchCustomer', async (id: number) => {
-    const res = await getRequest(`/v0/member/customers/${id}`);
+    const res = await getRequest(`/v0/customers/${id}`);
     return res;
 });
 

@@ -25,6 +25,7 @@ export interface IUser {
 export interface ICustomer {
     id: number;
     email: string;
+    name?: string;
     last_name: string;
     first_name: string;
     phone: string;

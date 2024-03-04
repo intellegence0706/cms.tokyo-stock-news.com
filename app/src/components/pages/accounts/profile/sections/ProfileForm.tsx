@@ -141,7 +141,9 @@ const ProfileForm = () => {
                                 readOnly
                             >
                                 {shared_data.role_data.map(role => (
-                                    <MenuItem value={role.id}>{role.name}</MenuItem>
+                                    <MenuItem value={role.id} key={role.id}>
+                                        {role.name}
+                                    </MenuItem>
                                 ))}
                             </Select>
                         </div>

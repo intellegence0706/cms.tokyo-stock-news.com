@@ -185,7 +185,9 @@ const CustomerForm = () => {
                     >
                         <MenuItem value={0}>選択する</MenuItem>
                         {shared_data.property_data.map(property => (
-                            <MenuItem value={property.id}>{property.name}</MenuItem>
+                            <MenuItem value={property.id} key={property.id}>
+                                {property.name}
+                            </MenuItem>
                         ))}
                     </Select>
 
@@ -208,7 +210,9 @@ const CustomerForm = () => {
                     >
                         <MenuItem value={0}>選択する</MenuItem>
                         {shared_data.status_data.map(status => (
-                            <MenuItem value={status.id}>{status.name}</MenuItem>
+                            <MenuItem value={status.id} key={status.id}>
+                                {status.name}
+                            </MenuItem>
                         ))}
                     </Select>
 
