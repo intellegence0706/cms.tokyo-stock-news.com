@@ -16,4 +16,8 @@ export interface IUser {
     };
     permission: 'owner' | 'customer';
     is_active: boolean;
+    is_allowed: boolean;
+
+    created_at?: string;
+    updated_at?: string;
 }

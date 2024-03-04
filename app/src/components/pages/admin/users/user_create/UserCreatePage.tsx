@@ -7,6 +7,8 @@ import { Button } from '@mui/material';
 import AuthLayout from '@/components/templates/AuthLayout';
 import PermissionLayout from '@/components/templates/PermissionLayout';
 import MainLayout from '@/components/templates/layout/MainLayout';
+import TitleBar from '@/components/atoms/TitleBar';
+import MainPannel from '@/components/atoms/MainPannel';
 import UserForm from './sections/UserForm';
 
 const UserCreatePage = () => {
@@ -35,25 +37,24 @@ const UserCreatePage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <div className='w-full flex items-center gap-[8px] mb-[24px]'>
-                        <h2 className=' whitespace-nowrap font-bold text-[20px] '>新規ユーザー登録</h2>
-                        <hr className='w-full border-t border-solid border-[#C8CBD9]' />
-                    </div>
+                    <TitleBar>新規ユーザー登録</TitleBar>
 
-                    <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
-                        <UserForm />
+                    <MainPannel>
+                        <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
+                            <UserForm />
 
-                        {/* ************************************************************************ */}
-                        <div className='mt-[16px]'>
-                            <Button type='submit' variant='contained' color='secondary'>
-                                登録する
-                            </Button>
-                        </div>
-                    </form>
+                            {/* ************************************************************************ */}
+                            <div className='mt-[16px]'>
+                                <Button type='submit' variant='contained' color='secondary'>
+                                    登録する
+                                </Button>
+                            </div>
+                        </form>
 
-                    <p className='mt-[24px]'>
-                        ※登録後、ユーザーにメールが送信されます。メール内のURLからアカウントの有効化を行ってください。
-                    </p>
+                        <p className='mt-[24px]'>
+                            ※登録後、ユーザーにメールが送信されます。メール内のURLからアカウントの有効化を行ってください。
+                        </p>
+                    </MainPannel>
                 </MainLayout>
             </PermissionLayout>
         </AuthLayout>

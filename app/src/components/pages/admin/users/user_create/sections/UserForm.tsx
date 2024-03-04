@@ -112,8 +112,7 @@ const UserForm = () => {
                         ))}
                     </Select>
 
-                    {errors.role && <p className='text-[12px] mt-[4px] ml-[14px] text-[#f44336]'>
-                        {errors.role}</p>}
+                    {errors.role && <p className='text-[12px] mt-[4px] ml-[14px] text-[#f44336]'>{errors.role}</p>}
                 </div>
             </div>
 

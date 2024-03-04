@@ -1,4 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { IUser } from '@/interfaces';
+import { getRequest } from '@/utils/axios';
 
 type State = {
     item: {
@@ -13,6 +15,17 @@ type State = {
             is_allowed: boolean;
         };
         errors: any;
+    };
+    items: {
+        filter: {
+            keyword: string;
+            page: number;
+            pageSize: number;
+        };
+        result: {
+            data: IUser[];
+            total: number;
+        };
     };
 };
 
@@ -29,8 +42,29 @@ const initialState: State = {
             is_allowed: true
         },
         errors: {}
+    },
+    items: {
+        filter: {
+            keyword: '',
+            page: 1,
+            pageSize: 10
+        },
+        result: {
+            data: [],
+            total: 0
+        }
     }
 };
+
+export const fetchUsers = createAsyncThunk('user/fetchUsers', async (filter: any) => {
+    const res = await getRequest('/v0/admin/users', filter);
+    return res;
+});
+
+export const fetchUser = createAsyncThunk('user/fetchUser', async (id: number) => {
+    const res = await getRequest(`/v0/admin/users/${id}`);
+    return res;
+});
 
 export const slice = createSlice({
     name: 'user',
@@ -64,12 +98,64 @@ export const slice = createSlice({
         clearError: (state: State) => {
             state.item = {
                 ...state.item,
-                errors: {}
+                errors: initialState.item.errors
+            };
+        },
+        setFilter: (state: State, action) => {
+            state.items = {
+                ...state.items,
+                filter: action.payload
+            };
+        },
+        setFilterValue: (state: State, action) => {
+            state.items = {
+                ...state.items,
+                filter: {
+                    ...state.items.filter,
+                    ...action.payload
+                }
+            };
+        },
+        clearFilter: (state: State) => {
+            state.items = {
+                ...state.items,
+                filter: initialState.items.filter
+            };
+        },
+        setResult: (state: State, action) => {
+            state.items = {
+                ...state.items,
+                result: action.payload
             };
         }
+    },
+    extraReducers: builder => {
+        builder.addCase(fetchUsers.fulfilled, (state, action) => {
+            state.items = {
+                ...state.items,
+                result: action.payload.data as any
+            };
+        });
+        builder.addCase(fetchUser.fulfilled, (state, action) => {
+            state.item = {
+                ...state.item,
+                form: action.payload.data as any
+            };
+        });
     }
 });
 
-export const { reset, clearCurrentItem, setCurrentItem, setCurrentItemValue, setError, clearError } = slice.actions;
+export const {
+    reset,
+    clearCurrentItem,
+    setCurrentItem,
+    setCurrentItemValue,
+    setError,
+    clearError,
+    setFilter,
+    setFilterValue,
+    clearFilter,
+    setResult
+} = slice.actions;
 
 export default slice.reducer;
