@@ -5,6 +5,7 @@ import { getRequest } from '@/utils/axios';
 type State = {
     item: {
         form: {
+            id?: number;
             last_name: string;
             first_name: string;
             last_name_furi: string;
@@ -32,6 +33,7 @@ type State = {
 const initialState: State = {
     item: {
         form: {
+            id: 0,
             last_name: '',
             first_name: '',
             last_name_furi: '',
