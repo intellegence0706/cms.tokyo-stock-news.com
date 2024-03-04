@@ -1,9 +1,14 @@
 'use client';
 
-import RedirectPage from '@/components/templates/RedirectPage';
+import dynamic from 'next/dynamic';
+import Loading from '@/components/templates/Loading';
+
+const ProfilePage = dynamic(() => import('@/components/pages/accounts/profile/ProfilePage'), {
+    loading: () => <Loading />
+});
 
 const Page = () => {
-    return <RedirectPage />;
+    return <ProfilePage />;
 };
 
 export default Page;

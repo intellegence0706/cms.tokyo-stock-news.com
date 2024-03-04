@@ -89,7 +89,7 @@ const PasswordResetPage = () => {
                                 margin='normal'
                                 required
                                 fullWidth
-                                type="password"
+                                type='password'
                                 label='パスワード'
                                 name='new_password'
                                 autoComplete='new_password'
@@ -104,7 +104,7 @@ const PasswordResetPage = () => {
                                 margin='normal'
                                 required
                                 fullWidth
-                                type="password"
+                                type='password'
                                 label='パスワード（確認用）'
                                 name='confirm_password'
                                 autoComplete='confirm_password'

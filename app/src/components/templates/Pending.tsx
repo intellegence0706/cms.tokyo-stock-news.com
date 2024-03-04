@@ -13,7 +13,7 @@ const Pending = ({ pending }: Props) => {
             } `}
         >
             <motion.div>
-                <ImSpinner fontSize={80} className=' animate-spin text-[#053DACbb] block' />
+                <ImSpinner fontSize={80} className=' animate-spin text-[#673Ab7] block' />
             </motion.div>
         </div>
     );
