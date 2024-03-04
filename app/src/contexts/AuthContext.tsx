@@ -5,7 +5,7 @@ import { getCookie, setCookie, hasCookie, deleteCookie } from 'cookies-next';
 import { IUser } from '@/interfaces';
 import { apiInstance, getRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { clearMessages } from '@/store/features/utilSlice';
+import { clearMessages } from '@/store/features/utils';
 
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -32,7 +32,7 @@ const COOKIE_NAME = process.env.NEXT_PUBLIC_COOKIE_NAME!;
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const dispatch = useAppDispatch();
 
-    const messages = useAppSelector(state => state.utilReducer.messages);
+    const messages = useAppSelector(state => state.utils.messages);
     const [user, setUser] = useState<IUser | null>(null);
     const [loading, setLoading] = useState(true);
     const [pending, setPending] = useState(true);

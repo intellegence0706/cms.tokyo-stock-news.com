@@ -37,7 +37,7 @@ const ProfileSection = () => {
     const [open, setOpen] = useState(false);
     const anchorRef = useRef(null);
     const [selectedIndex, setSelectedIndex] = useState(-1);
-    const customization = useAppSelector(state => state.utilReducer);
+    const customization = useAppSelector(state => state.utils);
 
     const handleLogout = async () => {
         logout && logout();

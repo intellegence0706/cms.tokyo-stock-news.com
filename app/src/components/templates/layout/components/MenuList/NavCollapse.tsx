@@ -16,7 +16,7 @@ interface Props {
 const NavCollapse = ({ menu, level }: Props) => {
     const theme: any = useTheme();
     const pathname = usePathname();
-    const customization = useAppSelector(state => state.utilReducer);
+    const customization = useAppSelector(state => state.utils);
 
     const [open, setOpen] = useState(false);
     const [selected, setSelected] = useState(null);

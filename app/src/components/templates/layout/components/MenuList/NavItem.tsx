@@ -1,7 +1,7 @@
 import { forwardRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setIsOpen, setOpened } from '@/store/features/utilSlice';
+import { setIsOpen, setOpened } from '@/store/features/utils';
 
 import { useTheme } from '@mui/material/styles';
 import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@mui/material';
@@ -15,7 +15,7 @@ interface Props {
 const NavItem = ({ item, level }: Props) => {
     const theme: any = useTheme();
     const dispatch = useAppDispatch();
-    const customization = useAppSelector(state => state.utilReducer);
+    const customization = useAppSelector(state => state.utils);
     const matchesSM = useMediaQuery(theme.breakpoints.down('lg'));
 
     const Icon = item.icon;

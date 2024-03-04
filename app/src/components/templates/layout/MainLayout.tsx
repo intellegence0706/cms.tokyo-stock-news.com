@@ -4,7 +4,7 @@
 import { styled, useTheme } from '@mui/material/styles';
 import { AppBar, Box, CssBaseline, Toolbar, useMediaQuery } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setNavOpen } from '@/store/features/utilSlice';
+import { setNavOpen } from '@/store/features/utils';
 
 import { MdChevronRight } from 'react-icons/md';
 
@@ -23,7 +23,7 @@ const MainLayout = ({ children }: Props) => {
     const dispatch = useAppDispatch();
 
     const matchDownMd = useMediaQuery(theme.breakpoints.down('md'));
-    const leftDrawerOpened = useAppSelector(state => state.utilReducer.navOpen);
+    const leftDrawerOpened = useAppSelector(state => state.utils.navOpen);
 
     const handleLeftDrawerToggle = () => {
         dispatch(setNavOpen(!leftDrawerOpened));

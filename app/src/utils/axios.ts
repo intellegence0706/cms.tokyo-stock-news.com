@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { getCookie, hasCookie, deleteCookie, setCookie } from 'cookies-next';
 
 import { store } from '@/store/store';
-import { loading, appendMessage } from '@/store/features/utilSlice';
+import { loading, appendMessage } from '@/store/features/utils';
 const dispatch = store.dispatch;
 
 const COOKIE_NAME = process.env.NEXT_PUBLIC_COOKIE_NAME || 'stock_news_token';

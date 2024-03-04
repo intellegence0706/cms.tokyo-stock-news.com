@@ -6,7 +6,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { Providers } from '@/store/provider';
-import { reset } from '@/store/features/utilSlice';
+import { reset } from '@/store/features/utils';
 import clsx from 'clsx';
 import moment from 'moment';
 import 'moment/locale/ja';
@@ -26,7 +26,7 @@ const ComponentWrapper = ({ children }: { children: React.ReactNode }) => {
     const pathname = usePathname()!;
     const params = useSearchParams()!;
 
-    const customization = useAppSelector(state => state.utilReducer);
+    const customization = useAppSelector(state => state.utils);
 
     useEffect(() => {
         dispatch(reset());

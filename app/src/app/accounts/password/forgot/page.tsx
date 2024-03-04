@@ -1,9 +1,9 @@
 'use client';
 
-import RedirectPage from '@/components/templates/RedirectPage';
+import PasswordForgotPage from '@/components/pages/accounts/forgot/PasswordForgotPage';
 
 const Page = () => {
-    return <RedirectPage />;
+    return <PasswordForgotPage />;
 };
 
 export default Page;

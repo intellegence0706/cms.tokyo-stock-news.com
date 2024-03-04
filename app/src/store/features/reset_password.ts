@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-type MeState = {
+type State = {
     item: {
         form: {
             email: string;
@@ -10,7 +10,7 @@ type MeState = {
     };
 };
 
-const initialState: MeState = {
+const initialState: State = {
     item: {
         form: {
             email: '',
@@ -21,20 +21,20 @@ const initialState: MeState = {
 };
 
 export const slice = createSlice({
-    name: 'me_data',
+    name: 'reset_password',
     initialState,
     reducers: {
         reset: () => initialState,
-        clearCurrentItem: (state: MeState) => {
+        clearCurrentItem: (state: State) => {
             state.item = initialState.item;
         },
-        setCurrentItem: (state: MeState, action) => {
+        setCurrentItem: (state: State, action) => {
             state.item = {
                 ...state.item,
                 form: action.payload
             };
         },
-        setCurrentItemValue: (state: MeState, action) => {
+        setCurrentItemValue: (state: State, action) => {
             state.item = {
                 ...state.item,
                 form: {
@@ -43,15 +43,21 @@ export const slice = createSlice({
                 }
             };
         },
-        setError: (state: MeState, action) => {
+        setError: (state: State, action) => {
             state.item = {
                 ...state.item,
                 errors: action.payload
+            };
+        },
+        clearError: (state: State) => {
+            state.item = {
+                ...state.item,
+                errors: {}
             };
         }
     }
 });
 
-export const { reset, clearCurrentItem, setCurrentItem, setCurrentItemValue, setError } = slice.actions;
+export const { reset, clearCurrentItem, setCurrentItem, setCurrentItemValue, setError, clearError } = slice.actions;
 
 export default slice.reducer;

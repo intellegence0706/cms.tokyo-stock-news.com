@@ -2,15 +2,19 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import logger from 'redux-logger';
 
-import sharedDataReducer from './features/sharedDataSlice';
-import utilReducer from './features/utilSlice';
-import loginReducer from './features/loginSlice';
+import shared_data from './features/shared_data';
+import utils from './features/utils';
+import login from './features/login';
+import forgot_password from './features/forgot_password';
+import reset_password from './features/reset_password';
 
 export const store = configureStore({
     reducer: {
-        sharedDataReducer,
-        utilReducer,
-        loginReducer
+        shared_data,
+        utils,
+        login,
+        forgot_password,
+        reset_password
     },
     devTools: process.env.NODE_ENV !== 'production',
     middleware: getDefaultMiddleware => getDefaultMiddleware({}).concat([logger])

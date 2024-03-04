@@ -1,8 +1,6 @@
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setCurrentItemValue } from '@/store/features/login';
-import { appendMessage } from '@/store/features/utils';
+import { setCurrentItemValue, setError, clearError } from '@/store/features/forgot_password';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,33 +13,29 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
-import BlankLayout from '@/components/templates/layout/BlankLayout';
 import Copyright from '@/components/molecules/Copyright';
+import BlankLayout from '@/components/templates/layout/BlankLayout';
+import { postRequest } from '@/utils/axios';
 
-const SignInPage = () => {
+const PasswordForgotPage = () => {
     const router = useRouter();
-    const { login } = useAuth();
     const dispatch = useAppDispatch();
 
-    const currentItem = useAppSelector(state => state.login.item.form);
-    const errors = useAppSelector(state => state.login.item.errors);
+    const currentItem = useAppSelector(state => state.forgot_password.item.form);
+    const errors = useAppSelector(state => state.forgot_password.item.errors);
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        login &&
-            (await login(currentItem, user => {
-                if (user) {
-                    if (user?.permission == 'customer') {
-                        router.push('/dashboard');
-                        dispatch(appendMessage({ type: 'success', message: 'ログインしました。' }));
-                    } else {
-                        dispatch(appendMessage({ type: 'error', message: 'このアカウントでログインできません。' }));
-                    }
-                } else {
-                    dispatch(appendMessage({ type: 'error', message: 'IDまたはパスワードが間違っています。' }));
-                }
-            }));
+        const res = await postRequest('/auth/password/forgot', currentItem);
+        if (res.status == 200) {
+            dispatch(clearError());
+            router.push('/accounts/sign_in');
+        }
+
+        if (res.status == 422 && res.data.errors) {
+            dispatch(setError(res.data.errors));
+        }
     };
 
     return (
@@ -63,7 +57,12 @@ const SignInPage = () => {
                         <Typography component='h1' variant='h1'>
                             STOCK NEWS
                         </Typography>
-                        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+
+                        <Typography component='p' sx={{ fontSize: 14, mt: 4, lineHeight: 1.5 }}>
+                            メールアドレスを入力後「パスワードを再設定する」ボタンを押して下さい。ご登録のメールアドレスまでパスワード再設定用のURLが送信されます。
+                        </Typography>
+
+                        <Box component='form' onSubmit={handleSubmit} noValidate sx={{ width: '100%', mt: 1 }}>
                             <TextField
                                 margin='normal'
                                 required
@@ -77,26 +76,14 @@ const SignInPage = () => {
                                 error={errors.email ? true : false}
                                 helperText={errors.email ? errors.email : ''}
                             />
-                            <TextField
-                                margin='normal'
-                                required
-                                fullWidth
-                                name='password'
-                                label='パスワード'
-                                type='password'
-                                autoComplete='current-password'
-                                value={currentItem.password}
-                                onChange={e => dispatch(setCurrentItemValue({ password: e.target.value }))}
-                                error={errors.password ? true : false}
-                                helperText={errors.password ? errors.password : ''}
-                            />
+
                             <Button type='submit' fullWidth variant='contained' color='secondary' sx={{ mt: 3, mb: 2 }}>
-                                ログイン
+                                パスワードを再設定する
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href='/accounts/password/forgot' variant='body2' color='secondary'>
-                                        パスワードをお忘れですか？
+                                    <Link href='/accounts/sign_in' variant='body2' color='secondary'>
+                                        ログインはこちら
                                     </Link>
                                 </Grid>
                             </Grid>
@@ -109,4 +96,4 @@ const SignInPage = () => {
     );
 };
 
-export default SignInPage;
+export default PasswordForgotPage;
