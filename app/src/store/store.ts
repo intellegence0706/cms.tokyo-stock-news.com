@@ -11,6 +11,8 @@ import change_password from './features/change_password';
 import profile from './features/profile';
 import user from './features/user';
 import customer from './features/customer';
+import memo from './features/memo';
+import user_analysis from './features/user_analysis';
 
 export const store = configureStore({
     reducer: {
@@ -22,7 +24,9 @@ export const store = configureStore({
         change_password,
         profile,
         user,
-        customer
+        customer,
+        memo,
+        user_analysis
     },
     devTools: process.env.NODE_ENV !== 'production',
     middleware: getDefaultMiddleware => getDefaultMiddleware({}).concat([logger])

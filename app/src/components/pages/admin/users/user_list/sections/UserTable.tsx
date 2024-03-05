@@ -19,7 +19,6 @@ const UserTable = () => {
                         <TableCell style={{ minWidth: 100 }}>権限</TableCell>
                         <TableCell style={{ minWidth: 100 }}>状況</TableCell>
                         <TableCell>登録日</TableCell>
-                        <TableCell>更新日</TableCell>
                         <TableCell style={{ minWidth: 100 }}>編集</TableCell>
                     </TableRow>
                 </TableHead>
@@ -34,7 +33,6 @@ const UserTable = () => {
                                 <TableCell>{user.user_info.role.name}</TableCell>
                                 <TableCell>{user.is_active ? '通常' : '停止中'}</TableCell>
                                 <TableCell>{moment(user?.created_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
-                                <TableCell>{moment(user?.updated_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
                                 <TableCell>
                                     <Link href={`/admin/users/${user.id}`} color='secondary'>
                                         編集

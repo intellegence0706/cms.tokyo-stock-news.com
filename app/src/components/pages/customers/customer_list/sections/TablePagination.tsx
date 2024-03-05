@@ -9,6 +9,8 @@ const TablePagination = () => {
     const filter = useAppSelector(state => state.customer.items.filter);
     const result = useAppSelector(state => state.customer.items.result);
 
+    if (result.total === 0) return <></>;
+
     return (
         <div className='w-full flex items-center justify-center mt-[16px]'>
             <Pagination

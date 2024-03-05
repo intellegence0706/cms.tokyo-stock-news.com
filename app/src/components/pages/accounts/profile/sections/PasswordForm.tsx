@@ -40,7 +40,7 @@ const PasswordForm = () => {
                     {/* ************************************************************************ */}
                     <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                         <FormLabel className='min-w-[134px] mt-[10px]'>現在のパスワード</FormLabel>
-                        <div className='w-full max-w-[420px] flex gap-[8px]'>
+                        <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                             <TextField
                                 size='small'
                                 fullWidth
@@ -56,7 +56,7 @@ const PasswordForm = () => {
                     {/* ************************************************************************ */}
                     <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                         <FormLabel className='min-w-[134px] mt-[10px]'>新しいパスワード</FormLabel>
-                        <div className='w-full max-w-[420px] flex gap-[8px]'>
+                        <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                             <TextField
                                 size='small'
                                 fullWidth
@@ -75,7 +75,7 @@ const PasswordForm = () => {
                             新しいパスワード <br />
                             （確認用）
                         </FormLabel>
-                        <div className='w-full max-w-[420px] flex gap-[8px]'>
+                        <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                             <TextField
                                 size='small'
                                 fullWidth
