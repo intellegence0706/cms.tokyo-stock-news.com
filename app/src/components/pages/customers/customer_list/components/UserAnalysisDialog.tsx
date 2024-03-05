@@ -38,19 +38,19 @@ const UserAnalysisDialog = ({ userId, onClose }: Props) => {
                         <TableHead>
                             <TableRow>
                                 <TableCell style={{ minWidth: 150 }}>#</TableCell>
-                                <TableCell style={{ width: "100%" }}>件数</TableCell>
+                                <TableCell style={{ width: '100%' }}>件数</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             <TableRow hover role='checkbox' tabIndex={-1}>
                                 <TableCell>登録数</TableCell>
-                                <TableCell>{currentItem.total}{' '}件</TableCell>
+                                <TableCell>{currentItem.total} 件</TableCell>
                             </TableRow>
                             {currentItem.analysis.map((analysis, index) => {
                                 return (
                                     <TableRow hover role='checkbox' tabIndex={-1} key={index}>
                                         <TableCell>{analysis.name}</TableCell>
-                                        <TableCell>{analysis.count}{' '}件</TableCell>
+                                        <TableCell>{analysis.count} 件</TableCell>
                                     </TableRow>
                                 );
                             })}

@@ -132,14 +132,6 @@ const CustomerTable = () => {
                                     onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
                                 />
                             </TableCell>
-                            <TableCell style={{ minWidth: 100 }}>
-                                <SorterItem
-                                    label='更新日'
-                                    value='updated_at'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
                             <TableCell style={{ minWidth: 100 }}>編集</TableCell>
                         </TableRow>
                     </TableHead>
@@ -184,7 +176,6 @@ const CustomerTable = () => {
                                     <TableCell>{customer.status?.name}</TableCell>
                                     <TableCell>{customer.system_provided ? 'OK' : 'NG'}</TableCell>
                                     <TableCell>{moment(customer?.created_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
-                                    <TableCell>{moment(customer?.updated_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
                                     <TableCell>
                                         <Link href={`/customers/${customer.id}`} color='secondary'>
                                             編集
