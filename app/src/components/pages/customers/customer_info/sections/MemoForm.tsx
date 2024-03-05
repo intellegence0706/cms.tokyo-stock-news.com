@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, fetchMemoByCustomerId, setCurrentItem } from '@/store/features/memo';
+import moment from 'moment';
 
 import { Button, Typography, useMediaQuery } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
@@ -13,7 +14,6 @@ import TimelineOppositeContent, { timelineOppositeContentClasses } from '@mui/la
 import TimelineDot from '@mui/lab/TimelineDot';
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import MemoDialog from '../components/MemoDialog';
-import moment from 'moment';
 
 const MemoForm = () => {
     const { id } = useParams();
@@ -24,11 +24,8 @@ const MemoForm = () => {
     const result = useAppSelector(state => state.memo.items.result);
 
     useEffect(() => {
+        console.log(id)
         dispatch(fetchMemoByCustomerId(parseInt(`${id}`)));
-
-        return () => {
-            dispatch(clearCurrentItem());
-        };
     }, []);
 
     const handleCreate = () => {
@@ -39,7 +36,7 @@ const MemoForm = () => {
     const handleEdit = (item: any) => {
         dispatch(setCurrentItem(item));
         setCurrentDialog(true);
-    }
+    };
 
     return (
         <div>

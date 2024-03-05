@@ -1,6 +1,6 @@
-import { FormEvent, useEffect } from 'react';
-import { useParams } from 'next/navigation';
-import { patchRequest } from '@/utils/axios';
+import { FormEvent, useEffect, useState } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import { deleteRequest, patchRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, clearError, fetchCustomer, setError } from '@/store/features/customer';
 
@@ -12,12 +12,15 @@ import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
 import CustomerForm from './sections/CustomerForm';
 import MemoForm from './sections/MemoForm';
+import ConfirmDialog from './components/ConfirmDialog';
 
 const CustomerEditPage = () => {
+    const router = useRouter();
     const { id } = useParams();
     const dispatch = useAppDispatch();
 
     const less_xl = useMediaQuery('(max-width: 1280px)');
+    const [currentDialog, setCurrentDialog] = useState('');
     const currentItem = useAppSelector(state => state.customer.item.form);
 
     useEffect(() => {
@@ -38,6 +41,14 @@ const CustomerEditPage = () => {
         }
     };
 
+    const handleDelete = async () => {
+        const res = await deleteRequest(`/v0/customers/${id}`, null);
+        if (res.status == 200) {
+            dispatch(clearError());
+            router.push('/customers');
+        }
+    };
+
     return (
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
@@ -46,13 +57,21 @@ const CustomerEditPage = () => {
 
                     <MainPannel>
                         <div className='w-full h-full flex flex-col xl:flex-row gap-[24px]'>
-                            <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
+                            <form className='w-full max-w-[600px] flex flex-col gap-[10px]' onSubmit={handleSubmit}>
                                 <CustomerForm />
 
                                 {/* ************************************************************************ */}
-                                <div className='mt-[16px]'>
+                                <div className='mt-[16px] flex gap-[8px]'>
                                     <Button type='submit' variant='contained' color='secondary'>
                                         保存する
+                                    </Button>
+
+                                    <Button
+                                        variant='contained'
+                                        color='inherit'
+                                        onClick={() => setCurrentDialog('delete')}
+                                    >
+                                        削除する
                                     </Button>
                                 </div>
                             </form>
@@ -62,6 +81,12 @@ const CustomerEditPage = () => {
                                     <MemoForm />
                                 </div>
                             )}
+
+                            <ConfirmDialog
+                                open={currentDialog == 'delete'}
+                                onClose={() => setCurrentDialog('')}
+                                onConfirm={handleDelete}
+                            />
                         </div>
                     </MainPannel>
 
