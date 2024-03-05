@@ -1,7 +1,10 @@
 import 'react-csv-importer/dist/index.css';
 
 import { useEffect, useState } from 'react';
+import { postRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { fetchCustomers } from '@/store/features/customer';
+import moment from 'moment';
 
 import {
     Box,
@@ -15,8 +18,6 @@ import {
 } from '@mui/material';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Importer, ImporterField } from 'react-csv-importer';
-import { postRequest } from '@/utils/axios';
-import moment from 'moment';
 
 interface Props {
     open: boolean;
@@ -24,10 +25,14 @@ interface Props {
 }
 
 const ImportCSVDialog = ({ open, onClose }: Props) => {
+    const dispatch = useAppDispatch();
+
     const [data, setData] = useState<any[]>([]);
     const [result, setResult] = useState<any[]>([]);
     const [doneCnt, setDoneCnt] = useState(0);
     const [step, setStep] = useState(0);
+
+    const filter = useAppSelector(state => state.customer.items.filter);
 
     useEffect(() => {
         if (data.length > 0) handleUpload();
@@ -66,6 +71,7 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
             }
         }
 
+        dispatch(fetchCustomers(filter));
         setStep(2);
     };
 
