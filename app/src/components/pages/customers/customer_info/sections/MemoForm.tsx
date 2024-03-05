@@ -24,7 +24,7 @@ const MemoForm = () => {
     const result = useAppSelector(state => state.memo.items.result);
 
     useEffect(() => {
-        console.log(id)
+        console.log(id);
         dispatch(fetchMemoByCustomerId(parseInt(`${id}`)));
     }, []);
 

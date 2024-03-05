@@ -12,6 +12,7 @@ import profile from './features/profile';
 import user from './features/user';
 import customer from './features/customer';
 import memo from './features/memo';
+import user_analysis from './features/user_analysis';
 
 export const store = configureStore({
     reducer: {
@@ -24,7 +25,8 @@ export const store = configureStore({
         profile,
         user,
         customer,
-        memo
+        memo,
+        user_analysis
     },
     devTools: process.env.NODE_ENV !== 'production',
     middleware: getDefaultMiddleware => getDefaultMiddleware({}).concat([logger])
