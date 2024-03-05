@@ -44,3 +44,10 @@ export interface ICustomer {
     created_at?: string;
     updated_at?: string;
 }
+
+export interface IMemo {
+    id: number;
+    manager: IUser;
+    content: string;
+    created_at: string;
+}

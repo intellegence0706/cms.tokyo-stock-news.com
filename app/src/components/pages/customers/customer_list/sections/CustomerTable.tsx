@@ -17,49 +17,124 @@ const CustomerTable = () => {
                 <TableHead>
                     <TableRow>
                         <TableCell style={{ minWidth: 50 }}>
-                            <SorterItem label='ID' value='id' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='ID'
+                                value='id'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='広告媒体' value='ads' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='広告媒体'
+                                value='ads'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='名前' value='name' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='名前'
+                                value='name'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='電話番号' value='phone' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='電話番号'
+                                value='phone'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 130 }}>
-                            <SorterItem label='メールアドレス' value='email' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='メールアドレス'
+                                value='email'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='担当者' value='manager__user_info__name' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='担当者'
+                                value='manager__user_info__name'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 120 }}>
-                            <SorterItem label='入金日' value='deposit_date' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='入金日'
+                                value='deposit_date'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 120 }}>
-                            <SorterItem label='契約開始日' value='contract_start_date' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='契約開始日'
+                                value='contract_start_date'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='契約日数' value='contract_days' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='契約日数'
+                                value='contract_days'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='有効日数' value='valid_days' current={filter.order_by} onClick={()=>{}} />
+                            <SorterItem
+                                label='有効日数'
+                                value='valid_days'
+                                current={filter.order_by}
+                                onClick={() => {}}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='属性' value='property__name' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='属性'
+                                value='property__name'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 120 }}>
-                            <SorterItem label='ステータス' value='status__name' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='ステータス'
+                                value='status__name'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 140 }}>
-                            <SorterItem label='システム提供' value='system_provided' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='システム提供'
+                                value='system_provided'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='登録日' value='created_at' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='登録日'
+                                value='created_at'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>
-                            <SorterItem label='更新日' value='updated_at' current={filter.order_by} onClick={sort => dispatch(setFilterValue({order_by: sort}))} />
+                            <SorterItem
+                                label='更新日'
+                                value='updated_at'
+                                current={filter.order_by}
+                                onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                            />
                         </TableCell>
                         <TableCell style={{ minWidth: 100 }}>編集</TableCell>
                     </TableRow>

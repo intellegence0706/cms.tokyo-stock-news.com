@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setCurrentItemValue } from '@/store/features/customer';
 import { fetchPropertyData, fetchStatusData } from '@/store/features/shared_data';
 
-import { MenuItem, Select, Switch, TextField } from '@mui/material';
+import { MenuItem, Select, TextField } from '@mui/material';
 import FormLabel from '@/components/atoms/FormLabel';
 
 const CustomerForm = () => {
@@ -24,12 +24,7 @@ const CustomerForm = () => {
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>No</FormLabel>
                 <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
-                    <TextField
-                        size='small'
-                        fullWidth
-                        value={currentItem.id}
-                        
-                    />
+                    <TextField size='small' fullWidth value={currentItem.id} />
                 </div>
             </div>
 
@@ -37,12 +32,7 @@ const CustomerForm = () => {
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>担当</FormLabel>
                 <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
-                    <TextField
-                        size='small'
-                        fullWidth
-                        value={currentItem.manager?.user_info.name}
-                        
-                    />
+                    <TextField size='small' fullWidth value={currentItem.manager?.user_info.name} />
                 </div>
             </div>
 
