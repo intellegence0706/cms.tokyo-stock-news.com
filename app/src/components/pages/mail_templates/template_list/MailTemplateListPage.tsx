@@ -1,36 +1,35 @@
-import { FormEvent, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { useAuth } from '@/contexts/AuthContext';
-import { fetchTemplates } from '@/store/features/mail_template';
+import { fetchMailTemplates } from '@/store/features/mail_template';
 
 import AuthLayout from '@/components/templates/AuthLayout';
 import PermissionLayout from '@/components/templates/PermissionLayout';
 import MainLayout from '@/components/templates/layout/MainLayout';
 import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
-import TemplateTable from './sections/templateTable';
-import TablePagination from './sections/TablePageination';
+import Filter from './sections/Filter';
+import MailTemplateTable from './sections/MailTemplateTable';
+import TablePagination from './sections/TablePagination';
 
-const UserListPage = () => {
+const MailTemplateListPage = () => {
     const dispatch = useAppDispatch();
-    const { setPending } = useAuth();
 
-    const result = useAppSelector(state => state.mail_template.items);
-    
-
+    const filter = useAppSelector(state => state.mail_template.items.filter);
+    const result = useAppSelector(state => state.mail_template.items.result);
 
     useEffect(() => {
-        dispatch(fetchTemplates());
-    }, []);
+        dispatch(fetchMailTemplates(filter));
+    }, [filter]);
+
     return (
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>テンプレート
-                    </TitleBar>
+                    <TitleBar>テンプレート一覧</TitleBar>
 
                     <MainPannel>
-                        <TemplateTable />
+                        <Filter />
+                        <MailTemplateTable />
                         <TablePagination />
                     </MainPannel>
                 </MainLayout>
@@ -39,4 +38,4 @@ const UserListPage = () => {
     );
 };
 
-export default UserListPage;
+export default MailTemplateListPage;

@@ -9,9 +9,9 @@ import PermissionLayout from '@/components/templates/PermissionLayout';
 import MainLayout from '@/components/templates/layout/MainLayout';
 import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
-import TemplateForm from './sections/templateForm';
+import MailTemplateForm from './sections/MailTemplateForm';
 
-const mailCreatePage = () => {
+const MailTemplateCreatePage = () => {
     const dispatch = useAppDispatch();
 
     const currentItem = useAppSelector(state => state.mail_template.item.form);
@@ -37,11 +37,11 @@ const mailCreatePage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>新規メール作成</TitleBar>
+                    <TitleBar>新規テンプレート作成</TitleBar>
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
-                            <TemplateForm />
+                            <MailTemplateForm />
 
                             {/* ************************************************************************ */}
                             <div className='mt-[16px]'>
@@ -57,4 +57,4 @@ const mailCreatePage = () => {
     );
 };
 
-export default mailCreatePage;
+export default MailTemplateCreatePage;

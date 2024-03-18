@@ -1,13 +1,13 @@
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setFilterValue } from '@/store/features/user';
+import { setFilterValue } from '@/store/features/mail_template';
 
 import { Pagination } from '@mui/material';
 
 const TablePagination = () => {
     const dispatch = useAppDispatch();
 
-    const filter = useAppSelector(state => state.user.items.filter);
-    const result = useAppSelector(state => state.user.items.result);
+    const filter = useAppSelector(state => state.mail_template.items.filter);
+    const result = useAppSelector(state => state.mail_template.items.result);
 
     if (result.total === 0) return <></>;
 

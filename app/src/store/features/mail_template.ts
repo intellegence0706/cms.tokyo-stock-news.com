@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getRequest } from '@/utils/axios';
-import { ITemplate } from '@/interfaces';
+import { IMailTemplate } from '@/interfaces';
 
 type State = {
     item: {
@@ -12,8 +12,13 @@ type State = {
         errors: any;
     };
     items: {
+        filter: {
+            keyword: string,
+            page: 1,
+            pageSize: 10
+        },
         result: {
-            data: ITemplate[];
+            data: IMailTemplate[];
             total: number;
         };
     }
@@ -29,8 +34,12 @@ const initialState: State = {
         },
         errors: {}
     },
-
     items: {
+        filter: {
+            keyword: '',
+            page: 1,
+            pageSize: 10
+        },
         result: {
             data: [],
             total: 0
@@ -39,12 +48,12 @@ const initialState: State = {
 };
 
 
-export const fetchTemplates = createAsyncThunk('Template/fetchTemplates', async () => {
-    const res = await getRequest('/v0/mail_templates');
+export const fetchMailTemplates = createAsyncThunk('mail_template/fetchMailTemplates', async (filter: any) => {
+    const res = await getRequest('/v0/mail_templates', filter);
     return res;
 });
 
-export const fetchTemplate = createAsyncThunk('mail/fetchTemplate', async (id: number) => {
+export const fetchMailTemplate = createAsyncThunk('mail_template/fetchMailTemplate', async (id: number) => {
     const res = await getRequest(`/v0/mail_templates/${id}`);
     return res;
 });
@@ -52,7 +61,7 @@ export const fetchTemplate = createAsyncThunk('mail/fetchTemplate', async (id: n
 
 
 export const slice = createSlice({
-    name: 'Template',
+    name: 'mail_template',
     initialState,
     reducers: {
         reset: () => initialState,
@@ -86,17 +95,42 @@ export const slice = createSlice({
                 errors: initialState.item.errors
             };
         },
-
-
+        setFilter: (state: State, action) => {
+            state.items = {
+                ...state.items,
+                filter: action.payload
+            };
+        },
+        setFilterValue: (state: State, action) => {
+            state.items = {
+                ...state.items,
+                filter: {
+                    ...state.items.filter,
+                    ...action.payload
+                }
+            };
+        },
+        clearFilter: (state: State) => {
+            state.items = {
+                ...state.items,
+                filter: initialState.items.filter
+            };
+        },
+        setResult: (state: State, action) => {
+            state.items = {
+                ...state.items,
+                result: action.payload
+            };
+        }
     },
     extraReducers: builder => {
-        builder.addCase(fetchTemplates.fulfilled, (state, action) => {
+        builder.addCase(fetchMailTemplates.fulfilled, (state, action) => {
             state.items = {
                 ...state.items,
                 result: action.payload.data as any
             };
         });
-        builder.addCase(fetchTemplate.fulfilled, (state, action) => {
+        builder.addCase(fetchMailTemplate.fulfilled, (state, action) => {
             state.item = {
                 ...state.item,
                 form: action.payload.data as any
@@ -112,7 +146,11 @@ export const {
     setCurrentItem,
     setCurrentItemValue,
     setError,
-    clearError
+    clearError,
+    setFilter,
+    setFilterValue,
+    clearFilter,
+    setResult
 
 } = slice.actions;
 

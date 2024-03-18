@@ -60,14 +60,14 @@ const pages = {
                     id: 'mail-template-list',
                     title: 'テンプレート一覧',
                     type: 'item',
-                    url: '/mail/template',
+                    url: '/mail/templates',
                     target: true
                 },
                 {
                     id: 'mail-template-create',
                     title: '新規登録',
                     type: 'item',
-                    url: '/mail/template/create',
+                    url: '/mail/templates/create',
                     target: true
                 }
             ]

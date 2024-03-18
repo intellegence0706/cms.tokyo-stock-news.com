@@ -3,7 +3,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { deleteRequest, patchRequest } from '@/utils/axios';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { clearCurrentItem, clearError, fetchTemplate, setError } from '@/store/features/mail_template';
+import { clearCurrentItem, fetchMailTemplate, setError, clearError } from '@/store/features/mail_template';
 
 import { Button } from '@mui/material';
 import AuthLayout from '@/components/templates/AuthLayout';
@@ -11,10 +11,10 @@ import PermissionLayout from '@/components/templates/PermissionLayout';
 import MainLayout from '@/components/templates/layout/MainLayout';
 import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
-import TemplateForm from '@/components/pages/mail/template/templateCteate/sections/templateForm';
-import ConfirmDialog from './sections/confirmDialog';
+import MailTemplateForm from '../template_create/sections/MailTemplateForm';
+import ConfirmDialog from './components/ConfirmDialog';
 
-const TemplateEditPage = () => {
+const MailTemplateEditPage = () => {
     const router = useRouter();
     const { id } = useParams();
     const { setPending } = useAuth();
@@ -25,7 +25,7 @@ const TemplateEditPage = () => {
 
     useEffect(() => {
         dispatch(clearCurrentItem());
-        dispatch(fetchTemplate(parseInt(`${id}`)));
+        dispatch(fetchMailTemplate(parseInt(`${id}`)));
     }, [id]);
 
     const handleSubmit = async (e: FormEvent) => {
@@ -49,7 +49,7 @@ const TemplateEditPage = () => {
 
         const res = await deleteRequest(`/v0/mail_templates/${currentItem.id}`, null);
         if (res.status == 200) {
-            router.push('/mail/template');
+            router.push('/mail/templates');
         }
 
         setPending!(false);
@@ -63,7 +63,8 @@ const TemplateEditPage = () => {
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
-                            <TemplateForm />
+                            <MailTemplateForm />
+
 
                             {/* ************************************************************************ */}
                             <div className='mt-[16px] w-full flex items-center gap-[16px]'>
@@ -81,17 +82,17 @@ const TemplateEditPage = () => {
                                 </Button>
                             </div>
                         </form>
+                        
+                        <ConfirmDialog
+                            open={currentDialog === 'delete'}
+                            handleClose={() => setCurrentDialog('')}
+                            handleConfirm={handleDelete}
+                        />
                     </MainPannel>
-
-                    <ConfirmDialog
-                        open={currentDialog === 'delete'}
-                        handleClose={() => setCurrentDialog('')}
-                        handleConfirm={handleDelete}
-                    />
                 </MainLayout>
             </PermissionLayout>
         </AuthLayout>
     );
 };
 
-export default TemplateEditPage;
+export default MailTemplateEditPage;

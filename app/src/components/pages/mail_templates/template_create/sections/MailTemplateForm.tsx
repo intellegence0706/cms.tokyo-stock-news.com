@@ -1,25 +1,19 @@
-import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setCurrentItemValue } from '@/store/features/mail_template';
-import { fetchRoleData } from '@/store/features/shared_data';
 
 import { TextField } from '@mui/material';
 import FormLabel from '@/components/atoms/FormLabel';
 
-const MailTemplate = () => {
+const MailTemplateForm = () => {
     const dispatch = useAppDispatch();
 
     const currentItem = useAppSelector(state => state.mail_template.item.form);
     const errors = useAppSelector(state => state.mail_template.item.errors);
 
-    useEffect(() => {
-        dispatch(fetchRoleData());
-    }, []);
-
     return (
         <>
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                <FormLabel className='min-w-[134px] mt-[10px]'>氏名</FormLabel>
+                <FormLabel className='min-w-[134px] mt-[10px]'>件名</FormLabel>
                 <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                     <TextField
                         size='small'
@@ -33,7 +27,7 @@ const MailTemplate = () => {
             </div>
 
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                <FormLabel className='min-w-[134px] mt-[10px]'>メール内容</FormLabel>
+                <FormLabel className='min-w-[134px] mt-[10px]'>内容</FormLabel>
                 <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                     <TextField
                         size='small'
@@ -57,4 +51,4 @@ const MailTemplate = () => {
     );
 };
 
-export default MailTemplate;
+export default MailTemplateForm;
