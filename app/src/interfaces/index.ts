@@ -51,3 +51,34 @@ export interface IMemo {
     content: string;
     created_at: string;
 }
+
+export interface ITemplate {
+    id: number;
+    subject: string;
+    body: string;
+    created_at: string;
+}
+
+export interface IInbox {
+    
+    id?: number;
+    body: string;
+    encoded: boolean;
+    form_header: string;
+    in_reply_to: null;
+    mailbox: number;
+    massage_id: string;
+    outgoing: boolean;
+    read: null;
+    subject: string;
+    processed: Date;
+    to_header: string;
+}
+
+export interface IMailCreate {
+    
+    recipients: number;
+    subject: string;
+    body: string;
+    created_at: string;
+}
