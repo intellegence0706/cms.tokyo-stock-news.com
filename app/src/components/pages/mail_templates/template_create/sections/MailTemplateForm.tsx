@@ -21,7 +21,7 @@ const MailTemplateForm = () => {
                         value={currentItem.subject}
                         onChange={e => dispatch(setCurrentItemValue({ subject: e.target.value }))}
                         error={errors.subject ? true : false}
-                        helperText={errors.subject ? errors.subject : ''}   
+                        helperText={errors.subject ? errors.subject : ''}
                     />
                 </div>
             </div>
@@ -35,9 +35,9 @@ const MailTemplateForm = () => {
                         multiline={true}
                         inputProps={{
                             style: {
-                              height: '250px',
-                              padding: '0 14px',
-                            },
+                                height: '250px',
+                                padding: '0 14px'
+                            }
                         }}
                         value={currentItem.body}
                         onChange={e => dispatch(setCurrentItemValue({ body: e.target.value }))}
@@ -46,7 +46,6 @@ const MailTemplateForm = () => {
                     />
                 </div>
             </div>
-
         </>
     );
 };

@@ -65,7 +65,6 @@ const MailTemplateEditPage = () => {
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
                             <MailTemplateForm />
 
-
                             {/* ************************************************************************ */}
                             <div className='mt-[16px] w-full flex items-center gap-[16px]'>
                                 <Button type='submit' variant='contained' color='secondary'>
@@ -82,7 +81,7 @@ const MailTemplateEditPage = () => {
                                 </Button>
                             </div>
                         </form>
-                        
+
                         <ConfirmDialog
                             open={currentDialog === 'delete'}
                             handleClose={() => setCurrentDialog('')}

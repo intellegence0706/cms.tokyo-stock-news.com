@@ -13,16 +13,15 @@ type State = {
     };
     items: {
         filter: {
-            keyword: string,
-            page: 1,
-            pageSize: 10
-        },
+            keyword: string;
+            page: 1;
+            pageSize: 10;
+        };
         result: {
             data: IMailTemplate[];
             total: number;
         };
-    }
-
+    };
 };
 
 const initialState: State = {
@@ -30,7 +29,7 @@ const initialState: State = {
         form: {
             id: 0,
             subject: '',
-            body: '',
+            body: ''
         },
         errors: {}
     },
@@ -47,7 +46,6 @@ const initialState: State = {
     }
 };
 
-
 export const fetchMailTemplates = createAsyncThunk('mail_template/fetchMailTemplates', async (filter: any) => {
     const res = await getRequest('/v0/mail_templates', filter);
     return res;
@@ -57,8 +55,6 @@ export const fetchMailTemplate = createAsyncThunk('mail_template/fetchMailTempla
     const res = await getRequest(`/v0/mail_templates/${id}`);
     return res;
 });
-
-
 
 export const slice = createSlice({
     name: 'mail_template',
@@ -137,7 +133,6 @@ export const slice = createSlice({
             };
         });
     }
-
 });
 
 export const {
@@ -151,7 +146,6 @@ export const {
     setFilterValue,
     clearFilter,
     setResult
-
 } = slice.actions;
 
 export default slice.reducer;

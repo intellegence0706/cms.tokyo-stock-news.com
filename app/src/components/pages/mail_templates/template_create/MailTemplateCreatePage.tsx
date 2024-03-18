@@ -46,7 +46,7 @@ const MailTemplateCreatePage = () => {
                             {/* ************************************************************************ */}
                             <div className='mt-[16px]'>
                                 <Button type='submit' variant='contained' color='secondary'>
-                                作成する
+                                    作成する
                                 </Button>
                             </div>
                         </form>

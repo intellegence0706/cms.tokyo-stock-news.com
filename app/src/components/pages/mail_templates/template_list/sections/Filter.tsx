@@ -10,7 +10,7 @@ const Filter = () => {
     const filter = useAppSelector(state => state.mail_template.items.filter);
 
     return (
-        <div className='w-full flex items-center justify-end mb-[16px]'>
+        <div className='w-full flex items-center justify-between mb-[16px]'>
             <TextField
                 size='small'
                 value={filter.keyword}

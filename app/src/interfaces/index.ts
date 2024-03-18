@@ -57,13 +57,12 @@ export interface IMailTemplate {
     publisher: IUser;
     subject: string;
     body: string;
-    
+
     created_at?: string;
     updated_at?: string;
 }
 
 export interface IInbox {
-    
     id?: number;
     body: string;
     encoded: boolean;
@@ -79,7 +78,6 @@ export interface IInbox {
 }
 
 export interface IMailCreate {
-    
     recipients: number;
     subject: string;
     body: string;

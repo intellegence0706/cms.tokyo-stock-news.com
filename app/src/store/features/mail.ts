@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IMailCreate } from '@/interfaces';
+import { ICustomer, IMailCreate } from '@/interfaces';
 
 type State = {
     item: {
         form: {
-            recipients: string;
+            recipients: ICustomer[];
             subject: string;
             body: string;
-            templateId: number;
+            open: boolean;
         };
         errors: any;
     };
@@ -16,17 +16,16 @@ type State = {
             data: IMailCreate[];
             total: number;
         };
-    }
-
+    };
 };
 
 const initialState: State = {
     item: {
         form: {
-            recipients: '',
+            recipients: [],
             subject: '',
             body: '',
-            templateId: -1,
+            open: false
         },
         errors: {}
     },
@@ -39,11 +38,8 @@ const initialState: State = {
     }
 };
 
-
-
-
 export const slice = createSlice({
-    name: 'mailCreate',
+    name: 'mail',
     initialState,
     reducers: {
         reset: () => initialState,
@@ -76,21 +72,10 @@ export const slice = createSlice({
                 ...state.item,
                 errors: initialState.item.errors
             };
-        },
-
-
-    },
-
+        }
+    }
 });
 
-export const {
-    reset,
-    clearCurrentItem,
-    setCurrentItem,
-    setCurrentItemValue,
-    setError,
-    clearError
-
-} = slice.actions;
+export const { reset, clearCurrentItem, setCurrentItem, setCurrentItemValue, setError, clearError } = slice.actions;
 
 export default slice.reducer;

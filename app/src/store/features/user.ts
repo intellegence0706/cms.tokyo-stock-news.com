@@ -14,8 +14,6 @@ type State = {
             phone: string;
             role: number;
             is_allowed: boolean;
-
-            
         };
         errors: any;
     };
@@ -24,8 +22,6 @@ type State = {
             keyword: string;
             page: number;
             pageSize: number;
-            status?: string;
-            property?: string;
         };
         result: {
             data: IUser[];
@@ -53,9 +49,7 @@ const initialState: State = {
         filter: {
             keyword: '',
             page: 1,
-            pageSize: 10,
-            status: '',
-            property: '',
+            pageSize: 10
         },
         result: {
             data: [],

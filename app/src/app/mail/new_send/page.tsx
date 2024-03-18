@@ -3,12 +3,12 @@
 import dynamic from 'next/dynamic';
 import Loading from '@/components/templates/Loading';
 
-const MailListPage = dynamic(() => import('@/components/pages/mail/inbox/inboxList/inboxListPage'), {
+const MailNewSendPage = dynamic(() => import('@/components/pages/mail/new_send/MailNewSendPage'), {
     loading: () => <Loading />
 });
 
 const Page = () => {
-    return <MailListPage />;
+    return <MailNewSendPage />;
 };
 
 export default Page;

@@ -95,9 +95,16 @@ const pages = {
                 },
                 {
                     id: 'mail-create',
-                    title: '新規作成',
+                    title: '個別送信',
                     type: 'item',
-                    url: '/mail/create',
+                    url: '/mail/new_send',
+                    target: true
+                },
+                {
+                    id: 'mail-group-create',
+                    title: 'グループ送信',
+                    type: 'item',
+                    url: '/mail/group_send',
                     target: true
                 }
             ]

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchMails } from '@/store/features/mail_inbox';
+import { fetchCustomers } from '@/store/features/customer';
+import { fetchStatusData, fetchPropertyData } from '@/store/features/shared_data';
+import { fetchMailTemplates } from '@/store/features/mail_template';
 
 import AuthLayout from '@/components/templates/AuthLayout';
 import PermissionLayout from '@/components/templates/PermissionLayout';
@@ -8,29 +10,37 @@ import MainLayout from '@/components/templates/layout/MainLayout';
 import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
 import Filter from './sections/Filter';
-import MailTable from './sections/MailTable';
+import CustomerTable from './sections/CustomerTable';
 import TablePagination from './sections/TablePagination';
+import MailSendForm from './components/MailSendForm';
 
-const MailListPage = () => {
+const MailNewSendPage = () => {
     const dispatch = useAppDispatch();
 
-    const filter = useAppSelector(state => state.mail_inbox.items.filter);
-    const result = useAppSelector(state => state.mail_inbox.items.result);
+    const filter = useAppSelector(state => state.customer.items.filter);
 
     useEffect(() => {
-        dispatch(fetchMails(filter));
+        dispatch(fetchStatusData());
+        dispatch(fetchPropertyData());
+        dispatch(fetchMailTemplates(null))
+    }, []);
+
+    useEffect(() => {
+        dispatch(fetchCustomers(filter));
     }, [filter]);
 
     return (
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>受信トレイ一覧</TitleBar>
+                    <TitleBar>ユーザー一覧</TitleBar>
 
                     <MainPannel>
                         <Filter />
-                        <MailTable />
+                        <CustomerTable />
                         <TablePagination />
+
+                        <MailSendForm />
                     </MainPannel>
                 </MainLayout>
             </PermissionLayout>
@@ -38,4 +48,4 @@ const MailListPage = () => {
     );
 };
 
-export default MailListPage;
+export default MailNewSendPage;
