@@ -1,21 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IUser } from '@/interfaces';
+import { IInbox } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
     item: {
         form: {
             id?: number;
-            last_name: string;
-            first_name: string;
-            last_name_furi: string;
-            first_name_furi: string;
-            email: string;
-            phone: string;
-            role: number;
-            is_allowed: boolean;
+            body: string;
+            encoded: boolean;
+            form_header: string;
+            in_reply_to: null;
+            mailbox: number;
+            massage_id: string;
+            outgoing: boolean;
+            read: null;
+            subject: string;
+            processed: Date;
+            to_header: string;
 
-            
+            status: string;
+            property: string;
         };
         errors: any;
     };
@@ -24,11 +28,9 @@ type State = {
             keyword: string;
             page: number;
             pageSize: number;
-            status?: string;
-            property?: string;
         };
         result: {
-            data: IUser[];
+            data: IInbox[];
             total: number;
         };
     };
@@ -37,15 +39,20 @@ type State = {
 const initialState: State = {
     item: {
         form: {
+            status: '選択する',
+            property: '選択する',
+            body: '',
+            encoded: false,
+            form_header: '',
             id: 0,
-            last_name: '',
-            first_name: '',
-            last_name_furi: '',
-            first_name_furi: '',
-            email: '',
-            phone: '',
-            role: 0,
-            is_allowed: true
+            in_reply_to: null,
+            mailbox: 0,
+            massage_id: '',
+            outgoing: false,
+            read: null,
+            subject: '',
+            processed: new Date('2024-03-09'),
+            to_header: ''
         },
         errors: {}
     },
@@ -53,9 +60,7 @@ const initialState: State = {
         filter: {
             keyword: '',
             page: 1,
-            pageSize: 10,
-            status: '',
-            property: '',
+            pageSize: 10
         },
         result: {
             data: [],
@@ -64,18 +69,18 @@ const initialState: State = {
     }
 };
 
-export const fetchUsers = createAsyncThunk('user/fetchUsers', async (filter: any) => {
-    const res = await getRequest('/v0/admin/users', filter);
+export const fetchMails = createAsyncThunk('v0/mails', async (filter: any) => {
+    const res = await getRequest('v0/mails', filter);
     return res;
 });
 
-export const fetchUser = createAsyncThunk('user/fetchUser', async (id: number) => {
-    const res = await getRequest(`/v0/admin/users/${id}`);
+export const fetchMail = createAsyncThunk('v0/mail', async (id: number) => {
+    const res = await getRequest(`/v0/mails/${id}`);
     return res;
 });
 
 export const slice = createSlice({
-    name: 'user',
+    name: 'mail_inbox',
     initialState,
     reducers: {
         reset: () => initialState,
@@ -138,13 +143,13 @@ export const slice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(fetchUsers.fulfilled, (state, action) => {
+        builder.addCase(fetchMails.fulfilled, (state, action) => {
             state.items = {
                 ...state.items,
                 result: action.payload.data as any
             };
         });
-        builder.addCase(fetchUser.fulfilled, (state, action) => {
+        builder.addCase(fetchMail.fulfilled, (state, action) => {
             state.item = {
                 ...state.item,
                 form: action.payload.data as any
