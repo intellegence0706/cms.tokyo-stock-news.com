@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchCustomers } from '@/store/features/customer';
 import { fetchStatusData, fetchPropertyData } from '@/store/features/shared_data';
 import { fetchMailTemplates } from '@/store/features/mail_template';
 
@@ -9,15 +8,12 @@ import PermissionLayout from '@/components/templates/PermissionLayout';
 import MainLayout from '@/components/templates/layout/MainLayout';
 import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
-import Filter from './sections/Filter';
-import CustomerTable from './sections/CustomerTable';
-import TablePagination from './sections/TablePagination';
+import StatusTable from './sections/StatusTable';
 import MailSendForm from './components/MailSendForm';
+import PropertyTable from './sections/PropertyTable';
 
-const MailNewSendPage = () => {
+const MailGroupSendPage = () => {
     const dispatch = useAppDispatch();
-
-    const filter = useAppSelector(state => state.customer.items.filter);
 
     useEffect(() => {
         dispatch(fetchStatusData());
@@ -30,10 +26,6 @@ const MailNewSendPage = () => {
         );
     }, []);
 
-    useEffect(() => {
-        dispatch(fetchCustomers(filter));
-    }, [filter]);
-
     return (
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
@@ -41,10 +33,10 @@ const MailNewSendPage = () => {
                     <TitleBar>配信先選択</TitleBar>
 
                     <MainPannel>
-                        <Filter />
-                        <CustomerTable />
-                        <TablePagination />
-
+                        <div className='w-full flex flex-col xl:flex-row gap-[24px] xl:gap-[40px]'>
+                            <PropertyTable />
+                            <StatusTable />
+                        </div>
                         <MailSendForm />
                     </MainPannel>
                 </MainLayout>
@@ -53,4 +45,4 @@ const MailNewSendPage = () => {
     );
 };
 
-export default MailNewSendPage;
+export default MailGroupSendPage;

@@ -1,17 +1,13 @@
-import { useState } from 'react';
 import { ICustomer } from '@/interfaces';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setCurrentItemValue } from '@/store/features/mail';
 import moment from 'moment';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Button } from '@mui/material';
-import customer from '@/store/features/customer';
 
 const CustomerTable = () => {
     const dispatch = useAppDispatch();
-    const [state, setState] = useState('');
 
-    const filter = useAppSelector(state => state.customer.items.filter);
     const result = useAppSelector(state => state.customer.items.result);
     const currentItem = useAppSelector(state => state.mail.item.form);
 

@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IMailCreate } from '@/interfaces';
+import { ICustomer, IMailCreate, IProperty, IStatus } from '@/interfaces';
 
 type State = {
     item: {
         form: {
+            group: IStatus | IProperty | null;
+            group_type: "status"|"property";
             recipients: ICustomer[];
             subject: string;
             body: string;
@@ -22,6 +24,8 @@ type State = {
 const initialState: State = {
     item: {
         form: {
+            group: null,
+            group_type: "status",
             recipients: [],
             subject: '',
             body: '',

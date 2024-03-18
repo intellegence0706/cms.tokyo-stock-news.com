@@ -50,13 +50,14 @@ const MailSendForm = ({}: Props) => {
 
     const handleSubmit = async () => {
         const payload = {
-            recipients: currentItem.recipients.map(item => item.id),
+            group: currentItem.group?.id,
+            group_type: currentItem.group_type,
             subject: currentItem.subject,
             body: currentItem.body
         };
 
         setPending!(true);
-        const res = await postRequest(`/v0/mails/new_send`, payload);
+        const res = await postRequest(`/v0/mails/group_send`, payload);
         if (res.status == 200) {
             dispatch(clearCurrentItem());
         }
@@ -84,7 +85,7 @@ const MailSendForm = ({}: Props) => {
                         <TextField
                             size='small'
                             fullWidth
-                            value={currentItem.recipients.map(item => item.name).join(', ')}
+                            value={`顧客${currentItem.group_type == 'status' ? "状況" : "属性"} / ` + currentItem.group?.name}
                             error={errors.recipients}
                             helperText={errors.recipients}
                         />
