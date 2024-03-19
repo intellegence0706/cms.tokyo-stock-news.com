@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IMail, IMailInbox, IProperty, IStatus } from '@/interfaces';
+import { ICustomer, IMail, IMailAttachment, IMailInbox, IProperty, IStatus } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -11,6 +11,7 @@ type State = {
             subject: string;
             body: string;
             open: boolean;
+            attachments: IMailAttachment[];
         };
         errors: any;
     };
@@ -36,7 +37,8 @@ const initialState: State = {
             recipients: [],
             subject: '',
             body: '',
-            open: false
+            open: false,
+            attachments: []
         },
         errors: {}
     },
