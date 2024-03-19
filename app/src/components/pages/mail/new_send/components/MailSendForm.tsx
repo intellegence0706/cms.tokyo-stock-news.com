@@ -8,9 +8,11 @@ import { IoClose } from 'react-icons/io5';
 import { Button, Drawer, IconButton, MenuItem, Select, TextField } from '@mui/material';
 import FormLabel from '@/components/atoms/FormLabel';
 
-interface Props {}
+interface Props {
+    onReload: () => void;
+}
 
-const MailSendForm = ({}: Props) => {
+const MailSendForm = ({ onReload }: Props) => {
     const dispatch = useAppDispatch();
     const { setPending } = useAuth();
 
@@ -59,6 +61,7 @@ const MailSendForm = ({}: Props) => {
         const res = await postRequest(`/v0/mails/new_send`, payload);
         if (res.status == 200) {
             dispatch(clearCurrentItem());
+            onReload();
         }
 
         if (res.status == 422 && res.data.errors) {
@@ -128,17 +131,17 @@ const MailSendForm = ({}: Props) => {
 
                 {/* *************************************************************************************** */}
                 <div className='w-full flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                    <FormLabel className='min-w-[134px] mt-[10px]'>内容</FormLabel>
+                    <FormLabel className='min-w-[134px] mt-[10px]'>本文</FormLabel>
                     <div className='w-full flex gap-[8px]'>
                         <TextField
                             size='small'
                             fullWidth
                             multiline
                             rows={20}
-                            value={currentItem.subject}
-                            onChange={e => dispatch(setCurrentItemValue({ subject: e.target.value }))}
-                            error={errors.subject}
-                            helperText={errors.subject}
+                            value={currentItem.body}
+                            onChange={e => dispatch(setCurrentItemValue({ body: e.target.value }))}
+                            error={errors.body}
+                            helperText={errors.body}
                         />
                     </div>
                 </div>

@@ -24,19 +24,7 @@ const MailInboxListItem = ({ item, className }: Props) => {
         >
             <td className='px-[8px] py-[20px]'>
                 <Badge badgeContent={item.new_message_cnt} color='secondary'>
-                    {item.last_message?.customers.length == 1 ? (
-                        <Avatar sx={{ bgcolor: deepOrange[500], color: 'white' }}>
-                            {item.last_message?.customers[0]?.name?.charAt(0)}
-                        </Avatar>
-                    ) : (
-                        <AvatarGroup total={item.last_message?.customers.length}>
-                            {item.last_message?.customers.slice(0, 2).map((customer, index) => (
-                                <Avatar key={index} sx={{ bgcolor: deepPurple[500], color: 'white' }}>
-                                    {customer?.name?.charAt(0)}
-                                </Avatar>
-                            ))}
-                        </AvatarGroup>
-                    )}
+                    <Avatar sx={{ bgcolor: deepOrange[500], color: 'white' }}>{item?.name?.charAt(0)}</Avatar>
                 </Badge>
             </td>
             <td className='px-[16px] min-w-[200px] line-clamp-1'>

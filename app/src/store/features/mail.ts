@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IMailInbox, IProperty, IStatus } from '@/interfaces';
+import { ICustomer, IMail, IMailInbox, IProperty, IStatus } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -21,7 +21,8 @@ type State = {
             pageSize: number;
         };
         result: {
-            data: IMailInbox[];
+            customer?: ICustomer;
+            data: IMail[];
             total: number;
         };
     };
@@ -53,8 +54,8 @@ const initialState: State = {
     }
 };
 
-export const fetchMails = createAsyncThunk('mail/fetchInboxMail', async (filter: any) => {
-    const res = await getRequest('/v0/mails/inbox', filter);
+export const fetchMails = createAsyncThunk('mail/fetchMails', async (id: number) => {
+    const res = await getRequest(`/v0/mails/inbox/${id}`);
     return res;
 });
 

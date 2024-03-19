@@ -43,13 +43,13 @@ const initialState: State = {
     }
 };
 
-export const fetchInboxMails = createAsyncThunk('mail/fetchInboxMail', async (filter: any) => {
+export const fetchInboxMails = createAsyncThunk('mail_inbox/fetchInboxMail', async (filter: any) => {
     const res = await getRequest('/v0/mails/inbox', filter);
     return res;
 });
 
 export const slice = createSlice({
-    name: 'mail',
+    name: 'mail_inbox',
     initialState,
     reducers: {
         reset: () => initialState,

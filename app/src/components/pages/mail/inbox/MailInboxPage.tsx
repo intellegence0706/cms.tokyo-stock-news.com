@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchInboxMails } from '@/store/features/mail_inbox';
+import { fetchInboxMails, reset } from '@/store/features/mail_inbox';
 
 import AuthLayout from '@/components/templates/AuthLayout';
 import PermissionLayout from '@/components/templates/PermissionLayout';
@@ -15,6 +15,12 @@ const MailInboxPage = () => {
 
     const filter = useAppSelector(state => state.mail_inbox.items.filter);
     const result = useAppSelector(state => state.mail_inbox.items.result);
+
+    useEffect(() => {
+        return () => {
+            dispatch(reset());
+        };
+    }, []);
 
     useEffect(() => {
         dispatch(fetchInboxMails(filter));
