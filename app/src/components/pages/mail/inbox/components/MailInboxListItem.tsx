@@ -33,7 +33,7 @@ const MailInboxListItem = ({ item, className }: Props) => {
                         {item.last_message?.customers.map(customer => customer.name).join(', ')}
                     </span>
 
-                    <span className='text-[12px] '>( {item.message_cnt} 件 )</span>
+                    <span className='text-[12px] whitespace-nowrap'>( {item.message_cnt} 件 )</span>
                 </div>
             </td>
             <td className='px-[16px] min-w-[200px] w-full'>

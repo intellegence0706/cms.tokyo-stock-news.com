@@ -23,7 +23,7 @@ const MailSentListItem = ({ item, className }: Props) => {
             onClick={handleItemClick}
         >
             <td className='px-[8px] py-[20px]'>
-                <AvatarGroup max={1} variant="circular">
+                <AvatarGroup max={1} variant='circular'>
                     {item.customers.map((customer, index) => (
                         <Avatar key={index} sx={{ bgcolor: deepPurple[500], color: 'white' }}>
                             {customer.name?.charAt(0)}
@@ -37,7 +37,7 @@ const MailSentListItem = ({ item, className }: Props) => {
                         宛先: {item?.customers.map(customer => customer.name).join(', ')}
                     </span>
                 </div>
-                
+
                 <div className='w-full flex flex-row gap-3'>
                     <h3 className='text-[#212b36] text-[14px]'>{item?.subject}</h3>
                     <span>-</span>

@@ -64,6 +64,11 @@ export const fetchSentMails = createAsyncThunk('mail/fetchSentMails', async (pay
     return res;
 });
 
+export const fetchSentMail = createAsyncThunk('mail/fetchSentMail', async (id: number) => {
+    const res = await getRequest(`/v0/mails/sent/${id}`, null);
+    return res;
+});
+
 export const slice = createSlice({
     name: 'mail',
     initialState,
@@ -129,16 +134,28 @@ export const slice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchMails.fulfilled, (state, action) => {
-            state.items = {
-                ...state.items,
-                result: action.payload.data as any
-            };
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
         });
         builder.addCase(fetchSentMails.fulfilled, (state, action) => {
-            state.items = {
-                ...state.items,
-                result: action.payload.data as any
-            };
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
+        });
+        builder.addCase(fetchSentMail.fulfilled, (state, action) => {
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
         });
     }
 });
