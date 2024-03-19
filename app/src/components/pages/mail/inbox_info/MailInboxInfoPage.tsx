@@ -58,7 +58,7 @@ const MailInboxPage = () => {
         if (res.status == 200) {
             fetchData();
         }
-    }
+    };
 
     return (
         <AuthLayout>

@@ -1,8 +1,8 @@
 import { useRouter } from 'next/navigation';
 import { IMailInbox } from '@/interfaces';
 
-import { Avatar, AvatarGroup, Badge } from '@mui/material';
-import { deepOrange, deepPurple } from '@mui/material/colors';
+import { Avatar, Badge } from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
 import moment from 'moment';
 
 interface Props {
@@ -44,7 +44,7 @@ const MailInboxListItem = ({ item, className }: Props) => {
             </td>
             <td className='px-[4px]' valign='bottom'>
                 <span className='text-[12px] whitespace-nowrap'>
-                    {moment(item.last_message?.created_at).format('YYYY-MM-DD')}
+                    {moment(item.last_message?.processed).format('YYYY-MM-DD')}
                 </span>
             </td>
         </tr>
