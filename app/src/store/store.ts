@@ -15,6 +15,7 @@ import memo from './features/memo';
 import user_analysis from './features/user_analysis';
 import mail_template from './features/mail_template';
 import mail from './features/mail';
+import mail_inbox from './features/mail_inbox';
 
 export const store = configureStore({
     reducer: {
@@ -30,7 +31,8 @@ export const store = configureStore({
         memo,
         user_analysis,
         mail_template,
-        mail
+        mail,
+        mail_inbox
     },
     devTools: process.env.NODE_ENV !== 'production',
     middleware: getDefaultMiddleware => getDefaultMiddleware({}).concat([logger])

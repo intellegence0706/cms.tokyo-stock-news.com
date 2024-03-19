@@ -85,7 +85,10 @@ const MailSendForm = ({}: Props) => {
                         <TextField
                             size='small'
                             fullWidth
-                            value={`顧客${currentItem.group_type == 'status' ? "状況" : "属性"} / ` + currentItem.group?.name}
+                            value={
+                                `顧客${currentItem.group_type == 'status' ? '状況' : '属性'} / ` +
+                                currentItem.group?.name
+                            }
                             error={errors.recipients}
                             helperText={errors.recipients}
                         />

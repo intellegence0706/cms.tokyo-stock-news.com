@@ -20,7 +20,17 @@ const StatusTable = () => {
                                     <TableCell>{status.id}</TableCell>
                                     <TableCell className='w-full'>{status.name}</TableCell>
                                     <TableCell>
-                                        <Button onClick={() => dispatch(setCurrentItemValue({ group: status, group_type: "status" ,open: true }))}>
+                                        <Button
+                                            onClick={() =>
+                                                dispatch(
+                                                    setCurrentItemValue({
+                                                        group: status,
+                                                        group_type: 'status',
+                                                        open: true
+                                                    })
+                                                )
+                                            }
+                                        >
                                             <span className='whitespace-nowrap'>選択する</span>
                                         </Button>
                                     </TableCell>

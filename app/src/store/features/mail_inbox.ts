@@ -1,17 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IMailInbox, IProperty, IStatus } from '@/interfaces';
+import { IMailInbox } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
     item: {
-        form: {
-            group: IStatus | IProperty | null;
-            group_type: 'status' | 'property';
-            recipients: ICustomer[];
-            subject: string;
-            body: string;
-            open: boolean;
-        };
+        form: {};
         errors: any;
     };
     items: {
@@ -23,20 +16,15 @@ type State = {
         result: {
             data: IMailInbox[];
             total: number;
+            message_unread: number;
+            message_total: number;
         };
     };
 };
 
 const initialState: State = {
     item: {
-        form: {
-            group: null,
-            group_type: 'status',
-            recipients: [],
-            subject: '',
-            body: '',
-            open: false
-        },
+        form: {},
         errors: {}
     },
 
@@ -48,12 +36,14 @@ const initialState: State = {
         },
         result: {
             data: [],
-            total: 0
+            total: 0,
+            message_unread: 0,
+            message_total: 0
         }
     }
 };
 
-export const fetchMails = createAsyncThunk('mail/fetchInboxMail', async (filter: any) => {
+export const fetchInboxMails = createAsyncThunk('mail/fetchInboxMail', async (filter: any) => {
     const res = await getRequest('/v0/mails/inbox', filter);
     return res;
 });
@@ -122,7 +112,7 @@ export const slice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(fetchMails.fulfilled, (state, action) => {
+        builder.addCase(fetchInboxMails.fulfilled, (state, action) => {
             state.items = {
                 ...state.items,
                 result: action.payload.data as any

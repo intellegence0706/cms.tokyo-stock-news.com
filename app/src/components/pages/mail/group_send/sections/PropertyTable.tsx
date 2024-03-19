@@ -21,7 +21,17 @@ const PropertyTable = () => {
                                     <TableCell>{property.id}</TableCell>
                                     <TableCell className='w-full'>{property.name}</TableCell>
                                     <TableCell>
-                                        <Button onClick={() => dispatch(setCurrentItemValue({  group: property, group_type: "property", open: true }))}>
+                                        <Button
+                                            onClick={() =>
+                                                dispatch(
+                                                    setCurrentItemValue({
+                                                        group: property,
+                                                        group_type: 'property',
+                                                        open: true
+                                                    })
+                                                )
+                                            }
+                                        >
                                             <span className='whitespace-nowrap'>選択する</span>
                                         </Button>
                                     </TableCell>

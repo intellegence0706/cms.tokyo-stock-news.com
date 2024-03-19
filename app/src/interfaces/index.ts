@@ -62,24 +62,40 @@ export interface IMailTemplate {
     updated_at?: string;
 }
 
-export interface IInbox {
-    id?: number;
-    body: string;
-    encoded: boolean;
-    form_header: string;
-    in_reply_to: null;
-    mailbox: number;
-    massage_id: string;
-    outgoing: boolean;
-    read: null;
+export interface IMailAttachment {
+    id: number;
+    publisher: IUser;
     subject: string;
-    processed: Date;
-    to_header: string;
+    body: string;
+
+    created_at?: string;
+    updated_at?: string;
+}
+export interface IMail {
+    id: number;
+    customers: ICustomer[];
+    managers: IUser[];
+
+    subject: string;
+    body: string;
+    outgoing: boolean;
+    attachment: IMailAttachment[];
+    read?: string;
+    processed?: string;
+
+    created_at?: string;
+    updated_at?: string;
 }
 
-export interface IMailCreate {
-    recipients: number;
-    subject: string;
-    body: string;
-    created_at: string;
+export interface IMailInbox {
+    id?: number;
+
+    email: string;
+    name?: string;
+    last_name: string;
+    first_name: string;
+
+    last_message?: IMail;
+    message_cnt?: number;
+    new_message_cnt?: number;
 }
