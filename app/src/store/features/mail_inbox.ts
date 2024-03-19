@@ -1,26 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { IInbox } from '@/interfaces';
+import { IMailInbox } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
     item: {
-        form: {
-            id?: number;
-            body: string;
-            encoded: boolean;
-            form_header: string;
-            in_reply_to: null;
-            mailbox: number;
-            massage_id: string;
-            outgoing: boolean;
-            read: null;
-            subject: string;
-            processed: Date;
-            to_header: string;
-
-            status: string;
-            property: string;
-        };
+        form: {};
         errors: any;
     };
     items: {
@@ -30,32 +14,20 @@ type State = {
             pageSize: number;
         };
         result: {
-            data: IInbox[];
+            data: IMailInbox[];
             total: number;
+            message_unread: number;
+            message_total: number;
         };
     };
 };
 
 const initialState: State = {
     item: {
-        form: {
-            status: '選択する',
-            property: '選択する',
-            body: '',
-            encoded: false,
-            form_header: '',
-            id: 0,
-            in_reply_to: null,
-            mailbox: 0,
-            massage_id: '',
-            outgoing: false,
-            read: null,
-            subject: '',
-            processed: new Date('2024-03-09'),
-            to_header: ''
-        },
+        form: {},
         errors: {}
     },
+
     items: {
         filter: {
             keyword: '',
@@ -64,23 +36,20 @@ const initialState: State = {
         },
         result: {
             data: [],
-            total: 0
+            total: 0,
+            message_unread: 0,
+            message_total: 0
         }
     }
 };
 
-export const fetchMails = createAsyncThunk('v0/mails', async (filter: any) => {
-    const res = await getRequest('v0/mails', filter);
-    return res;
-});
-
-export const fetchMail = createAsyncThunk('v0/mail', async (id: number) => {
-    const res = await getRequest(`/v0/mails/${id}`);
+export const fetchInboxMails = createAsyncThunk('mail/fetchInboxMail', async (filter: any) => {
+    const res = await getRequest('/v0/mails/inbox', filter);
     return res;
 });
 
 export const slice = createSlice({
-    name: 'mail_inbox',
+    name: 'mail',
     initialState,
     reducers: {
         reset: () => initialState,
@@ -143,16 +112,10 @@ export const slice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(fetchMails.fulfilled, (state, action) => {
+        builder.addCase(fetchInboxMails.fulfilled, (state, action) => {
             state.items = {
                 ...state.items,
                 result: action.payload.data as any
-            };
-        });
-        builder.addCase(fetchMail.fulfilled, (state, action) => {
-            state.item = {
-                ...state.item,
-                form: action.payload.data as any
             };
         });
     }

@@ -4,7 +4,7 @@ interface Props {
 }
 
 const MainPannel = ({ children, className }: Props) => {
-    return <div className='px-[16px] sm:px-[24px] py-[27px] bg-white rounded-lg'>{children}</div>;
+    return <div className='w-full px-[16px] sm:px-[24px] py-[27px] bg-white rounded-lg'>{children}</div>;
 };
 
 export default MainPannel;

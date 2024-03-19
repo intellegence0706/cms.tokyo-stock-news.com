@@ -1,39 +1,27 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IUser } from '@/interfaces';
+import { ICustomer, IMailInbox, IProperty, IStatus } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
     item: {
         form: {
-            id?: number;
-            email: string;
-            last_name: string;
-            first_name: string;
-            phone: string;
-            email_2: string;
-            phone_2: string;
-            ads: string;
-            deposit_date: string | null;
-            contract_start_date: string | null;
-            contract_days: number;
-            property: number;
-            status: number;
-            manager?: IUser;
-            system_provided: boolean;
+            group: IStatus | IProperty | null;
+            group_type: 'status' | 'property';
+            recipients: ICustomer[];
+            subject: string;
+            body: string;
+            open: boolean;
         };
         errors: any;
     };
     items: {
         filter: {
             keyword: string;
-            order_by: string;
-            status: number;
-            property: number;
             page: number;
             pageSize: number;
         };
         result: {
-            data: ICustomer[];
+            data: IMailInbox[];
             total: number;
         };
     };
@@ -42,29 +30,19 @@ type State = {
 const initialState: State = {
     item: {
         form: {
-            id: 0,
-            email: '',
-            last_name: '',
-            first_name: '',
-            phone: '',
-            email_2: '',
-            phone_2: '',
-            ads: '',
-            deposit_date: null,
-            contract_start_date: null,
-            contract_days: 0,
-            property: 0,
-            status: 0,
-            system_provided: false
+            group: null,
+            group_type: 'status',
+            recipients: [],
+            subject: '',
+            body: '',
+            open: false
         },
         errors: {}
     },
+
     items: {
         filter: {
             keyword: '',
-            order_by: 'id',
-            status: 0,
-            property: 0,
             page: 1,
             pageSize: 10
         },
@@ -75,18 +53,13 @@ const initialState: State = {
     }
 };
 
-export const fetchCustomers = createAsyncThunk('customer/fetchCustomers', async (filter: any) => {
-    const res = await getRequest('/v0/customers', filter);
-    return res;
-});
-
-export const fetchCustomer = createAsyncThunk('customer/fetchCustomer', async (id: number) => {
-    const res = await getRequest(`/v0/customers/${id}`);
+export const fetchMails = createAsyncThunk('mail/fetchInboxMail', async (filter: any) => {
+    const res = await getRequest('/v0/mails/inbox', filter);
     return res;
 });
 
 export const slice = createSlice({
-    name: 'customer',
+    name: 'mail',
     initialState,
     reducers: {
         reset: () => initialState,
@@ -149,16 +122,10 @@ export const slice = createSlice({
         }
     },
     extraReducers: builder => {
-        builder.addCase(fetchCustomers.fulfilled, (state, action) => {
+        builder.addCase(fetchMails.fulfilled, (state, action) => {
             state.items = {
                 ...state.items,
                 result: action.payload.data as any
-            };
-        });
-        builder.addCase(fetchCustomer.fulfilled, (state, action) => {
-            state.item = {
-                ...state.item,
-                form: action.payload.data as any
             };
         });
     }

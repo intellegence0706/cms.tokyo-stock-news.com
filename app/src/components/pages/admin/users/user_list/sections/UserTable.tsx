@@ -18,7 +18,7 @@ const UserTable = () => {
                         <TableCell style={{ minWidth: 150 }}>電話番号</TableCell>
                         <TableCell style={{ minWidth: 100 }}>権限</TableCell>
                         <TableCell style={{ minWidth: 100 }}>状況</TableCell>
-                        <TableCell>登録日</TableCell>
+                        <TableCell>登録日時</TableCell>
                         <TableCell style={{ minWidth: 100 }}>編集</TableCell>
                     </TableRow>
                 </TableHead>
