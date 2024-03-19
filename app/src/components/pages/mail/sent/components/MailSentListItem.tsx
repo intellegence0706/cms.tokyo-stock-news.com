@@ -41,7 +41,7 @@ const MailSentListItem = ({ item, className }: Props) => {
                 <div className='w-full flex flex-row gap-3'>
                     <h3 className='text-[#212b36] text-[14px]'>{item?.subject}</h3>
                     <span>-</span>
-                    <p className=' line-clamp-1 text-[#9192ab] text-[12px] italic'>{item?.body}</p>
+                    <p className=' line-clamp-1 text-[#9192ab] text-[12px] italic' dangerouslySetInnerHTML={{__html: item?.body || ""}}></p>
                 </div>
             </td>
             <td className='px-[4px]' valign='bottom'>

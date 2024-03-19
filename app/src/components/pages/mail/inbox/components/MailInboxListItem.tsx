@@ -39,7 +39,7 @@ const MailInboxListItem = ({ item, className }: Props) => {
             <td className='px-[16px] min-w-[200px] w-full'>
                 <div className='w-full flex flex-col'>
                     <h3 className='text-[#212b36] text-[14px]'>{item.last_message?.subject}</h3>
-                    <p className=' line-clamp-1 text-[#9192ab] text-[12px] italic'>{item.last_message?.body}</p>
+                    <p className=' line-clamp-1 text-[#9192ab] text-[12px] italic' dangerouslySetInnerHTML={{__html: item.last_message?.body || ""}}></p>
                 </div>
             </td>
             <td className='px-[4px]' valign='bottom'>
