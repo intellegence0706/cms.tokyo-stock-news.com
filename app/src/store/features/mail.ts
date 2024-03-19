@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IMailInbox, IProperty, IStatus } from '@/interfaces';
+import { ICustomer, IMail, IMailAttachment, IMailInbox, IProperty, IStatus } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -11,6 +11,7 @@ type State = {
             subject: string;
             body: string;
             open: boolean;
+            attachments: IMailAttachment[];
         };
         errors: any;
     };
@@ -21,7 +22,8 @@ type State = {
             pageSize: number;
         };
         result: {
-            data: IMailInbox[];
+            customer?: ICustomer;
+            data: IMail[];
             total: number;
         };
     };
@@ -35,7 +37,8 @@ const initialState: State = {
             recipients: [],
             subject: '',
             body: '',
-            open: false
+            open: false,
+            attachments: []
         },
         errors: {}
     },
@@ -53,8 +56,18 @@ const initialState: State = {
     }
 };
 
-export const fetchMails = createAsyncThunk('mail/fetchInboxMail', async (filter: any) => {
-    const res = await getRequest('/v0/mails/inbox', filter);
+export const fetchMails = createAsyncThunk('mail/fetchMails', async (id: number) => {
+    const res = await getRequest(`/v0/mails/inbox/${id}`);
+    return res;
+});
+
+export const fetchSentMails = createAsyncThunk('mail/fetchSentMails', async (payload: any) => {
+    const res = await getRequest(`/v0/mails/sent`, payload);
+    return res;
+});
+
+export const fetchSentMail = createAsyncThunk('mail/fetchSentMail', async (id: number) => {
+    const res = await getRequest(`/v0/mails/sent/${id}`, null);
     return res;
 });
 
@@ -123,10 +136,28 @@ export const slice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchMails.fulfilled, (state, action) => {
-            state.items = {
-                ...state.items,
-                result: action.payload.data as any
-            };
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
+        });
+        builder.addCase(fetchSentMails.fulfilled, (state, action) => {
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
+        });
+        builder.addCase(fetchSentMail.fulfilled, (state, action) => {
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
         });
     }
 });

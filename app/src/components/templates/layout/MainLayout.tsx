@@ -55,7 +55,7 @@ const MainLayout = ({ children }: Props) => {
 
             <MainWraaper theme={theme} open={leftDrawerOpened}>
                 <Breadcrumbs separator={MdChevronRight} navigation={navigation} icon title rightAlign />
-                {children}
+                <div className='relative w-full'>{children}</div>
             </MainWraaper>
         </Box>
     );

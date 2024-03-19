@@ -1,8 +1,8 @@
 import { useRouter } from 'next/navigation';
 import { IMailInbox } from '@/interfaces';
 
-import { Avatar, AvatarGroup, Badge } from '@mui/material';
-import { deepOrange, deepPurple } from '@mui/material/colors';
+import { Avatar, Badge } from '@mui/material';
+import { deepOrange } from '@mui/material/colors';
 import moment from 'moment';
 
 interface Props {
@@ -24,19 +24,7 @@ const MailInboxListItem = ({ item, className }: Props) => {
         >
             <td className='px-[8px] py-[20px]'>
                 <Badge badgeContent={item.new_message_cnt} color='secondary'>
-                    {item.last_message?.customers.length == 1 ? (
-                        <Avatar sx={{ bgcolor: deepOrange[500], color: 'white' }}>
-                            {item.last_message?.customers[0]?.name?.charAt(0)}
-                        </Avatar>
-                    ) : (
-                        <AvatarGroup total={item.last_message?.customers.length}>
-                            {item.last_message?.customers.slice(0, 2).map((customer, index) => (
-                                <Avatar key={index} sx={{ bgcolor: deepPurple[500], color: 'white' }}>
-                                    {customer?.name?.charAt(0)}
-                                </Avatar>
-                            ))}
-                        </AvatarGroup>
-                    )}
+                    <Avatar sx={{ bgcolor: deepOrange[500], color: 'white' }}>{item?.name?.charAt(0)}</Avatar>
                 </Badge>
             </td>
             <td className='px-[16px] min-w-[200px] line-clamp-1'>
@@ -45,7 +33,7 @@ const MailInboxListItem = ({ item, className }: Props) => {
                         {item.last_message?.customers.map(customer => customer.name).join(', ')}
                     </span>
 
-                    <span className='text-[12px] '>( {item.message_cnt} 件 )</span>
+                    <span className='text-[12px] whitespace-nowrap'>( {item.message_cnt} 件 )</span>
                 </div>
             </td>
             <td className='px-[16px] min-w-[200px] w-full'>
@@ -56,7 +44,7 @@ const MailInboxListItem = ({ item, className }: Props) => {
             </td>
             <td className='px-[4px]' valign='bottom'>
                 <span className='text-[12px] whitespace-nowrap'>
-                    {moment(item.last_message?.created_at).format('YYYY-MM-DD')}
+                    {moment(item.last_message?.processed).format('YYYY-MM-DD')}
                 </span>
             </td>
         </tr>

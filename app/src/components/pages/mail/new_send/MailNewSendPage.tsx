@@ -45,7 +45,7 @@ const MailNewSendPage = () => {
                         <CustomerTable />
                         <TablePagination />
 
-                        <MailSendForm />
+                        <MailSendForm onReload={() => fetchCustomers(filter)} />
                     </MainPannel>
                 </MainLayout>
             </PermissionLayout>

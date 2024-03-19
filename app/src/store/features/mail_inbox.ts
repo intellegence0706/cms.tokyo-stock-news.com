@@ -43,13 +43,13 @@ const initialState: State = {
     }
 };
 
-export const fetchInboxMails = createAsyncThunk('mail/fetchInboxMail', async (filter: any) => {
+export const fetchInboxMails = createAsyncThunk('mail_inbox/fetchInboxMail', async (filter: any) => {
     const res = await getRequest('/v0/mails/inbox', filter);
     return res;
 });
 
 export const slice = createSlice({
-    name: 'mail',
+    name: 'mail_inbox',
     initialState,
     reducers: {
         reset: () => initialState,
@@ -113,10 +113,12 @@ export const slice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchInboxMails.fulfilled, (state, action) => {
-            state.items = {
-                ...state.items,
-                result: action.payload.data as any
-            };
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
         });
     }
 });

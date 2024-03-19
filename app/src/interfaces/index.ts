@@ -64,9 +64,11 @@ export interface IMailTemplate {
 
 export interface IMailAttachment {
     id: number;
-    publisher: IUser;
-    subject: string;
-    body: string;
+    document?: string;
+    info?: {
+        name: string;
+        content_type: string;
+    };
 
     created_at?: string;
     updated_at?: string;
@@ -74,12 +76,16 @@ export interface IMailAttachment {
 export interface IMail {
     id: number;
     customers: ICustomer[];
-    managers: IUser[];
+    managers: {
+        id: number;
+        email: string;
+        name: string;
+    }[];
 
     subject: string;
     body: string;
     outgoing: boolean;
-    attachment: IMailAttachment[];
+    attachments: IMailAttachment[];
     read?: string;
     processed?: string;
 

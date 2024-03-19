@@ -7,7 +7,7 @@ const DashboardPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <div>顧客新規追加</div>
+                    <div></div>
                 </MainLayout>
             </PermissionLayout>
         </AuthLayout>
