@@ -71,25 +71,24 @@ const MailSendForm = ({}: Props) => {
     };
 
     const handleAttachUpload = async (e: ChangeEvent<HTMLInputElement>) => {
-        if(!e.target.files || e.target.files.length == 0) return;
-        
+        if (!e.target.files || e.target.files.length == 0) return;
+
         const file = e.target.files![0];
 
         const formData = new FormData();
-        if(file){
+        if (file) {
             formData.append('file', file);
         }
         const res = await postFormdata(`/v0/mails/attachment/upload`, formData);
         if (res.status == 200) {
-            dispatch(setCurrentItemValue({ attachments: [...currentItem.attachments, res.data] }))
+            dispatch(setCurrentItemValue({ attachments: [...currentItem.attachments, res.data] }));
         }
-
-    }
+    };
 
     const handleAttachDelete = (id: number) => {
         const newAttachments = currentItem.attachments.filter(attach => attach.id != id);
         dispatch(setCurrentItemValue({ attachments: newAttachments }));
-    }
+    };
 
     return (
         <Drawer open={currentItem.open} onClose={handleClose} anchor='right'>
@@ -173,21 +172,20 @@ const MailSendForm = ({}: Props) => {
                 <div className='w-full flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                     <FormLabel className='min-w-[134px] mt-[10px]'>添付</FormLabel>
                     <div className='w-full flex flex-col gap-[8px]'>
-                        <TextField
-                            size='small'
-                            type="file"
-                            fullWidth
-                            onChange={handleAttachUpload}
-                        />
+                        <TextField size='small' type='file' fullWidth onChange={handleAttachUpload} />
 
                         <div className='w-full flex flex-wrap gap-2'>
                             {currentItem.attachments.map(attach => (
-                                <Chip key={attach.id} label={attach.info?.name} onDelete={() => handleAttachDelete(attach.id)} />
+                                <Chip
+                                    key={attach.id}
+                                    label={attach.info?.name}
+                                    onDelete={() => handleAttachDelete(attach.id)}
+                                />
                             ))}
                         </div>
                     </div>
                 </div>
-                
+
                 {/* *************************************************************************************** */}
                 <div className='w-full flex items-center justify-center gap-3'>
                     <Button variant='contained' onClick={handleSubmit}>

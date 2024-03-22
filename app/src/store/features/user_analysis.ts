@@ -6,6 +6,7 @@ type State = {
             name: string;
             total: number;
             analysis: {
+                id: number;
                 name: string;
                 count: number;
             }[];

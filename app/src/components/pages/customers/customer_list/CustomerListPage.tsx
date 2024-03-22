@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchCustomers } from '@/store/features/customer';
+import { fetchCustomers, reset } from '@/store/features/customer';
+import { fetchPropertyData, fetchStatusData } from '@/store/features/shared_data';
 
 import AuthLayout from '@/components/templates/AuthLayout';
 import PermissionLayout from '@/components/templates/PermissionLayout';
@@ -16,6 +17,15 @@ const CustomerListPage = () => {
 
     const filter = useAppSelector(state => state.customer.items.filter);
     const result = useAppSelector(state => state.customer.items.result);
+
+    useEffect(() => {
+        dispatch(fetchStatusData());
+        dispatch(fetchPropertyData());
+
+        return () => {
+            dispatch(reset());
+        };
+    }, []);
 
     useEffect(() => {
         dispatch(fetchCustomers(filter));
