@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { getRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setCurrentItem } from '@/store/features/user_analysis';
+import { setFilterValue } from '@/store/features/customer';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
@@ -27,6 +28,11 @@ const UserAnalysisDialog = ({ userId, onClose }: Props) => {
         }
     };
 
+    const handleRowClick = (id: number) => {
+        dispatch(setFilterValue({ manager: userId, status: id, keyword: '', page: 1, property: 0}));
+        onClose();
+    };
+
     return (
         <Dialog open={userId != null} onClose={onClose} fullWidth maxWidth='sm'>
             <DialogTitle sx={{ fontSize: 14, fontWeight: 700 }}>
@@ -42,13 +48,26 @@ const UserAnalysisDialog = ({ userId, onClose }: Props) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            <TableRow hover role='checkbox' tabIndex={-1}>
+                            <TableRow
+                                hover
+                                role='checkbox'
+                                tabIndex={-1}
+                                className=' cursor-pointer'
+                                onClick={() => handleRowClick(0)}
+                            >
                                 <TableCell>登録数</TableCell>
                                 <TableCell>{currentItem.total} 件</TableCell>
                             </TableRow>
                             {currentItem.analysis.map((analysis, index) => {
                                 return (
-                                    <TableRow hover role='checkbox' tabIndex={-1} key={index}>
+                                    <TableRow
+                                        hover
+                                        role='checkbox'
+                                        tabIndex={-1}
+                                        key={index}
+                                        className=' cursor-pointer'
+                                        onClick={() => handleRowClick(analysis.id)}
+                                    >
                                         <TableCell>{analysis.name}</TableCell>
                                         <TableCell>{analysis.count} 件</TableCell>
                                     </TableRow>

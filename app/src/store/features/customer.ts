@@ -27,6 +27,7 @@ type State = {
         filter: {
             keyword: string;
             order_by: string;
+            manager: number;
             status: number;
             property: number;
             page: number;
@@ -63,6 +64,7 @@ const initialState: State = {
         filter: {
             keyword: '',
             order_by: 'id',
+            manager: 0,
             status: 0,
             property: 0,
             page: 1,

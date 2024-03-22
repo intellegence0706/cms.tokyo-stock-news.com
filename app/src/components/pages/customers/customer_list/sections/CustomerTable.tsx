@@ -4,6 +4,7 @@ import { setFilterValue } from '@/store/features/customer';
 import moment from 'moment';
 
 import { Button, Link, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import UserAnalysisDialog from '../components/UserAnalysisDialog';
 import SorterItem from '../components/SorterItem';
 
@@ -150,7 +151,7 @@ const CustomerTable = () => {
                                 <TableRow hover role='checkbox' tabIndex={-1} key={customer.id}>
                                     <TableCell>{customer.id}</TableCell>
                                     <TableCell>{customer.ads}</TableCell>
-                                    <TableCell>{customer?.name}</TableCell>
+                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{customer?.name}</TableCell>
                                     <TableCell>{customer.phone}</TableCell>
                                     <TableCell>{customer.email}</TableCell>
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>
@@ -172,8 +173,8 @@ const CustomerTable = () => {
                                         {customer.contract_days > 0 ? `${customer.contract_days}日` : ''}
                                     </TableCell>
                                     <TableCell>{valid_days > 0 ? `${valid_days}日` : ''}</TableCell>
-                                    <TableCell>{customer.property?.name}</TableCell>
-                                    <TableCell>{customer.status?.name}</TableCell>
+                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{customer.property?.name}</TableCell>
+                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{customer.status?.name}</TableCell>
                                     <TableCell>{customer.system_provided ? 'OK' : 'NG'}</TableCell>
                                     <TableCell>{moment(customer?.created_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
                                     <TableCell>
@@ -184,6 +185,22 @@ const CustomerTable = () => {
                                 </TableRow>
                             );
                         })}
+
+                        {result.data.length === 0 && (
+                            <TableRow className='h-[100px]'>
+                                <TableCell colSpan={15} align='center'>
+                                    <div className='w-full flex flex-col items-center justify-center gap-3'>
+                                        <FolderOpenIcon sx={{ fontSize: 100 }} className='text-[#697586]' />
+
+                                        <p>
+                                            顧客情報が見つかりませんでした。
+                                            <br />
+                                            検索条件を変更して再度検索してください。
+                                        </p>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>
