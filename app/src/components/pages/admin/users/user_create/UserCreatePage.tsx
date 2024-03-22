@@ -37,7 +37,7 @@ const UserCreatePage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>新規ユーザー登録</TitleBar>
+                    <TitleBar>新規担当登録</TitleBar>
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
@@ -52,7 +52,7 @@ const UserCreatePage = () => {
                         </form>
 
                         <p className='mt-[24px]'>
-                            ※登録後、ユーザーにメールが送信されます。メール内のURLからアカウントの有効化を行ってください。
+                            ※登録後、担当にメールが送信されます。メール内のURLからアカウントの有効化を行ってください。
                         </p>
                     </MainPannel>
                 </MainLayout>

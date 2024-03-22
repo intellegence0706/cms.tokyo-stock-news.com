@@ -15,7 +15,7 @@ const icons = {
 
 const pages = {
     id: 'member',
-    title: '一般ユーザー',
+    title: '一般',
     type: 'group',
     children: [
         {

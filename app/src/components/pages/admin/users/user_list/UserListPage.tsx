@@ -25,7 +25,7 @@ const UserListPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>ユーザー一覧</TitleBar>
+                    <TitleBar>担当一覧</TitleBar>
 
                     <MainPannel>
                         <Filter />
