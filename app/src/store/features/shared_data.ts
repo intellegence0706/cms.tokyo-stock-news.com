@@ -1,18 +1,30 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { publicApiInstance } from '@/utils/axios';
-import { IProperty, IRole, IStatus } from '@/interfaces';
+import { IIMAP, IProperty, IRole, IStatus } from '@/interfaces';
 
 type SharedDataState = {
+    imap_data: IIMAP[];
     role_data: IRole[];
     status_data: IStatus[];
     property_data: IProperty[];
 };
 
 const initialState: SharedDataState = {
+    imap_data: [],
     status_data: [],
     role_data: [],
     property_data: []
 };
+
+const fetchIMAPData = createAsyncThunk('shared_data/fetchIMAPData', async () => {
+    const res = await publicApiInstance.get(`/data/imap`);
+
+    if (res.status === 200) {
+        return res.data as IIMAP[];
+    } else {
+        return [];
+    }
+});
 
 const fetchRoleData = createAsyncThunk('shared_data/fetchRoleData', async () => {
     const res = await publicApiInstance.get(`/data/role`);
@@ -60,9 +72,12 @@ export const slice = createSlice({
         builder.addCase(fetchStatusData.fulfilled, (state: SharedDataState, action: any) => {
             state.status_data = action.payload as IStatus[];
         });
+        builder.addCase(fetchIMAPData.fulfilled, (state: SharedDataState, action: any) => {
+            state.imap_data = action.payload as IIMAP[];
+        });
     }
 });
 
 export const { reset } = slice.actions;
-export { fetchRoleData, fetchStatusData, fetchPropertyData };
+export { fetchRoleData, fetchStatusData, fetchPropertyData, fetchIMAPData };
 export default slice.reducer;

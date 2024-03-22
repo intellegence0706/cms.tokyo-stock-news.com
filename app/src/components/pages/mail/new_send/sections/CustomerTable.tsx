@@ -73,7 +73,6 @@ const CustomerTable = () => {
                                 </TableRow>
                             );
                         })}
-                        
 
                         {result.data.length === 0 && (
                             <TableRow className='h-[100px]'>

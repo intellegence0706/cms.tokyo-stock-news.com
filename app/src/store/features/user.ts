@@ -133,16 +133,20 @@ export const slice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchUsers.fulfilled, (state, action) => {
-            state.items = {
-                ...state.items,
-                result: action.payload.data as any
-            };
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
         });
         builder.addCase(fetchUser.fulfilled, (state, action) => {
-            state.item = {
-                ...state.item,
-                form: action.payload.data as any
-            };
+            if (action.payload.data.id) {
+                state.item = {
+                    ...state.item,
+                    form: action.payload.data as any
+                };
+            }
         });
     }
 });

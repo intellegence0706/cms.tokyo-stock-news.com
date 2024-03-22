@@ -73,8 +73,22 @@ export interface IMailAttachment {
     created_at?: string;
     updated_at?: string;
 }
+
+export interface IMailDomain {
+    id: number;
+    host: string;
+    port: string;
+    username: string;
+    password: string;
+    imap_host: string;
+
+    created_at?: string;
+    updated_at?: string;
+}
+
 export interface IMail {
     id: number;
+    domain?: string;
     customers: ICustomer[];
     managers: {
         id: number;

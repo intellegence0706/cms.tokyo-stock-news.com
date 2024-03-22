@@ -36,7 +36,7 @@ const MemoForm = () => {
     };
 
     const handleEdit = (item: any) => {
-        if(item?.manager?.id !== user?.id) return;
+        if (item?.manager?.id !== user?.id) return;
 
         dispatch(setCurrentItem(item));
         setCurrentDialog(true);

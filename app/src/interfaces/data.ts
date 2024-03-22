@@ -1,3 +1,8 @@
+export interface IIMAP {
+    id?: number;
+    name: string;
+}
+
 export interface IRole {
     id?: number;
     role_id: 'admin' | 'member';
