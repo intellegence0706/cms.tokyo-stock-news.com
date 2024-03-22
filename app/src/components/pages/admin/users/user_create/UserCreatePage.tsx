@@ -35,7 +35,7 @@ const UserCreatePage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin', 'member']}>
+            <PermissionLayout permission={['customer']} role={['admin']}>
                 <MainLayout>
                     <TitleBar>新規担当登録</TitleBar>
 
