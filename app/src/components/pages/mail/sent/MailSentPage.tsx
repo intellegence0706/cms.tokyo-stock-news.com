@@ -24,9 +24,9 @@ const MailSentPage = () => {
         };
     }, []);
 
-    useEffect(()=> {
+    useEffect(() => {
         dispatch(setFilterValue({ domain: domain.toString().replace(/%40/g, '@') }));
-    }, [domain])
+    }, [domain]);
 
     useEffect(() => {
         dispatch(fetchSentMails(filter));
@@ -36,8 +36,10 @@ const MailSentPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>送信トレイ
-                        <span className='text-sm font-normal ml-2 line-clamp-1'>{`<${filter.domain}>`}</span></TitleBar>
+                    <TitleBar href='/mail/sent'>
+                        送信トレイ
+                        <span className='text-sm font-normal ml-2 line-clamp-1'>{`<${filter.domain}>`}</span>
+                    </TitleBar>
 
                     <MainPannel>
                         <InboxTable />

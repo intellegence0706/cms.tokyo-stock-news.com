@@ -19,7 +19,11 @@ const PropertyTable = () => {
                             return (
                                 <TableRow hover role='checkbox' tabIndex={0} key={property.id}>
                                     <TableCell>{property.id}</TableCell>
-                                    <TableCell className='w-full'>{property.name}</TableCell>
+                                    <TableCell className='w-full'>
+                                        {property.name}
+
+                                        <span className='ml-3'>( {property.customer_cnt}人 )</span>
+                                    </TableCell>
                                     <TableCell>
                                         <Button
                                             onClick={() =>

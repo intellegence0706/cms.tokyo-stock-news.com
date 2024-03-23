@@ -17,9 +17,11 @@ export interface IRole {
 export interface IStatus {
     id?: number;
     name: string;
+    customer_cnt?: number;
 }
 
 export interface IProperty {
     id?: number;
     name: string;
+    customer_cnt?: number;
 }

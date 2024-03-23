@@ -128,7 +128,9 @@ const MailSendForm = ({ onReload }: Props) => {
                             onChange={e =>
                                 dispatch(
                                     setCurrentItemValue({
-                                        domain: shared_data.domain_data.find(item => item.id == (e.target.value as number))?.name || ''
+                                        domain:
+                                            shared_data.domain_data.find(item => item.id == (e.target.value as number))
+                                                ?.name || ''
                                     })
                                 )
                             }

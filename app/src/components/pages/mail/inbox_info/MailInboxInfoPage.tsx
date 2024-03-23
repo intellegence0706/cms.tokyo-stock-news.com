@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { IMail } from '@/interfaces';
 import { postRequest } from '@/utils/axios';
@@ -70,16 +71,16 @@ const MailInboxPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar href={`/mail/inbox/domain/${domain}`}>
+                    <TitleBar >
                         <div className='w-full flex justify-between'>
-                            <div className='w-full flex items-baseline gap-[20px]'>
+                            <Link className='w-full flex items-baseline gap-[20px]' href={`/mail/inbox/domain/${domain}`}>
                                 <Avatar sx={{ bgcolor: deepOrange[500], color: 'white' }}>
                                     {result.customer?.name?.charAt(0)}
                                 </Avatar>
                                 <h2 className=''>{result.customer?.name || ''}</h2>
                                 <span>-</span>
                                 <span>{result.total} 件</span>
-                            </div>
+                            </Link>
 
                             <Button size='small' variant='contained' color='secondary' onClick={handleReplyClick}>
                                 <span className='whitespace-nowrap'>返信</span>
