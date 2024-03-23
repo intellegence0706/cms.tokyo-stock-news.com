@@ -217,7 +217,7 @@ const ProfileSection = () => {
                                                                 <Grid item>
                                                                     <Typography variant='body2'>受信トレイ</Typography>
                                                                 </Grid>
-                                                                <Grid item>
+                                                                {/* <Grid item>
                                                                     <Chip
                                                                         label='02'
                                                                         size='small'
@@ -226,7 +226,7 @@ const ProfileSection = () => {
                                                                             color: theme.palette.background.default
                                                                         }}
                                                                     />
-                                                                </Grid>
+                                                                </Grid> */}
                                                             </Grid>
                                                         }
                                                     />
