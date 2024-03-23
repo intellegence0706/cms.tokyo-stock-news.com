@@ -44,6 +44,10 @@ const MailSentInfoPage = () => {
     };
 
     const handleMakeAsReadClick = async (item: IMail) => {
+        if (item.read) {
+            return;
+        }
+        
         const res = await postRequest(`/v0/mails/inbox/${item.id}/read`, null);
         if (res.status == 200) {
             fetchData();

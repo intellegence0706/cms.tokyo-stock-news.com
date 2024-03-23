@@ -8,6 +8,7 @@ type State = {
             group: IStatus | IProperty | null;
             group_type: 'status' | 'property';
             recipients: ICustomer[];
+            domain: string;
             subject: string;
             body: string;
             open: boolean;
@@ -17,6 +18,7 @@ type State = {
     };
     items: {
         filter: {
+            domain: string;
             keyword: string;
             page: number;
             pageSize: number;
@@ -35,6 +37,7 @@ const initialState: State = {
             group: null,
             group_type: 'status',
             recipients: [],
+            domain: '',
             subject: '',
             body: '',
             open: false,
@@ -45,6 +48,7 @@ const initialState: State = {
 
     items: {
         filter: {
+            domain: '',
             keyword: '',
             page: 1,
             pageSize: 10
@@ -56,8 +60,8 @@ const initialState: State = {
     }
 };
 
-export const fetchMails = createAsyncThunk('mail/fetchMails', async (id: number) => {
-    const res = await getRequest(`/v0/mails/inbox/${id}`);
+export const fetchMails = createAsyncThunk('mail/fetchMails', async (params: any) => {
+    const res = await getRequest(`/v0/mails/inbox/domain/${params.domain}/customer/${params.id}`);
     return res;
 });
 

@@ -2,7 +2,7 @@ import { useRouter } from 'next/navigation';
 import { IMail } from '@/interfaces';
 
 import { Avatar } from '@mui/material';
-import { deepOrange } from '@mui/material/colors';
+import { deepOrange, deepPurple } from '@mui/material/colors';
 import moment from 'moment';
 
 interface Props {
@@ -18,7 +18,10 @@ const MailItem = ({ item, className }: Props) => {
     return (
         <div className='w-full cursor-pointer py-[27px]'>
             <div className='w-full flex items-center gap-[20px] mb-[27px]'>
-                <Avatar sizes='small' sx={{ bgcolor: deepOrange[500], color: 'white' }}>
+                <Avatar
+                    sizes='small'
+                    sx={{ bgcolor: item.outgoing ? deepPurple[500] : deepOrange[500], color: 'white' }}
+                >
                     {item.outgoing
                         ? item.managers.length > 0 && item.managers[0].name.charAt(0)
                         : item.customers.length > 0 && item.customers[0]?.name?.charAt(0)}
@@ -29,19 +32,12 @@ const MailItem = ({ item, className }: Props) => {
                         {item.outgoing
                             ? item.managers.length > 0 && item.managers[0].name
                             : item.customers.length > 0 && item.customers[0]?.name}
-
-                        <span className='text-[12px] text-[#919Eab] ml-[8px]'>
+                    </h3>
+                    <p className='w-full flex items-baseline justify-between'>
+                        <span className='text-[12px] text-[#919Eab]'>
                             {item.outgoing
                                 ? item.managers.length > 0 && ` <${item.managers[0].email}>`
                                 : item.customers.length > 0 && ` <${item.customers[0]?.email}>`}
-                        </span>
-                    </h3>
-                    <p className='w-full flex items-baseline justify-between'>
-                        <span className='text-[12px] text-[#637381]'>
-                            宛先:{' '}
-                            {item.outgoing
-                                ? item.customers.map(customer => <a key={customer.id}>{customer.name}</a>)
-                                : item.managers.map(manager => <a key={manager.id}>{manager.name}</a>)}
                         </span>
                         <span className='text-[12px] text-[#919Eab]'>
                             {moment(item.created_at).format('YYYY-MM-DD HH:mm')}

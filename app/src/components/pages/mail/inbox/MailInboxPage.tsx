@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchInboxMails, reset } from '@/store/features/mail_inbox';
+import { fetchInboxMails, reset, setFilterValue } from '@/store/features/mail_inbox';
 
 import AuthLayout from '@/components/templates/AuthLayout';
 import PermissionLayout from '@/components/templates/PermissionLayout';
@@ -11,6 +12,7 @@ import InboxTable from './sections/InboxTable';
 import TablePagination from './sections/TablePagination';
 
 const MailInboxPage = () => {
+    const { domain } = useParams();
     const dispatch = useAppDispatch();
 
     const filter = useAppSelector(state => state.mail_inbox.items.filter);
@@ -23,6 +25,10 @@ const MailInboxPage = () => {
     }, []);
 
     useEffect(() => {
+        dispatch(setFilterValue({ domain: domain.toString().replace(/%40/g, '@') }));
+    }, [domain]);
+
+    useEffect(() => {
         dispatch(fetchInboxMails(filter));
     }, [filter]);
 
@@ -30,7 +36,10 @@ const MailInboxPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>受信トレイ</TitleBar>
+                    <TitleBar href='/mail/inbox'>
+                        受信トレイ
+                        <span className='text-sm font-normal ml-2 line-clamp-1'>{`<${filter.domain}>`}</span>
+                    </TitleBar>
 
                     <div className='w-full grid grid-cols-3 xl:grid-cols-4 gap-[20px] mb-[24px]'>
                         <MainPannel>

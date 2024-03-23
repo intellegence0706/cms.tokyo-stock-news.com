@@ -3,6 +3,11 @@ export interface IIMAP {
     name: string;
 }
 
+export interface IDomain {
+    id?: number;
+    name: string;
+}
+
 export interface IRole {
     id?: number;
     role_id: 'admin' | 'member';

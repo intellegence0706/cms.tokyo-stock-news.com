@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchStatusData, fetchPropertyData } from '@/store/features/shared_data';
+import { fetchStatusData, fetchPropertyData, fetchDomainData } from '@/store/features/shared_data';
 import { fetchMailTemplates } from '@/store/features/mail_template';
 
 import AuthLayout from '@/components/templates/AuthLayout';
@@ -18,6 +18,7 @@ const MailGroupSendPage = () => {
     useEffect(() => {
         dispatch(fetchStatusData());
         dispatch(fetchPropertyData());
+        dispatch(fetchDomainData());
         dispatch(
             fetchMailTemplates({
                 page: 1,

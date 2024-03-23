@@ -5,6 +5,7 @@ import { postRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchMails, reset, setCurrentItemValue } from '@/store/features/mail';
 import { fetchMailTemplates } from '@/store/features/mail_template';
+import { fetchDomainData } from '@/store/features/shared_data';
 
 import { Avatar, Badge, Button } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
@@ -16,13 +17,14 @@ import MailItem from './components/MailItem';
 import MailSendForm from '../new_send/components/MailSendForm';
 
 const MailInboxPage = () => {
-    const { id } = useParams();
+    const { domain, id } = useParams();
     const dispatch = useAppDispatch();
 
     const filter = useAppSelector(state => state.mail.items.filter);
     const result = useAppSelector(state => state.mail.items.result);
 
     useEffect(() => {
+        dispatch(fetchDomainData());
         dispatch(
             fetchMailTemplates({
                 page: 1,
@@ -41,7 +43,7 @@ const MailInboxPage = () => {
     }, [id]);
 
     const fetchData = () => {
-        dispatch(fetchMails(parseInt(`${id}`)));
+        dispatch(fetchMails({ domain: domain.toString().replace(/%40/g, '@'), id: parseInt(`${id}`) }));
     };
 
     const handleReplyClick = () => {
@@ -54,6 +56,10 @@ const MailInboxPage = () => {
     };
 
     const handleMakeAsReadClick = async (item: IMail) => {
+        if (item.read) {
+            return;
+        }
+
         const res = await postRequest(`/v0/mails/inbox/${item.id}/read`, null);
         if (res.status == 200) {
             fetchData();
@@ -64,7 +70,7 @@ const MailInboxPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>
+                    <TitleBar href={`/mail/inbox/domain/${domain}`}>
                         <div className='w-full flex justify-between'>
                             <div className='w-full flex items-baseline gap-[20px]'>
                                 <Avatar sx={{ bgcolor: deepOrange[500], color: 'white' }}>
@@ -73,7 +79,6 @@ const MailInboxPage = () => {
                                 <h2 className=''>{result.customer?.name || ''}</h2>
                                 <span>-</span>
                                 <span>{result.total} 件</span>
-                                <span className='text-[12px] text-[#919Eab]'>{`<${result.customer?.email || ''}>`}</span>
                             </div>
 
                             <Button size='small' variant='contained' color='secondary' onClick={handleReplyClick}>

@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { publicApiInstance } from '@/utils/axios';
-import { IIMAP, IProperty, IRole, IStatus } from '@/interfaces';
+import { IDomain, IIMAP, IProperty, IRole, IStatus } from '@/interfaces';
 
 type SharedDataState = {
+    domain_data: IDomain[];
     imap_data: IIMAP[];
     role_data: IRole[];
     status_data: IStatus[];
@@ -10,6 +11,7 @@ type SharedDataState = {
 };
 
 const initialState: SharedDataState = {
+    domain_data: [],
     imap_data: [],
     status_data: [],
     role_data: [],
@@ -21,6 +23,16 @@ const fetchIMAPData = createAsyncThunk('shared_data/fetchIMAPData', async () => 
 
     if (res.status === 200) {
         return res.data as IIMAP[];
+    } else {
+        return [];
+    }
+});
+
+const fetchDomainData = createAsyncThunk('shared_data/fetchDomainData', async () => {
+    const res = await publicApiInstance.get(`/data/domain`);
+
+    if (res.status === 200) {
+        return res.data as IDomain[];
     } else {
         return [];
     }
@@ -63,6 +75,9 @@ export const slice = createSlice({
         reset: () => initialState
     },
     extraReducers: builder => {
+        builder.addCase(fetchDomainData.fulfilled, (state: SharedDataState, action: any) => {
+            state.domain_data = action.payload as IDomain[];
+        });
         builder.addCase(fetchRoleData.fulfilled, (state: SharedDataState, action: any) => {
             state.role_data = action.payload as IRole[];
         });
@@ -79,5 +94,5 @@ export const slice = createSlice({
 });
 
 export const { reset } = slice.actions;
-export { fetchRoleData, fetchStatusData, fetchPropertyData, fetchIMAPData };
+export { fetchRoleData, fetchStatusData, fetchPropertyData, fetchIMAPData, fetchDomainData };
 export default slice.reducer;

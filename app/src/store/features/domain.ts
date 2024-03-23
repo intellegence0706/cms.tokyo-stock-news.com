@@ -32,7 +32,7 @@ const initialState: State = {
         form: {
             id: 0,
             host: '',
-            port: '465',
+            port: '587',
             username: '',
             password: '',
             imap_host: 'imap.gmail.com'

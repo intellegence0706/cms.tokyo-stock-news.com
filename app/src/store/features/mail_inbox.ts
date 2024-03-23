@@ -9,6 +9,7 @@ type State = {
     };
     items: {
         filter: {
+            domain: string;
             keyword: string;
             page: number;
             pageSize: number;
@@ -30,6 +31,7 @@ const initialState: State = {
 
     items: {
         filter: {
+            domain: '',
             keyword: '',
             page: 1,
             pageSize: 10

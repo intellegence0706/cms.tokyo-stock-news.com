@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { IMailInbox } from '@/interfaces';
 
 import { Avatar, Badge } from '@mui/material';
@@ -12,9 +12,10 @@ interface Props {
 
 const MailInboxListItem = ({ item, className }: Props) => {
     const router = useRouter();
+    const { domain } = useParams();
 
     const handleItemClick = () => {
-        router.push(`/mail/inbox/${item.id}`);
+        router.push(`/mail/inbox/domain/${domain.toString().replace(/%40/g, '@')}/customer/${item.id}`);
     };
 
     return (
