@@ -37,7 +37,7 @@ const CustomerCreatePage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>顧客新規登録</TitleBar>
+                    <TitleBar href='/customers'>顧客新規登録</TitleBar>
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>

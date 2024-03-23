@@ -59,7 +59,7 @@ const MailTemplateEditPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>テンプレート情報</TitleBar>
+                    <TitleBar href='/mail/templates'>テンプレート情報</TitleBar>
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>

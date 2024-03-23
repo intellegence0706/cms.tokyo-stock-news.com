@@ -59,7 +59,7 @@ const DomainEditPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin']}>
                 <MainLayout>
-                    <TitleBar>ドメイン情報</TitleBar>
+                    <TitleBar href='/admin/domains'>ドメイン情報</TitleBar>
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>

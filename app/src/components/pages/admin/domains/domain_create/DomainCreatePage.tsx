@@ -37,7 +37,7 @@ const DomainCreatePage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin']}>
                 <MainLayout>
-                    <TitleBar>新規ドメイン登録</TitleBar>
+                    <TitleBar href='/admin/domains'>新規ドメイン登録</TitleBar>
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
