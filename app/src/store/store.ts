@@ -10,6 +10,7 @@ import reset_password from './features/reset_password';
 import change_password from './features/change_password';
 import profile from './features/profile';
 import user from './features/user';
+import domain from './features/domain';
 import customer from './features/customer';
 import memo from './features/memo';
 import user_analysis from './features/user_analysis';
@@ -27,6 +28,7 @@ export const store = configureStore({
         change_password,
         profile,
         user,
+        domain,
         customer,
         memo,
         user_analysis,

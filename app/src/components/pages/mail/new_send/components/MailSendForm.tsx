@@ -19,6 +19,7 @@ const MailSendForm = ({ onReload }: Props) => {
     const currentItem = useAppSelector(state => state.mail.item.form);
     const errors = useAppSelector(state => state.mail.item.errors);
     const templates = useAppSelector(state => state.mail_template.items.result);
+    const shared_data = useAppSelector(state => state.shared_data);
 
     useEffect(() => {
         return () => {
@@ -52,6 +53,7 @@ const MailSendForm = ({ onReload }: Props) => {
 
     const handleSubmit = async () => {
         const payload = {
+            domain: currentItem.domain,
             recipients: currentItem.recipients.map(item => item.id),
             subject: currentItem.subject,
             body: currentItem.body,
@@ -112,6 +114,39 @@ const MailSendForm = ({ onReload }: Props) => {
                             error={errors.recipients}
                             helperText={errors.recipients}
                         />
+                    </div>
+                </div>
+
+                {/* *************************************************************************************** */}
+                <div className='w-full flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
+                    <FormLabel className='min-w-[134px] mt-[10px]'>送信ドメイン</FormLabel>
+                    <div className='w-full'>
+                        <Select
+                            fullWidth
+                            size='small'
+                            defaultValue={0}
+                            onChange={e =>
+                                dispatch(
+                                    setCurrentItemValue({
+                                        domain:
+                                            shared_data.domain_data.find(item => item.id == (e.target.value as number))
+                                                ?.name || ''
+                                    })
+                                )
+                            }
+                            error={errors.domain}
+                        >
+                            <MenuItem value={0}>選択する</MenuItem>
+                            {shared_data.domain_data.map(domain => (
+                                <MenuItem value={domain.id} key={domain.id}>
+                                    {domain.name}
+                                </MenuItem>
+                            ))}
+                        </Select>
+
+                        {errors.domain && (
+                            <p className='text-[12px] mt-[4px] ml-[14px] text-[#f44336]'>{errors.domain}</p>
+                        )}
                     </div>
                 </div>
 

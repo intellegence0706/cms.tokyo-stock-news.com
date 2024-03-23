@@ -15,7 +15,7 @@ import TitleBar from '@/components/atoms/TitleBar';
 import MailItem from '../inbox_info/components/MailItem';
 
 const MailSentInfoPage = () => {
-    const { id } = useParams();
+    const { id, domain } = useParams();
     const dispatch = useAppDispatch();
 
     const filter = useAppSelector(state => state.mail.items.filter);
@@ -44,6 +44,10 @@ const MailSentInfoPage = () => {
     };
 
     const handleMakeAsReadClick = async (item: IMail) => {
+        if (item.read) {
+            return;
+        }
+
         const res = await postRequest(`/v0/mails/inbox/${item.id}/read`, null);
         if (res.status == 200) {
             fetchData();
@@ -54,7 +58,7 @@ const MailSentInfoPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>
+                    <TitleBar href={`/mail/sent/domain/${domain}`}>
                         <div className='w-full flex justify-between'>
                             {result.data.length > 0 && (
                                 <div className='w-full flex items-baseline gap-[20px]'>

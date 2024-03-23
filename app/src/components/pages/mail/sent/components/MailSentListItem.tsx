@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { IMail } from '@/interfaces';
 
 import { Avatar, AvatarGroup, Badge } from '@mui/material';
@@ -12,9 +12,10 @@ interface Props {
 
 const MailSentListItem = ({ item, className }: Props) => {
     const router = useRouter();
+    const { domain } = useParams();
 
     const handleItemClick = () => {
-        router.push(`/mail/sent/${item.id}`);
+        router.push(`/mail/sent/domain/${domain}/mail/${item.id}`);
     };
 
     return (
@@ -34,12 +35,12 @@ const MailSentListItem = ({ item, className }: Props) => {
             <td className='px-[16px] w-full'>
                 <div className='w-full flex items-baseline gap-[8px] text-[#212b36] mb-[8px]'>
                     <span className='text-[14px] line-clamp-1'>
-                        宛先: {item?.customers.map(customer => customer.name).join(', ')}
+                        {item?.customers.map(customer => customer.name).join(', ')}
                     </span>
                 </div>
 
                 <div className='w-full flex flex-row gap-3'>
-                    <h3 className='text-[#212b36] text-[14px]'>{item?.subject}</h3>
+                    <h3 className='text-[#212b36] text-[14px] line-clamp-1'>{item?.subject}</h3>
                     <span>-</span>
                     <p
                         className=' line-clamp-1 text-[#9192ab] text-[12px] italic'

@@ -18,7 +18,10 @@ const StatusTable = () => {
                             return (
                                 <TableRow hover role='checkbox' tabIndex={0} key={status.id}>
                                     <TableCell>{status.id}</TableCell>
-                                    <TableCell className='w-full'>{status.name}</TableCell>
+                                    <TableCell className='w-full'>
+                                        {status.name}
+                                        <span className='ml-3'>( {status.customer_cnt}人 )</span>
+                                    </TableCell>
                                     <TableCell>
                                         <Button
                                             onClick={() =>

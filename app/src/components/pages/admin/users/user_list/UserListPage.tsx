@@ -23,7 +23,7 @@ const UserListPage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin', 'member']}>
+            <PermissionLayout permission={['customer']} role={['admin']}>
                 <MainLayout>
                     <TitleBar>担当一覧</TitleBar>
 

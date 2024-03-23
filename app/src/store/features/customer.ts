@@ -152,16 +152,20 @@ export const slice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchCustomers.fulfilled, (state, action) => {
-            state.items = {
-                ...state.items,
-                result: action.payload.data as any
-            };
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
         });
         builder.addCase(fetchCustomer.fulfilled, (state, action) => {
-            state.item = {
-                ...state.item,
-                form: action.payload.data as any
-            };
+            if (action.payload.data && action.payload.data.id) {
+                state.item = {
+                    ...state.item,
+                    form: action.payload.data as any
+                };
+            }
         });
     }
 });

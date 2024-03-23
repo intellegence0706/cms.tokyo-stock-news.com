@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
+import { useParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchSentMails, reset } from '@/store/features/mail';
+import { fetchSentMails, reset, setFilterValue } from '@/store/features/mail';
 
 import AuthLayout from '@/components/templates/AuthLayout';
 import PermissionLayout from '@/components/templates/PermissionLayout';
@@ -11,6 +12,7 @@ import InboxTable from './sections/InboxTable';
 import TablePagination from './sections/TablePagination';
 
 const MailSentPage = () => {
+    const { domain } = useParams();
     const dispatch = useAppDispatch();
 
     const filter = useAppSelector(state => state.mail.items.filter);
@@ -23,6 +25,10 @@ const MailSentPage = () => {
     }, []);
 
     useEffect(() => {
+        dispatch(setFilterValue({ domain: domain.toString().replace(/%40/g, '@') }));
+    }, [domain]);
+
+    useEffect(() => {
         dispatch(fetchSentMails(filter));
     }, [filter]);
 
@@ -30,7 +36,10 @@ const MailSentPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>送信トレイ</TitleBar>
+                    <TitleBar href='/mail/sent'>
+                        送信トレイ
+                        <span className='text-sm font-normal ml-2 line-clamp-1'>{`<${filter.domain}>`}</span>
+                    </TitleBar>
 
                     <MainPannel>
                         <InboxTable />

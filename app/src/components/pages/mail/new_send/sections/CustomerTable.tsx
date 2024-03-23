@@ -4,6 +4,7 @@ import { setCurrentItemValue } from '@/store/features/mail';
 import moment from 'moment';
 
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Checkbox, Button } from '@mui/material';
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
 const CustomerTable = () => {
     const dispatch = useAppDispatch();
@@ -72,6 +73,22 @@ const CustomerTable = () => {
                                 </TableRow>
                             );
                         })}
+
+                        {result.data.length === 0 && (
+                            <TableRow className='h-[100px]'>
+                                <TableCell colSpan={15} align='center'>
+                                    <div className='w-full flex flex-col items-center justify-center gap-3'>
+                                        <FolderOpenIcon sx={{ fontSize: 100 }} className='text-[#697586]' />
+
+                                        <p>
+                                            顧客情報が見つかりませんでした。
+                                            <br />
+                                            検索条件を変更して再度検索してください。
+                                        </p>
+                                    </div>
+                                </TableCell>
+                            </TableRow>
+                        )}
                     </TableBody>
                 </Table>
             </TableContainer>

@@ -35,9 +35,9 @@ const UserCreatePage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin', 'member']}>
+            <PermissionLayout permission={['customer']} role={['admin']}>
                 <MainLayout>
-                    <TitleBar>新規担当登録</TitleBar>
+                    <TitleBar href='/admin/users'>新規担当登録</TitleBar>
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>

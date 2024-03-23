@@ -121,10 +121,12 @@ export const slice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchMailTemplates.fulfilled, (state, action) => {
-            state.items = {
-                ...state.items,
-                result: action.payload.data as any
-            };
+            if (action.payload.data.data) {
+                state.items = {
+                    ...state.items,
+                    result: action.payload.data as any
+                };
+            }
         });
         builder.addCase(fetchMailTemplate.fulfilled, (state, action) => {
             state.item = {

@@ -72,14 +72,20 @@ const Filter = () => {
                     </div>
                 </div>
 
-                
                 <Button
-                    variant="contained"
+                    variant='contained'
                     fullWidth
                     color='primary'
                     size='small'
                     onClick={() => dispatch(clearFilter())}
-                    sx={{ display: 'flex', alignItems: 'center', gap: '8px', px: 3, whiteSpace: 'nowrap', maxWidth: 150 }}
+                    sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        px: 3,
+                        whiteSpace: 'nowrap',
+                        maxWidth: 150
+                    }}
                 >
                     検索条件クリア
                 </Button>

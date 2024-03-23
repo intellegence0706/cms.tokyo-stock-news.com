@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, fetchMemoByCustomerId, setCurrentItem } from '@/store/features/memo';
 import moment from 'moment';
@@ -18,6 +19,7 @@ import MemoDialog from '../components/MemoDialog';
 const MemoForm = () => {
     const { id } = useParams();
     const dispatch = useAppDispatch();
+    const { user } = useAuth();
 
     const is_sp = useMediaQuery('(max-width: 768px)');
     const [currentDialog, setCurrentDialog] = useState(false);
@@ -34,6 +36,8 @@ const MemoForm = () => {
     };
 
     const handleEdit = (item: any) => {
+        if (item?.manager?.id !== user?.id) return;
+
         dispatch(setCurrentItem(item));
         setCurrentDialog(true);
     };

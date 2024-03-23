@@ -53,7 +53,7 @@ const CustomerEditPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>顧客情報</TitleBar>
+                    <TitleBar href='/customers'>顧客情報</TitleBar>
 
                     <MainPannel>
                         <div className='w-full h-full flex flex-col xl:flex-row gap-[24px]'>

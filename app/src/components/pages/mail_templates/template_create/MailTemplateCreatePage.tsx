@@ -37,7 +37,7 @@ const MailTemplateCreatePage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>新規テンプレート作成</TitleBar>
+                    <TitleBar href='/mail/templates'>新規テンプレート作成</TitleBar>
 
                     <MainPannel>
                         <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
