@@ -181,6 +181,8 @@ const CustomerForm = () => {
                         <MenuItem value={30}>30日</MenuItem>
                         <MenuItem value={60}>60日</MenuItem>
                         <MenuItem value={90}>90日</MenuItem>
+                        <MenuItem value={180}>180日</MenuItem>
+                        <MenuItem value={365}>365日</MenuItem>
                     </Select>
 
                     {errors.contract_days && (
