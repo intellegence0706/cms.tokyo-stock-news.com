@@ -143,8 +143,8 @@ const CustomerTable = () => {
                                 valid_days = moment(customer.contract_start_date)
                                     .add(customer.contract_days, 'days')
                                     .diff(moment(), 'days');
-                                
-                                if(valid_days < 0) valid_days = 0;
+
+                                if (valid_days < 0) valid_days = 0;
                             } else {
                                 valid_days = 0;
                             }
