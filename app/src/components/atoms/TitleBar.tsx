@@ -12,7 +12,7 @@ const TitleBar = ({ children, className, onClick, href }: Props) => {
         return (
             <Link
                 href={href}
-                className='w-full flex items-center gap-[8px] bg-white rounded-lg px-[16px] sm:px-[24px] py-[16px] mb-[24px] cursor-pointer'
+                className='w-full flex items-center gap-[8px] bg-white rounded-lg px-[16px] sm:px-[24px] py-[16px] mb-[24px] cursor-pointer hover:no-underline text-[#364152] hover:text-[#364152]'
             >
                 <h2 className='w-full flex whitespace-nowrap font-bold text-[20px] '>{children}</h2>
             </Link>
