@@ -92,7 +92,7 @@ const DomainForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>IMAP ホスト</FormLabel>
-                <div className='w-full lg:max-w-[420px]'>
+                {/* <div className='w-full lg:max-w-[420px]'>
                     <Select
                         fullWidth
                         size='small'
@@ -108,6 +108,16 @@ const DomainForm = () => {
                     </Select>
 
                     {errors.role && <p className='text-[12px] mt-[4px] ml-[14px] text-[#f44336]'>{errors.role}</p>}
+                </div> */}
+                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                    <TextField
+                        size='small'
+                        fullWidth
+                        value={currentItem.imap_host}
+                        onChange={e => dispatch(setCurrentItemValue({ imap_host: e.target.value }))}
+                        error={errors.imap_host ? true : false}
+                        helperText={errors.imap_host ? errors.imap_host : ''}
+                    />
                 </div>
             </div>
         </>

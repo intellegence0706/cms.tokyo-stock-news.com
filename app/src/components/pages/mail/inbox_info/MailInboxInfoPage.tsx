@@ -71,9 +71,12 @@ const MailInboxPage = () => {
         <AuthLayout>
             <PermissionLayout permission={['customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar >
+                    <TitleBar>
                         <div className='w-full flex justify-between'>
-                            <Link className='w-full flex items-baseline gap-[20px]' href={`/mail/inbox/domain/${domain}`}>
+                            <Link
+                                className='w-full flex items-baseline gap-[20px]'
+                                href={`/mail/inbox/domain/${domain}`}
+                            >
                                 <Avatar sx={{ bgcolor: deepOrange[500], color: 'white' }}>
                                     {result.customer?.name?.charAt(0)}
                                 </Avatar>
