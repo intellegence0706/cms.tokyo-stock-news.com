@@ -72,7 +72,7 @@ const CustomerTable = () => {
                                         onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
                                     />
                                 </TableCell>
-                            )}
+                            )} 
                             <TableCell style={{ minWidth: 120 }}>
                                 <SorterItem
                                     label='入金日'
