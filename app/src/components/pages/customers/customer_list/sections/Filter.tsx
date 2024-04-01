@@ -76,7 +76,6 @@ const Filter = () => {
     };
 
     const handleExport = async () => {
-        
         setPending && setPending(true);
         const res = await getBlobRequest('v0/customers/download');
         if (res.status == 200) {

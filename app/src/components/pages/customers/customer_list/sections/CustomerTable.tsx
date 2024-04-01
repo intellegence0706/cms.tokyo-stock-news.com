@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setFilterValue } from '@/store/features/customer';
 import moment from 'moment';
@@ -9,6 +10,7 @@ import UserAnalysisDialog from '../components/UserAnalysisDialog';
 import SorterItem from '../components/SorterItem';
 
 const CustomerTable = () => {
+    const { user } = useAuth();
     const dispatch = useAppDispatch();
 
     const [currentUserId, setCurrentUserId] = useState<number | null>(null);
@@ -61,14 +63,16 @@ const CustomerTable = () => {
                                     onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
                                 />
                             </TableCell>
-                            <TableCell style={{ minWidth: 100 }}>
-                                <SorterItem
-                                    label='担当者'
-                                    value='manager__user_info__name'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
+                            {user?.user_info.role.role_id == 'admin' && (
+                                <TableCell style={{ minWidth: 100 }}>
+                                    <SorterItem
+                                        label='担当者'
+                                        value='manager__user_info__name'
+                                        current={filter.order_by}
+                                        onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
+                                    />
+                                </TableCell>
+                            )}
                             <TableCell style={{ minWidth: 120 }}>
                                 <SorterItem
                                     label='入金日'
@@ -156,11 +160,16 @@ const CustomerTable = () => {
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>{customer?.name}</TableCell>
                                     <TableCell>{customer.phone}</TableCell>
                                     <TableCell>{customer.email}</TableCell>
-                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>
-                                        <Button color='secondary' onClick={() => setCurrentUserId(customer.manager.id)}>
-                                            {customer.manager.name}
-                                        </Button>
-                                    </TableCell>
+                                    {user?.user_info.role.role_id == 'admin' && (
+                                        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+                                            <Button
+                                                color='secondary'
+                                                onClick={() => setCurrentUserId(customer.manager.id)}
+                                            >
+                                                {customer.manager.name}
+                                            </Button>
+                                        </TableCell>
+                                    )}
                                     <TableCell>
                                         {customer?.deposit_date
                                             ? moment(customer?.deposit_date).format('YYYY/MM/DD')
@@ -190,7 +199,7 @@ const CustomerTable = () => {
 
                         {result.data.length === 0 && (
                             <TableRow className='h-[100px]'>
-                                <TableCell colSpan={15} align='center'>
+                                <TableCell colSpan={user?.user_info.role.role_id == 'admin' ? 15 : 14} align='center'>
                                     <div className='w-full flex flex-col items-center justify-center gap-3'>
                                         <FolderOpenIcon sx={{ fontSize: 100 }} className='text-[#697586]' />
 

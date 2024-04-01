@@ -124,7 +124,9 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
                                         ? moment(row.contract_start_date).format('YYYY/MM/DD')
                                         : ''}
                                 </TableCell>
-                                <TableCell>{row.contract_days} {parseInt(row.contract_days) > 0 ? '日' : ''}</TableCell>
+                                <TableCell>
+                                    {row.contract_days} {parseInt(row.contract_days) > 0 ? '日' : ''}
+                                </TableCell>
                                 <TableCell className='whitespace-nowrap'>
                                     {shared_data.property_data.find(item => item.property_type == row.property)?.name}
                                 </TableCell>
@@ -219,12 +221,21 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
                                             ? moment(row.data?.contract_start_date).format('YYYY/MM/DD')
                                             : ''}
                                     </TableCell>
-                                    <TableCell>{row.data.contract_days} {parseInt(row.data.contract_days) > 0 ? '日' : ''}</TableCell>
-                                    <TableCell className='whitespace-nowrap'>
-                                        {shared_data.property_data.find(item => item.property_type == row.data.property)?.name}
+                                    <TableCell>
+                                        {row.data.contract_days} {parseInt(row.data.contract_days) > 0 ? '日' : ''}
                                     </TableCell>
                                     <TableCell className='whitespace-nowrap'>
-                                        {shared_data.status_data.find(item => item.status_type == row.data.status)?.name}
+                                        {
+                                            shared_data.property_data.find(
+                                                item => item.property_type == row.data.property
+                                            )?.name
+                                        }
+                                    </TableCell>
+                                    <TableCell className='whitespace-nowrap'>
+                                        {
+                                            shared_data.status_data.find(item => item.status_type == row.data.status)
+                                                ?.name
+                                        }
                                     </TableCell>
                                     <TableCell>{row.data.system_provided}</TableCell>
                                 </TableRow>
