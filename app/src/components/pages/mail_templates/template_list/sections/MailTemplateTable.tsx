@@ -27,7 +27,7 @@ const MailTemplateTable = () => {
                             <TableRow hover role='checkbox' tabIndex={-1} key={template.id}>
                                 <TableCell>{template.id}</TableCell>
                                 <TableCell>{template.subject}</TableCell>
-                                <TableCell>{template.publisher.user_info.name}</TableCell>
+                                <TableCell>{template.publisher.name}</TableCell>
                                 <TableCell>{moment(template?.created_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
                                 <TableCell>{moment(template?.updated_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
                                 <TableCell>

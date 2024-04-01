@@ -1,19 +1,90 @@
-import { useState } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
+import { ICsvCustomer } from '@/interfaces';
+import { getBlobRequest } from '@/utils/axios';
+import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearFilter, setFilterValue } from '@/store/features/customer';
+import * as XLSX from 'xlsx';
+import FileDownload from 'js-file-download';
 
 import { Button, InputAdornment, MenuItem, Select, TextField } from '@mui/material';
 import { IoSearch } from 'react-icons/io5';
-import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import FormLabel from '@/components/atoms/FormLabel';
+import CSV_Btn from '@/components/molecules/CSV_Btn';
 import ImportCSVDialog from '../components/ImportCSVDialog';
+import moment from 'moment';
 
 const Filter = () => {
+    const { setPending } = useAuth();
     const dispatch = useAppDispatch();
 
-    const [open, setOpen] = useState(false);
+    const ref = useRef<HTMLInputElement | null>(null);
+    const [items, setItems] = useState<ICsvCustomer[]>([]);
     const filter = useAppSelector(state => state.customer.items.filter);
     const shared_data = useAppSelector(state => state.shared_data);
+
+    const handleImport = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!(e.target.files && e.target.files.length > 0)) return;
+
+        const file = e.target.files[0];
+        const promise = new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsArrayBuffer(file);
+            fileReader.onload = ev => {
+                const bufferArray = ev?.target?.result;
+                const wb = XLSX.read(bufferArray, {
+                    type: 'buffer'
+                });
+
+                const sheet_names = wb.SheetNames;
+                // let data: any = {};
+                // sheet_names.forEach(sheet => {
+                //     data[sheet] = XLSX.utils.sheet_to_json(wb.Sheets[sheet]);
+                // });
+                const data = XLSX.utils.sheet_to_json(wb.Sheets[sheet_names[0]]);
+                resolve(data);
+            };
+            fileReader.onerror = error => {
+                reject(error);
+            };
+        });
+        promise.then((data: any) => {
+            try {
+                let result = data.map((item: any) => {
+                    return {
+                        name: item['氏名'] || null,
+                        email: item['メールアドレス'] || null,
+                        phone: item['電話番号'] || null,
+                        email_2: item['メールアドレス2'] || null,
+                        phone_2: item['電話番号2'] || null,
+                        manager: item['担当者'] || null,
+                        ads: item['広告媒体'] || null,
+                        deposit_date: item['入金日'] || null,
+                        contract_start_date: item['契約開始日'] || null,
+                        contract_days: item['契約日数'] || null,
+                        property: item['属性'] || null,
+                        status: item['ステータス'] || null,
+                        system_provided: item['システム提供'] || 'NG'
+                    };
+                });
+                setItems(result);
+            } catch (error) {
+                alert('エラーが発生しました。');
+                setItems([]);
+            }
+        });
+    };
+
+    const handleExport = async () => {
+        
+        setPending && setPending(true);
+        const res = await getBlobRequest('v0/customers/download');
+        if (res.status == 200) {
+            FileDownload(res.data, `顧客一覧_${moment().format('YYYYMMDDHHmmss')}.xlsx`);
+        }
+
+        setPending && setPending(false);
+    };
 
     return (
         <div className='w-full flex flex-col-reverse xl:flex-row items-end xl:items-center justify-between gap-[16px] mb-[16px]'>
@@ -92,18 +163,11 @@ const Filter = () => {
             </div>
 
             <div className='flex items-center'>
-                <Button
-                    variant='text'
-                    color='primary'
-                    size='small'
-                    onClick={() => setOpen(true)}
-                    sx={{ display: 'flex', alignItems: 'center', gap: '8px', px: 3, whiteSpace: 'nowrap' }}
-                >
-                    <FolderCopyIcon sx={{ fontSize: 16 }} /> CSV一括登録
-                </Button>
+                <CSV_Btn onExport={handleExport} onImport={() => ref.current?.click()} />
+                <input type='file' ref={ref} className='hidden' value='' onChange={handleImport} />
             </div>
 
-            <ImportCSVDialog open={open} onClose={() => setOpen(false)} />
+            <ImportCSVDialog open={items.length > 0} onClose={() => setItems([])} items={items} />
         </div>
     );
 };

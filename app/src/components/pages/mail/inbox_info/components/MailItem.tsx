@@ -49,7 +49,7 @@ const MailItem = ({ item, className }: Props) => {
             <div className='text-[#212b36]'>
                 <h2 className='font-bold mb-[12px]'>{item.subject}</h2>
 
-                <p className=' whitespace-pre-wrap' dangerouslySetInnerHTML={{ __html: item.body }}></p>
+                <p className=' whitespace-pre-wrap break-all' dangerouslySetInnerHTML={{ __html: item.body }}></p>
             </div>
 
             <div className='mt-[16px] w-full flex flex-col gap-[16px]'>
