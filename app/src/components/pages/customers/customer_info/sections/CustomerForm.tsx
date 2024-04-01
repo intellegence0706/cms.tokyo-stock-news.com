@@ -32,7 +32,7 @@ const CustomerForm = () => {
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>担当</FormLabel>
                 <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
-                    <TextField size='small' fullWidth value={currentItem.manager?.user_info.name} />
+                    <TextField size='small' fullWidth value={currentItem.manager?.name} />
                 </div>
             </div>
 

@@ -1,7 +1,7 @@
-import 'react-csv-importer/dist/index.css';
-
 import { useEffect, useState } from 'react';
 import { postRequest } from '@/utils/axios';
+import { ICsvCustomer } from '@/interfaces';
+import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { fetchCustomers } from '@/store/features/customer';
 import moment from 'moment';
@@ -17,29 +17,31 @@ import {
     Typography
 } from '@mui/material';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import { Importer, ImporterField } from 'react-csv-importer';
 
 interface Props {
     open: boolean;
     onClose: () => void;
+    items: ICsvCustomer[];
 }
 
-const ImportCSVDialog = ({ open, onClose }: Props) => {
+const ImportCSVDialog = ({ open, onClose, items }: Props) => {
+    const { user } = useAuth();
     const dispatch = useAppDispatch();
 
-    const [data, setData] = useState<any[]>([]);
+    const [data, setData] = useState<ICsvCustomer[]>([]);
     const [result, setResult] = useState<any[]>([]);
     const [doneCnt, setDoneCnt] = useState(0);
     const [step, setStep] = useState(0);
 
     const filter = useAppSelector(state => state.customer.items.filter);
+    const shared_data = useAppSelector(state => state.shared_data);
 
     useEffect(() => {
-        if (data.length > 0) handleUpload();
-    }, [data]);
+        setData(items);
+    }, [items]);
 
     useEffect(() => {
-        if (open) {
+        if (!open) {
             setData([]);
             setResult([]);
             setDoneCnt(0);
@@ -77,8 +79,8 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
 
     const Step0 = (
         <div>
-            <Typography variant='h3' sx={{ fontSize: 14, fontWeight: 500 }}>
-                - サンプルデータ
+            <Typography variant='h3' sx={{ fontSize: 14, fontWeight: 500, mb: 3 }}>
+                - プレビュー
             </Typography>
 
             <TableContainer>
@@ -89,6 +91,9 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>名前</TableCell>
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>電話番号</TableCell>
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>メールアドレス</TableCell>
+                            {user?.user_info.role.role_id == 'admin' && (
+                                <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>担当者</TableCell>
+                            )}
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>入金日</TableCell>
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>契約開始日</TableCell>
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>契約日数</TableCell>
@@ -98,48 +103,40 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <TableRow hover role='checkbox' tabIndex={-1}>
-                            <TableCell>Google</TableCell>
-                            <TableCell>山田 太郎</TableCell>
-                            <TableCell>090-1234-5678</TableCell>
-                            <TableCell>yamata.taro@gmail.com</TableCell>
-                            <TableCell>2022-12-31</TableCell>
-                            <TableCell>2022-01-01</TableCell>
-                            <TableCell>365</TableCell>
-                            <TableCell>５千万以上</TableCell>
-                            <TableCell>勧誘</TableCell>
-                            <TableCell>OK</TableCell>
-                        </TableRow>
+                        {data.map((row, index) => (
+                            <TableRow hover role='checkbox' tabIndex={-1} key={index}>
+                                <TableCell>{row.ads}</TableCell>
+                                <TableCell className=' whitespace-nowrap'>{row.name}</TableCell>
+                                <TableCell>{row.phone}</TableCell>
+                                <TableCell>{row.email}</TableCell>
+                                {user?.user_info.role.role_id == 'admin' && (
+                                    <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>
+                                        {row.manager == '' ? user.user_info.name : row.manager}
+                                    </TableCell>
+                                )}
+                                <TableCell>
+                                    {moment(row.deposit_date).isValid()
+                                        ? moment(row.deposit_date).format('YYYY/MM/DD')
+                                        : ''}
+                                </TableCell>
+                                <TableCell>
+                                    {moment(row.contract_start_date).isValid()
+                                        ? moment(row.contract_start_date).format('YYYY/MM/DD')
+                                        : ''}
+                                </TableCell>
+                                <TableCell>{row.contract_days} {parseInt(row.contract_days) > 0 ? '日' : ''}</TableCell>
+                                <TableCell className='whitespace-nowrap'>
+                                    {shared_data.property_data.find(item => item.property_type == row.property)?.name}
+                                </TableCell>
+                                <TableCell className='whitespace-nowrap'>
+                                    {shared_data.status_data.find(item => item.status_type == row.status)?.name}
+                                </TableCell>
+                                <TableCell>{row.system_provided}</TableCell>
+                            </TableRow>
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-
-            <Importer
-                dataHandler={async rows => {
-                    let temp = rows.map((row: any) => ({
-                        ...row,
-                        deposit_date: row.deposit_date ? moment(row.deposit_date).format('YYYY-MM-DD') : null,
-                        contract_start_date: row.contract_start_date
-                            ? moment(row.contract_start_date).format('YYYY-MM-DD')
-                            : null
-                    }));
-                    setData(temp);
-                    setStep(1);
-                }}
-                defaultNoHeader={false}
-                restartable={false}
-            >
-                <ImporterField name='ads' label='広告媒体' optional />
-                <ImporterField name='name' label='氏名' />
-                <ImporterField name='phone' label='電話番号' />
-                <ImporterField name='email' label='メールアドレス' />
-                <ImporterField name='deposit_date' label='入金日' optional />
-                <ImporterField name='contract_start_date' label='契約開始日' optional />
-                <ImporterField name='contract_days' label='契約日数' optional />
-                <ImporterField name='property' label='属性' optional />
-                <ImporterField name='status' label='ステータス' optional />
-                <ImporterField name='system_provided' label='システム提供' optional />
-            </Importer>
         </div>
     );
 
@@ -180,6 +177,9 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>名前</TableCell>
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>電話番号</TableCell>
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>メールアドレス</TableCell>
+                            {user?.user_info.role.role_id == 'admin' && (
+                                <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>担当者</TableCell>
+                            )}
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>入金日</TableCell>
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>契約開始日</TableCell>
                             <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>契約日数</TableCell>
@@ -190,39 +190,6 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
                     </TableHead>
                     <TableBody>
                         {result.map((row, index) => {
-                            if (row.status == 200) {
-                                return (
-                                    <TableRow
-                                        hover
-                                        role='checkbox'
-                                        tabIndex={-1}
-                                        key={index}
-                                        sx={{
-                                            backgroundColor: '#ccffcc'
-                                        }}
-                                    >
-                                        <TableCell>{row.data.ads}</TableCell>
-                                        <TableCell>{row.data.name}</TableCell>
-                                        <TableCell>{row.data.phone}</TableCell>
-                                        <TableCell>{row.data.email}</TableCell>
-                                        <TableCell>
-                                            {row.data?.deposit_date
-                                                ? moment(row.data?.deposit_date).format('YYYY/MM/DD')
-                                                : ''}
-                                        </TableCell>
-                                        <TableCell>
-                                            {row.data?.contract_start_date
-                                                ? moment(row.data?.contract_start_date).format('YYYY/MM/DD')
-                                                : ''}
-                                        </TableCell>
-                                        <TableCell>{row.data.contract_days} 日</TableCell>
-                                        <TableCell>{row.data.property?.name}</TableCell>
-                                        <TableCell>{row.data.status?.name}</TableCell>
-                                        <TableCell>{row.data.system_provided ? 'OK' : 'NG'}</TableCell>
-                                    </TableRow>
-                                );
-                            }
-
                             return (
                                 <TableRow
                                     hover
@@ -230,13 +197,18 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
                                     tabIndex={-1}
                                     key={index}
                                     sx={{
-                                        backgroundColor: '#ffcccc'
+                                        backgroundColor: row.status == 200 ? '#ccffcc' : '#ffcccc'
                                     }}
                                 >
                                     <TableCell>{row.data.ads}</TableCell>
                                     <TableCell>{row.data.name}</TableCell>
                                     <TableCell>{row.data.phone}</TableCell>
                                     <TableCell>{row.data.email}</TableCell>
+                                    {user?.user_info.role.role_id == 'admin' && (
+                                        <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>
+                                            {row.data.manager?.name}
+                                        </TableCell>
+                                    )}
                                     <TableCell>
                                         {row.data?.deposit_date
                                             ? moment(row.data?.deposit_date).format('YYYY/MM/DD')
@@ -247,10 +219,14 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
                                             ? moment(row.data?.contract_start_date).format('YYYY/MM/DD')
                                             : ''}
                                     </TableCell>
-                                    <TableCell>{row.data.contract_days} 日</TableCell>
-                                    <TableCell>{row.data.property}</TableCell>
-                                    <TableCell>{row.data.status}</TableCell>
-                                    <TableCell>{row.data.system_provided ? 'OK' : 'NG'}</TableCell>
+                                    <TableCell>{row.data.contract_days} {parseInt(row.data.contract_days) > 0 ? '日' : ''}</TableCell>
+                                    <TableCell className='whitespace-nowrap'>
+                                        {shared_data.property_data.find(item => item.property_type == row.data.property)?.name}
+                                    </TableCell>
+                                    <TableCell className='whitespace-nowrap'>
+                                        {shared_data.status_data.find(item => item.status_type == row.data.status)?.name}
+                                    </TableCell>
+                                    <TableCell>{row.data.system_provided}</TableCell>
                                 </TableRow>
                             );
                         })}
@@ -262,14 +238,19 @@ const ImportCSVDialog = ({ open, onClose }: Props) => {
 
     return (
         <Dialog open={open} onClose={onClose} fullWidth maxWidth='xl'>
-            <DialogTitle sx={{ fontSize: 16, fontWeight: 700 }}>csv一括登録する</DialogTitle>
+            <DialogTitle sx={{ fontSize: 16, fontWeight: 700 }}>一括登録する</DialogTitle>
             <DialogContent>
                 {step == 0 && Step0}
                 {step == 1 && Step1}
                 {step == 2 && Step2}
             </DialogContent>
             <DialogActions>
-                <Button autoFocus color='secondary' onClick={onClose}>
+                {step == 0 && (
+                    <Button autoFocus color='secondary' variant='contained' onClick={handleUpload}>
+                        アップロード
+                    </Button>
+                )}
+                <Button autoFocus color='secondary' variant='outlined' onClick={onClose}>
                     閉じる
                 </Button>
             </DialogActions>

@@ -94,7 +94,7 @@ const MemoForm = () => {
                             <TimelineContent sx={{ py: '12px', px: 2, width: '100%' }}>
                                 <Typography variant='h6' component='div'>
                                     <div className='px-2'>
-                                        <span>{item.manager.user_info.name}</span>
+                                        <span>{item.manager.name}</span>
 
                                         {is_sp && (
                                             <div className='flex justify-end text-gray-600 gap-[4px]'>

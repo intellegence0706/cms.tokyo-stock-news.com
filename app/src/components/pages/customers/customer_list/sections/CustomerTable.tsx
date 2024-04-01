@@ -158,7 +158,7 @@ const CustomerTable = () => {
                                     <TableCell>{customer.email}</TableCell>
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>
                                         <Button color='secondary' onClick={() => setCurrentUserId(customer.manager.id)}>
-                                            {customer.manager.user_info.name}
+                                            {customer.manager.name}
                                         </Button>
                                     </TableCell>
                                     <TableCell>

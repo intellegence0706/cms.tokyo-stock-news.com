@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { ICustomer, IUser } from '@/interfaces';
+import { ICustomer, IName } from '@/interfaces';
 import { getRequest } from '@/utils/axios';
 
 type State = {
@@ -18,7 +18,7 @@ type State = {
             contract_days: number;
             property: number;
             status: number;
-            manager?: IUser;
+            manager?: IName;
             system_provided: boolean;
         };
         errors: any;

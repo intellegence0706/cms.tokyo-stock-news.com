@@ -1,4 +1,4 @@
-import { IProperty, IRole, IStatus } from './data';
+import { IProperty, IRole, IStatus, IName } from './data';
 export * from './data';
 
 export interface IUser {
@@ -38,23 +38,39 @@ export interface ICustomer {
 
     property: IProperty;
     status: IStatus;
-    manager: IUser;
+    manager: IName;
     system_provided: boolean;
 
     created_at?: string;
     updated_at?: string;
 }
 
+export interface ICsvCustomer {
+    name: string;
+    email: string;
+    phone: string;
+    email_2: string;
+    phone_2: string;
+    manager?: string;
+    ads: string;
+    deposit_date: string;
+    contract_start_date: string;
+    contract_days: string;
+    property: '' | 'A' | 'B' | 'C' | 'D' | 'E';
+    status: '' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8';
+    system_provided: 'OK' | 'NG';
+}
+
 export interface IMemo {
     id: number;
-    manager: IUser;
+    manager: IName;
     content: string;
     created_at: string;
 }
 
 export interface IMailTemplate {
     id: number;
-    publisher: IUser;
+    publisher: IName;
     subject: string;
     body: string;
 
