@@ -5,7 +5,7 @@ import MainLayout from '@/components/templates/layout/MainLayout';
 const DashboardPage = () => {
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin', 'member']}>
+            <PermissionLayout permission={['customer', 'owner', 'super']} role={['admin', 'member']}>
                 <MainLayout>
                     <div></div>
                 </MainLayout>

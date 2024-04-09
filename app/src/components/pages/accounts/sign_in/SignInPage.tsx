@@ -32,12 +32,8 @@ const SignInPage = () => {
         login &&
             (await login(currentItem, user => {
                 if (user) {
-                    if (user?.permission == 'customer') {
-                        router.push('/dashboard');
-                        dispatch(appendMessage({ type: 'success', message: 'ログインしました。' }));
-                    } else {
-                        dispatch(appendMessage({ type: 'error', message: 'このアカウントでログインできません。' }));
-                    }
+                    router.push('/dashboard');
+                    dispatch(appendMessage({ type: 'success', message: 'ログインしました。' }));
                 } else {
                     dispatch(appendMessage({ type: 'error', message: 'IDまたはパスワードが間違っています。' }));
                 }

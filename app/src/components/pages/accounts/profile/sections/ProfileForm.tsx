@@ -11,7 +11,7 @@ import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
 
 const ProfileForm = () => {
-    const { refresh, setPending } = useAuth();
+    const { refresh, setPending, user } = useAuth();
     const dispatch = useAppDispatch();
 
     const currentItem = useAppSelector(state => state.profile.item.form);
@@ -78,7 +78,7 @@ const ProfileForm = () => {
 
                     {/* ************************************************************************ */}
                     <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                        <FormLabel className='min-w-[134px] mt-[10px]'>氏名</FormLabel>
+                        <FormLabel className='min-w-[134px] mt-[10px]'>氏名(ふりがな)</FormLabel>
                         <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                             <TextField
                                 size='small'
@@ -130,24 +130,26 @@ const ProfileForm = () => {
                     </div>
 
                     {/* ************************************************************************ */}
-                    <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                        <FormLabel className='min-w-[134px] mt-[10px]'>権限</FormLabel>
-                        <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
-                            <Select
-                                fullWidth
-                                size='small'
-                                value={currentItem.role}
-                                onChange={e => dispatch(setCurrentItemValue({ role: e.target.value }))}
-                                readOnly
-                            >
-                                {shared_data.role_data.map(role => (
-                                    <MenuItem value={role.id} key={role.id}>
-                                        {role.name}
-                                    </MenuItem>
-                                ))}
-                            </Select>
+                    {user?.permission == 'customer' && (
+                        <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
+                            <FormLabel className='min-w-[134px] mt-[10px]'>権限</FormLabel>
+                            <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                                <Select
+                                    fullWidth
+                                    size='small'
+                                    value={currentItem.role}
+                                    onChange={e => dispatch(setCurrentItemValue({ role: e.target.value }))}
+                                    readOnly
+                                >
+                                    {shared_data.role_data.map(role => (
+                                        <MenuItem value={role.id} key={role.id}>
+                                            {role.name}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* ************************************************************************ */}
                     <div className='mt-[16px]'>

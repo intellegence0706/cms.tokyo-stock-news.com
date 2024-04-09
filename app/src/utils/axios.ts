@@ -6,7 +6,7 @@ import { loading, appendMessage } from '@/store/features/utils';
 const dispatch = store.dispatch;
 
 const COOKIE_NAME = process.env.NEXT_PUBLIC_COOKIE_NAME || 'stock_news_token';
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+export const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
 
 export const baseURL = `${BACKEND_URL}/api`;
 export const mediaURL = `${BACKEND_URL}/media`;
