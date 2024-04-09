@@ -1,6 +1,6 @@
 import { AiOutlineHome } from 'react-icons/ai';
-import { LuDatabaseBackup } from "react-icons/lu";
-import { MdOutlineBackup } from "react-icons/md";
+import { LuDatabaseBackup } from 'react-icons/lu';
+import { MdOutlineBackup } from 'react-icons/md';
 // constant
 const icons = {
     AiOutlineHome,
@@ -26,7 +26,7 @@ const pages = {
             id: 'backup',
             title: 'バックアップ管理',
             type: 'item',
-            url: '/backup',
+            url: '/admin/backup',
             icon: icons.MdOutlineBackup,
             breadcrumbs: false
         }

@@ -14,7 +14,7 @@ export interface IUser {
         phone: string;
         role: IRole;
     };
-    permission: 'owner' | 'customer' | "super";
+    permission: 'owner' | 'customer' | 'super';
     is_active: boolean;
     is_allowed: boolean;
 
@@ -134,4 +134,10 @@ export interface IMailInbox {
     last_message?: IMail;
     message_cnt?: number;
     new_message_cnt?: number;
+}
+
+export interface IBackup {
+    time: string;
+    db: string;
+    media: string;
 }
