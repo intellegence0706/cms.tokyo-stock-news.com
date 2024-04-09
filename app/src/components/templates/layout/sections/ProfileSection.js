@@ -154,7 +154,7 @@ const ProfileSection = () => {
                                                     {user.user_info.last_name} {user.user_info.first_name}
                                                 </Typography>
                                             </Stack>
-                                            <Typography variant='subtitle2'>{user.user_info.role.name}</Typography>
+                                            {user.permission == "customer" && <Typography variant='subtitle2'>{user.user_info.role.name}</Typography>}
                                         </Stack>
                                     </Box>
                                     <PerfectScrollbar
@@ -201,7 +201,7 @@ const ProfileSection = () => {
                                                         }
                                                     />
                                                 </ListItemButton>
-                                                <ListItemButton
+                                                {user.permission == "customer" && <ListItemButton
                                                     sx={{
                                                         borderRadius: `${customization.borderRadius}px`
                                                     }}
@@ -217,20 +217,10 @@ const ProfileSection = () => {
                                                                 <Grid item>
                                                                     <Typography variant='body2'>受信トレイ</Typography>
                                                                 </Grid>
-                                                                {/* <Grid item>
-                                                                    <Chip
-                                                                        label='02'
-                                                                        size='small'
-                                                                        sx={{
-                                                                            bgcolor: theme.palette.warning.dark,
-                                                                            color: theme.palette.background.default
-                                                                        }}
-                                                                    />
-                                                                </Grid> */}
                                                             </Grid>
                                                         }
                                                     />
-                                                </ListItemButton>
+                                                </ListItemButton>}
                                                 <ListItemButton
                                                     sx={{
                                                         borderRadius: `${customization.borderRadius}px`

@@ -7,7 +7,7 @@ import ProfileForm from './sections/ProfileForm';
 const ProfilePage = () => {
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin', 'member']}>
+            <PermissionLayout permission={['customer', "super", 'owner']} role={['admin', 'member']}>
                 <MainLayout>
                     <div className='w-full flex flex-col gap-[24px]'>
                         <ProfileForm />

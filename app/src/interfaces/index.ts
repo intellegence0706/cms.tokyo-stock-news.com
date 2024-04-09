@@ -14,7 +14,7 @@ export interface IUser {
         phone: string;
         role: IRole;
     };
-    permission: 'owner' | 'customer';
+    permission: 'owner' | 'customer' | "super";
     is_active: boolean;
     is_allowed: boolean;
 
