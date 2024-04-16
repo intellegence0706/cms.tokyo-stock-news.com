@@ -128,10 +128,10 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
                                     {row.contract_days} {parseInt(row.contract_days) > 0 ? '日' : ''}
                                 </TableCell>
                                 <TableCell className='whitespace-nowrap'>
-                                    {shared_data.property_data.find(item => item.property_type == row.property)?.name}
+                                    {shared_data.property_data.find(item => item.property_type == row.property || item.name == row.property)?.name}
                                 </TableCell>
                                 <TableCell className='whitespace-nowrap'>
-                                    {shared_data.status_data.find(item => item.status_type == row.status)?.name}
+                                    {shared_data.status_data.find(item => item.status_type == row.status || item.name == row.status)?.name}
                                 </TableCell>
                                 <TableCell>{row.system_provided}</TableCell>
                             </TableRow>
@@ -227,13 +227,13 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
                                     <TableCell className='whitespace-nowrap'>
                                         {
                                             shared_data.property_data.find(
-                                                item => item.property_type == row.data.property
+                                                item => item.property_type == row.data.property || item.name == row.data.property
                                             )?.name
                                         }
                                     </TableCell>
                                     <TableCell className='whitespace-nowrap'>
                                         {
-                                            shared_data.status_data.find(item => item.status_type == row.data.status)
+                                            shared_data.status_data.find(item => item.status_type == row.data.status || item.name == row.data.status)
                                                 ?.name
                                         }
                                     </TableCell>
