@@ -111,7 +111,7 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
                                 <TableCell>{row.email}</TableCell>
                                 {user?.user_info.role.role_id == 'admin' && (
                                     <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>
-                                        {row.manager == '' ? user.user_info.name : row.manager}
+                                        {(row.manager || '' == '') ? user.user_info.name : row.manager}
                                     </TableCell>
                                 )}
                                 <TableCell>
