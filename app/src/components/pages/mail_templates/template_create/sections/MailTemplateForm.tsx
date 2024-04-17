@@ -14,7 +14,7 @@ const MailTemplateForm = () => {
         <>
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>件名</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full lg:max-w-[820px] flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -28,7 +28,7 @@ const MailTemplateForm = () => {
 
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>本文</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full lg:max-w-[820px] flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
