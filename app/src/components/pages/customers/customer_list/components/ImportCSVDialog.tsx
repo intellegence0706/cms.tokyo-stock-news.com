@@ -25,7 +25,7 @@ interface Props {
 }
 
 const ImportCSVDialog = ({ open, onClose, items }: Props) => {
-    const { user } = useAuth();
+    const { user, setPending } = useAuth();
     const dispatch = useAppDispatch();
 
     const [data, setData] = useState<ICsvCustomer[]>([]);
@@ -48,6 +48,7 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
     }, [open]);
 
     const handleUpload = async () => {
+        setPending&& setPending(true);
         setResult([]);
 
         // chunk 100 件ごとにデータを登録する
@@ -75,6 +76,7 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
         setResult(temp_result);
         dispatch(fetchCustomers(filter));
         setStep(2);
+        setPending&& setPending(false);
     };
 
     const Step0 = (
