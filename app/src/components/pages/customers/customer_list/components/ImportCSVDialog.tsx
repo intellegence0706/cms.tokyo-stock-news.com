@@ -42,8 +42,6 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
 
     useEffect(() => {
         if (!open) {
-            setData([]);
-            setResult([]);
             setDoneCnt(0);
             setStep(0);
         }
@@ -57,12 +55,13 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
         let chunk = data.slice(0, chunkSize);
         let rest = data.slice(chunkSize);
         let cnt = 0;
+        let temp_result: any[] = []
         while (chunk.length > 0) {
             const res = await postRequest('v0/customers/batch_create', {
                 data: chunk
             });
             if (res.status == 200) {
-                setResult([...result, ...res.data]);
+                temp_result = [...temp_result, ...res.data];
 
                 cnt += chunk.length;
                 setDoneCnt(cnt);
@@ -73,6 +72,7 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
             }
         }
 
+        setResult(temp_result);
         dispatch(fetchCustomers(filter));
         setStep(2);
     };
