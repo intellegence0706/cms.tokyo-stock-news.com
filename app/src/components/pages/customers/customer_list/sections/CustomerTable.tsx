@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setFilterValue } from '@/store/features/customer';
@@ -9,8 +10,13 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import UserAnalysisDialog from '../components/UserAnalysisDialog';
 import SorterItem from '../components/SorterItem';
 
-const CustomerTable = () => {
+interface Props {
+    search_url?: string;
+}
+
+const CustomerTable = ({ search_url }: Props) => {
     const { user } = useAuth();
+    const router = useRouter();
     const dispatch = useAppDispatch();
 
     const [currentUserId, setCurrentUserId] = useState<number | null>(null);
@@ -154,7 +160,14 @@ const CustomerTable = () => {
                             }
 
                             return (
-                                <TableRow hover role='checkbox' tabIndex={-1} key={customer.id}>
+                                <TableRow
+                                    hover
+                                    role='checkbox'
+                                    tabIndex={-1}
+                                    key={customer.id}
+                                    className=' hover:cursor-pointer'
+                                    onClick={() => router.push(`/customers/${customer.id}?${search_url}`)}
+                                >
                                     <TableCell>{customer.id}</TableCell>
                                     <TableCell>{customer.ads}</TableCell>
                                     <TableCell sx={{ whiteSpace: 'nowrap' }}>{customer?.name}</TableCell>
@@ -164,7 +177,10 @@ const CustomerTable = () => {
                                         <TableCell sx={{ whiteSpace: 'nowrap' }}>
                                             <Button
                                                 color='secondary'
-                                                onClick={() => setCurrentUserId(customer.manager.id)}
+                                                onClick={e => {
+                                                    e.stopPropagation();
+                                                    setCurrentUserId(customer.manager.id);
+                                                }}
                                             >
                                                 {customer.manager.name}
                                             </Button>
@@ -189,7 +205,7 @@ const CustomerTable = () => {
                                     <TableCell>{customer.system_provided ? 'OK' : 'NG'}</TableCell>
                                     <TableCell>{moment(customer?.created_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
                                     <TableCell>
-                                        <Link href={`/customers/${customer.id}`} color='secondary'>
+                                        <Link href={`/customers/${customer.id}?${search_url}`} color='secondary'>
                                             編集
                                         </Link>
                                     </TableCell>

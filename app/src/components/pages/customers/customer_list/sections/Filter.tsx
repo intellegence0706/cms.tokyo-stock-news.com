@@ -19,6 +19,7 @@ const Filter = () => {
     const dispatch = useAppDispatch();
 
     const ref = useRef<HTMLInputElement | null>(null);
+    const [currentDialog, setCurrentDialog] = useState<string>('');
     const [items, setItems] = useState<ICsvCustomer[]>([]);
     const filter = useAppSelector(state => state.customer.items.filter);
     const shared_data = useAppSelector(state => state.shared_data);
@@ -68,6 +69,7 @@ const Filter = () => {
                     };
                 });
                 setItems(result);
+                setCurrentDialog('import');
             } catch (error) {
                 alert('エラーが発生しました。');
                 setItems([]);
@@ -166,7 +168,7 @@ const Filter = () => {
                 <input type='file' ref={ref} className='hidden' value='' onChange={handleImport} />
             </div>
 
-            <ImportCSVDialog open={items.length > 0} onClose={() => setItems([])} items={items} />
+            <ImportCSVDialog open={currentDialog == 'import'} onClose={() => setCurrentDialog('')} items={items} />
         </div>
     );
 };

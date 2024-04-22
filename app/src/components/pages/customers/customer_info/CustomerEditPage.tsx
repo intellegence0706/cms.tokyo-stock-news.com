@@ -1,5 +1,5 @@
 import { FormEvent, useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter, useSearchParams } from 'next/navigation';
 import { deleteRequest, patchRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, clearError, fetchCustomer, setError } from '@/store/features/customer';
@@ -17,15 +17,21 @@ import ConfirmDialog from './components/ConfirmDialog';
 const CustomerEditPage = () => {
     const router = useRouter();
     const { id } = useParams();
+    const params = useSearchParams();
     const dispatch = useAppDispatch();
 
     const less_xl = useMediaQuery('(max-width: 1280px)');
     const [currentDialog, setCurrentDialog] = useState('');
+    const prev = useAppSelector(state => state.customer.item.prev);
+    const next = useAppSelector(state => state.customer.item.next);
     const currentItem = useAppSelector(state => state.customer.item.form);
 
     useEffect(() => {
-        dispatch(clearCurrentItem());
-        dispatch(fetchCustomer(parseInt(`${id}`)));
+        dispatch(fetchCustomer(`${id}?${params.toString()}`));
+
+        return(()=>{        
+            dispatch(clearCurrentItem());
+        })
     }, []);
 
     const handleSubmit = async (e: FormEvent) => {
@@ -61,18 +67,52 @@ const CustomerEditPage = () => {
                                 <CustomerForm />
 
                                 {/* ************************************************************************ */}
-                                <div className='mt-[16px] flex gap-[8px]'>
-                                    <Button type='submit' variant='contained' color='secondary'>
-                                        保存する
-                                    </Button>
 
-                                    <Button
-                                        variant='contained'
-                                        color='inherit'
-                                        onClick={() => setCurrentDialog('delete')}
-                                    >
-                                        削除する
-                                    </Button>
+                                <div className='w-full mt-[16px] flex flex-col md:flex-row md:justify-between gap-[16px]'>
+                                    <div className='flex gap-[8px]'>
+                                        <Button
+                                            type='button'
+                                            variant='contained'
+                                            color='inherit'
+                                            onClick={() => router.replace(`/customers/${prev}?${params.toString()}`)}
+                                            disabled={prev == 0}
+                                        >
+                                            以前
+                                        </Button>
+
+                                        <Button
+                                            type='button'
+                                            variant='contained'
+                                            color='inherit'
+                                            onClick={() => router.replace(`/customers/${next}?${params.toString()}`)}
+                                            disabled={next == 0}
+                                        >
+                                            次に
+                                        </Button>
+                                    </div>
+
+                                    <div className='flex gap-[8px]'>
+                                        <Button
+                                            type='button'
+                                            variant='contained'
+                                            color='inherit'
+                                            onClick={() => router.back()}
+                                        >
+                                            戻る
+                                        </Button>
+
+                                        <Button type='submit' variant='contained' color='secondary'>
+                                            保存する
+                                        </Button>
+
+                                        <Button
+                                            variant='contained'
+                                            color='error'
+                                            onClick={() => setCurrentDialog('delete')}
+                                        >
+                                            削除する
+                                        </Button>
+                                    </div>
                                 </div>
                             </form>
 

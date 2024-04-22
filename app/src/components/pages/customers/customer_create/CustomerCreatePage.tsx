@@ -40,7 +40,7 @@ const CustomerCreatePage = () => {
                     <TitleBar href='/customers'>顧客新規登録</TitleBar>
 
                     <MainPannel>
-                        <form className='w-full flex flex-col gap-[10px]' onSubmit={handleSubmit}>
+                        <form className='w-full max-w-[600px] flex flex-col gap-[10px]' onSubmit={handleSubmit}>
                             <CustomerForm />
 
                             {/* ************************************************************************ */}

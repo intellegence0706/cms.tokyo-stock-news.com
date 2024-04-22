@@ -1,7 +1,4 @@
-
-
-
-interface Props{
+interface Props {
     time: string;
     onClose: () => void;
     onAccept?: () => void;
@@ -11,16 +8,14 @@ interface Props{
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import moment from 'moment';
 
-const BackupConfirmDialog = ({time, onClose, onAccept, className}: Props) => {
-
-    return(
-        <Dialog open={time != ""} onClose={onClose} fullWidth maxWidth='sm'>
+const BackupConfirmDialog = ({ time, onClose, onAccept, className }: Props) => {
+    return (
+        <Dialog open={time != ''} onClose={onClose} fullWidth maxWidth='sm'>
             <DialogTitle sx={{ fontSize: 16, fontWeight: 700 }}>バックアップする</DialogTitle>
             <DialogContent>
                 <p className='text-[14px] leading-[25px]'>
-                    
-                本当にバックアップしますか？ <br />
-                {moment(time).format("YYYY/MM/DD HH:mm:ss")}のデータでデータベースが初期化されます。
+                    本当にバックアップしますか？ <br />
+                    {moment(time).format('YYYY/MM/DD HH:mm:ss')}のデータでデータベースが初期化されます。
                 </p>
             </DialogContent>
             <DialogActions>
@@ -32,7 +27,7 @@ const BackupConfirmDialog = ({time, onClose, onAccept, className}: Props) => {
                 </Button>
             </DialogActions>
         </Dialog>
-    )
-}
+    );
+};
 
-export default BackupConfirmDialog
+export default BackupConfirmDialog;

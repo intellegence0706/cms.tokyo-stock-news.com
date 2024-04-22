@@ -23,7 +23,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>No</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField size='small' fullWidth value={currentItem.id} />
                 </div>
             </div>
@@ -31,7 +31,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>担当</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField size='small' fullWidth value={currentItem.manager?.name} />
                 </div>
             </div>
@@ -39,7 +39,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>広告媒体</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -54,7 +54,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>名前</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -77,7 +77,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>電話番号</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -92,7 +92,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>電話番号2</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -107,7 +107,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>アドレス</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -122,7 +122,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>アドレス2</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField
                         size='small'
                         fullWidth
@@ -137,7 +137,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>入金日</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField
                         type='date'
                         size='small'
@@ -153,7 +153,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>契約開始日</FormLabel>
-                <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
+                <div className='w-full flex gap-[8px]'>
                     <TextField
                         type='date'
                         size='small'
@@ -169,7 +169,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>契約日数</FormLabel>
-                <div className='w-full lg:max-w-[420px]'>
+                <div className='w-full'>
                     <Select
                         fullWidth
                         size='small'
@@ -194,7 +194,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>属性</FormLabel>
-                <div className='w-full lg:max-w-[420px]'>
+                <div className='w-full'>
                     <Select
                         fullWidth
                         size='small'
@@ -219,7 +219,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>ステータス</FormLabel>
-                <div className='w-full lg:max-w-[420px]'>
+                <div className='w-full'>
                     <Select
                         fullWidth
                         size='small'
@@ -242,7 +242,7 @@ const CustomerForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>システム提供</FormLabel>
-                <div className='w-full lg:max-w-[420px]'>
+                <div className='w-full'>
                     <Select
                         fullWidth
                         size='small'

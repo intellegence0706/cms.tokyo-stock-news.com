@@ -40,13 +40,13 @@ const initialState: State = {
 
 export const fetchBackupList = createAsyncThunk('backup/fetchBackupList', async (filter: any) => {
     const res = await getRequest('/v0/owner/backup/list', filter);
-    if(res.status == 200){
-        return res.data
-    }else{
-        return  {
+    if (res.status == 200) {
+        return res.data;
+    } else {
+        return {
             data: [],
             total: 0
-        }
+        };
     }
 });
 

@@ -25,7 +25,7 @@ interface Props {
 }
 
 const ImportCSVDialog = ({ open, onClose, items }: Props) => {
-    const { user } = useAuth();
+    const { user, setPending } = useAuth();
     const dispatch = useAppDispatch();
 
     const [data, setData] = useState<ICsvCustomer[]>([]);
@@ -42,14 +42,13 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
 
     useEffect(() => {
         if (!open) {
-            setData([]);
-            setResult([]);
             setDoneCnt(0);
             setStep(0);
         }
     }, [open]);
 
     const handleUpload = async () => {
+        setPending && setPending(true);
         setResult([]);
 
         // chunk 100 件ごとにデータを登録する
@@ -57,12 +56,13 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
         let chunk = data.slice(0, chunkSize);
         let rest = data.slice(chunkSize);
         let cnt = 0;
+        let temp_result: any[] = [];
         while (chunk.length > 0) {
             const res = await postRequest('v0/customers/batch_create', {
                 data: chunk
             });
             if (res.status == 200) {
-                setResult([...result, ...res.data]);
+                temp_result = [...temp_result, ...res.data];
 
                 cnt += chunk.length;
                 setDoneCnt(cnt);
@@ -73,8 +73,10 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
             }
         }
 
+        setResult(temp_result);
         dispatch(fetchCustomers(filter));
         setStep(2);
+        setPending && setPending(false);
     };
 
     const Step0 = (
@@ -111,7 +113,7 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
                                 <TableCell>{row.email}</TableCell>
                                 {user?.user_info.role.role_id == 'admin' && (
                                     <TableCell style={{ minWidth: 100, whiteSpace: 'nowrap' }}>
-                                        {row.manager == '' ? user.user_info.name : row.manager}
+                                        {row.manager || '' == '' ? user.user_info.name : row.manager}
                                     </TableCell>
                                 )}
                                 <TableCell>
@@ -128,10 +130,18 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
                                     {row.contract_days} {parseInt(row.contract_days) > 0 ? '日' : ''}
                                 </TableCell>
                                 <TableCell className='whitespace-nowrap'>
-                                    {shared_data.property_data.find(item => item.property_type == row.property || item.name == row.property)?.name}
+                                    {
+                                        shared_data.property_data.find(
+                                            item => item.property_type == row.property || item.name == row.property
+                                        )?.name
+                                    }
                                 </TableCell>
                                 <TableCell className='whitespace-nowrap'>
-                                    {shared_data.status_data.find(item => item.status_type == row.status || item.name == row.status)?.name}
+                                    {
+                                        shared_data.status_data.find(
+                                            item => item.status_type == row.status || item.name == row.status
+                                        )?.name
+                                    }
                                 </TableCell>
                                 <TableCell>{row.system_provided}</TableCell>
                             </TableRow>
@@ -227,14 +237,18 @@ const ImportCSVDialog = ({ open, onClose, items }: Props) => {
                                     <TableCell className='whitespace-nowrap'>
                                         {
                                             shared_data.property_data.find(
-                                                item => item.property_type == row.data.property || item.name == row.data.property
+                                                item =>
+                                                    item.property_type == row.data.property ||
+                                                    item.name == row.data.property
                                             )?.name
                                         }
                                     </TableCell>
                                     <TableCell className='whitespace-nowrap'>
                                         {
-                                            shared_data.status_data.find(item => item.status_type == row.data.status || item.name == row.data.status)
-                                                ?.name
+                                            shared_data.status_data.find(
+                                                item =>
+                                                    item.status_type == row.data.status || item.name == row.data.status
+                                            )?.name
                                         }
                                     </TableCell>
                                     <TableCell>{row.data.system_provided}</TableCell>
