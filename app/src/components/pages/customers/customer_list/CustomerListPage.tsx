@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { fetchCustomers, reset } from '@/store/features/customer';
+import { fetchCustomers, reset, setFilterValue } from '@/store/features/customer';
 import { fetchPropertyData, fetchStatusData } from '@/store/features/shared_data';
 
 import AuthLayout from '@/components/templates/AuthLayout';
@@ -13,23 +14,47 @@ import CustomerTable from './sections/CustomerTable';
 import TablePagination from './sections/TablePagination';
 
 const CustomerListPage = () => {
+    const router = useRouter();
+    const params = useSearchParams();
     const dispatch = useAppDispatch();
 
     const filter = useAppSelector(state => state.customer.items.filter);
     const result = useAppSelector(state => state.customer.items.result);
 
+    const search_parmam_url = useMemo(() => {
+        const new_params = new URLSearchParams();
+
+        for (let key in filter) {
+            if (filter[key] == 0 || filter[key] == '') continue;
+            new_params.append(key, filter[key] as string);
+        }
+
+        return new_params.toString();
+    }, [filter]);
+
     useEffect(() => {
         dispatch(fetchStatusData());
         dispatch(fetchPropertyData());
-
-        return () => {
-            dispatch(reset());
-        };
     }, []);
 
     useEffect(() => {
-        dispatch(fetchCustomers(filter));
-    }, [filter]);
+        let temp_filter = {
+            keyword: params.get('keyword') || '',
+            order_by: params.get('order_by') || 'id',
+            manager: parseInt(params.get('manager') || '0'),
+            status: parseInt(params.get('status') || '0'),
+            property: parseInt(params.get('property') || '0'),
+            page: parseInt(params.get('page') || '1'),
+            pageSize: parseInt(params.get('pageSize') || '10')
+        };
+
+        dispatch(setFilterValue(temp_filter));
+        dispatch(fetchCustomers(temp_filter));
+    }, [params]);
+
+    useEffect(() => {
+        router.push(`/customers?${search_parmam_url}`);
+    }, [search_parmam_url]);
 
     return (
         <AuthLayout>
@@ -39,7 +64,7 @@ const CustomerListPage = () => {
 
                     <MainPannel>
                         <Filter />
-                        <CustomerTable />
+                        <CustomerTable search_url={search_parmam_url} />
                         <TablePagination />
                     </MainPannel>
                 </MainLayout>

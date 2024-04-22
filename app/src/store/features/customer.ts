@@ -21,10 +21,13 @@ type State = {
             manager?: IName;
             system_provided: boolean;
         };
+        prev: number;
+        next: number;
         errors: any;
     };
     items: {
         filter: {
+            [key: string]: any;
             keyword: string;
             order_by: string;
             manager: number;
@@ -58,6 +61,8 @@ const initialState: State = {
             status: 0,
             system_provided: false
         },
+        prev: 0,
+        next: 0,
         errors: {}
     },
     items: {
@@ -82,7 +87,7 @@ export const fetchCustomers = createAsyncThunk('customer/fetchCustomers', async 
     return res;
 });
 
-export const fetchCustomer = createAsyncThunk('customer/fetchCustomer', async (id: number) => {
+export const fetchCustomer = createAsyncThunk('customer/fetchCustomer', async (id: string) => {
     const res = await getRequest(`/v0/customers/${id}`);
     return res;
 });
@@ -160,10 +165,13 @@ export const slice = createSlice({
             }
         });
         builder.addCase(fetchCustomer.fulfilled, (state, action) => {
-            if (action.payload.data && action.payload.data.id) {
+            if (action.payload.data) {
+                const { data, prev, next } = action.payload.data;
                 state.item = {
                     ...state.item,
-                    form: action.payload.data as any
+                    form: data as any,
+                    prev: prev,
+                    next: next
                 };
             }
         });

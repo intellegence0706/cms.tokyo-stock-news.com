@@ -9,33 +9,32 @@ import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 import BackupConfirmDialog from './BackupConfirmDialog';
 
 const CustomerTable = () => {
-    const { setPending } = useAuth()
-    
-    const [backupTime, setBackupTime] = useState("")
+    const { setPending } = useAuth();
+
+    const [backupTime, setBackupTime] = useState('');
     const result = useAppSelector(state => state.backup.items.result);
 
     const handleDownload = async (time: string, type: string) => {
-
         const res = await getBlobRequest(`${BACKEND_URL}/api/v0/owner/backup/download`, {
             time,
             type
         });
 
-        if(res.status == 200){
+        if (res.status == 200) {
             FileDownload(res.data, `cms_wavemaster_${type}_backup_${time}.${type === 'db' ? 'sql' : 'tar'}`);
         }
-    }
+    };
 
     const handleResetData = async () => {
-        setPending!(true)
+        setPending!(true);
 
         const res = await postRequest(`${BACKEND_URL}/api/v0/owner/backup/load`, {
             time: backupTime
         });
 
-        setBackupTime("")
-        setPending!(false)
-    }
+        setBackupTime('');
+        setPending!(false);
+    };
 
     return (
         <>
@@ -53,17 +52,26 @@ const CustomerTable = () => {
                             return (
                                 <TableRow hover role='checkbox' tabIndex={-1} key={backup.time}>
                                     <TableCell className=' whitespace-nowrap'>{backup.time}</TableCell>
-                                    <TableCell className='w-full' sx={{textAlign: "left"}}>    
-                                        <button className='block text-left hover:text-[#2196f3] underline underline-offset-4' onClick={()=>handleDownload(backup.time, 'db')}>DB : {backup.db}</button>
-                                        <button className='block text-left hover:text-[#2196f3] underline underline-offset-4' onClick={()=>handleDownload(backup.time, 'media')}>MEDIA : {backup.media}</button>
-                                   
+                                    <TableCell className='w-full' sx={{ textAlign: 'left' }}>
+                                        <button
+                                            className='block text-left hover:text-[#2196f3] underline underline-offset-4'
+                                            onClick={() => handleDownload(backup.time, 'db')}
+                                        >
+                                            DB : {backup.db}
+                                        </button>
+                                        <button
+                                            className='block text-left hover:text-[#2196f3] underline underline-offset-4'
+                                            onClick={() => handleDownload(backup.time, 'media')}
+                                        >
+                                            MEDIA : {backup.media}
+                                        </button>
                                     </TableCell>
                                     <TableCell>
                                         <Button
                                             variant='contained'
                                             color='secondary'
                                             className=' whitespace-nowrap'
-                                            onClick={()=>setBackupTime(backup.time)}
+                                            onClick={() => setBackupTime(backup.time)}
                                         >
                                             設定する
                                         </Button>
@@ -91,7 +99,7 @@ const CustomerTable = () => {
                 </Table>
             </TableContainer>
 
-            <BackupConfirmDialog time={backupTime} onClose={()=>setBackupTime("")} onAccept={handleResetData}/>
+            <BackupConfirmDialog time={backupTime} onClose={() => setBackupTime('')} onAccept={handleResetData} />
         </>
     );
 };
