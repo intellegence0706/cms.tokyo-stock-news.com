@@ -1,4 +1,3 @@
-
 import { useAuth } from '@/contexts/AuthContext';
 import { BACKEND_URL, postRequest } from '@/utils/axios';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
@@ -8,21 +7,20 @@ import { Button, InputAdornment, TextField } from '@mui/material';
 import { IoSearch } from 'react-icons/io5';
 
 const Filter = () => {
-    const { setPending } = useAuth()
+    const { setPending } = useAuth();
     const dispatch = useAppDispatch();
 
     const filter = useAppSelector(state => state.backup.items.filter);
 
     const handleBackup = async () => {
-        setPending!(true)
+        setPending!(true);
 
-        const res = await postRequest(`${BACKEND_URL}/api/v0/owner/backup/create`, {
-        });
+        const res = await postRequest(`${BACKEND_URL}/api/v0/owner/backup/create`, {});
 
         dispatch(fetchBackupList(filter));
 
-        setPending!(false)
-    }
+        setPending!(false);
+    };
 
     return (
         <div className='w-full flex flex-col-reverse xl:flex-row items-end xl:items-center justify-between gap-[16px] mb-[16px]'>
@@ -47,7 +45,7 @@ const Filter = () => {
                 <Button
                     variant='contained'
                     fullWidth
-                    color="primary"
+                    color='primary'
                     size='small'
                     onClick={handleBackup}
                     sx={{
