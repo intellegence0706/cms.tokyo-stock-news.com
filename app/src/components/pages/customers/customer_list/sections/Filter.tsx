@@ -168,7 +168,7 @@ const Filter = () => {
                 <input type='file' ref={ref} className='hidden' value='' onChange={handleImport} />
             </div>
 
-            <ImportCSVDialog open={currentDialog == "import"} onClose={() => setCurrentDialog("")} items={items} />
+            <ImportCSVDialog open={currentDialog == 'import'} onClose={() => setCurrentDialog('')} items={items} />
         </div>
     );
 };
