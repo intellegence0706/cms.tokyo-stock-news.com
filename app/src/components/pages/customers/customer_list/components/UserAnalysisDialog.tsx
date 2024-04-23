@@ -29,7 +29,7 @@ const UserAnalysisDialog = ({ userId, onClose }: Props) => {
     };
 
     const handleRowClick = (id: number) => {
-        dispatch(setFilterValue({ manager: userId, status: id, keyword: '', page: 1, property: 0 }));
+        dispatch(setFilterValue({ manager: userId, status: id, keyword: '', page: 1, property: 0, enable: true }));
         onClose();
     };
 
