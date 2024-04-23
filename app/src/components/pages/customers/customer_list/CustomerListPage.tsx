@@ -28,7 +28,7 @@ const CustomerListPage = () => {
             if (filter[key] == 0 || filter[key] == '') continue;
             new_params.append(key, filter[key] as string);
         }
-
+        
         return new_params.toString();
     }, [filter]);
 
