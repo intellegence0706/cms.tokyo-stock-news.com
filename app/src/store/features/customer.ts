@@ -35,6 +35,7 @@ type State = {
             property: number;
             page: number;
             pageSize: number;
+            enable: boolean
         };
         result: {
             data: ICustomer[];
@@ -73,7 +74,8 @@ const initialState: State = {
             status: 0,
             property: 0,
             page: 1,
-            pageSize: 10
+            pageSize: 10,
+            enable: true
         },
         result: {
             data: [],

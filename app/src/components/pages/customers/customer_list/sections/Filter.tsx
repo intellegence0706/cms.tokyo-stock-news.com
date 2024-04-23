@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { ICsvCustomer } from '@/interfaces';
 import { getBlobRequest } from '@/utils/axios';
 import { useAuth } from '@/contexts/AuthContext';
@@ -21,8 +21,13 @@ const Filter = () => {
     const ref = useRef<HTMLInputElement | null>(null);
     const [currentDialog, setCurrentDialog] = useState<string>('');
     const [items, setItems] = useState<ICsvCustomer[]>([]);
+    const [keyword, setKeyword] = useState("")
     const filter = useAppSelector(state => state.customer.items.filter);
     const shared_data = useAppSelector(state => state.shared_data);
+
+    useEffect(()=>{
+        setKeyword(filter.keyword)
+    }, [filter.keyword])
 
     const handleImport = (e: ChangeEvent<HTMLInputElement>) => {
         if (!(e.target.files && e.target.files.length > 0)) return;
@@ -90,12 +95,12 @@ const Filter = () => {
     return (
         <div className='w-full flex flex-col-reverse xl:flex-row items-end xl:items-center justify-between gap-[16px] mb-[16px]'>
             <div className='w-full flex flex-col xl:flex-row items-center gap-[20px]'>
-                <div className='w-full xl:max-w-[320px] flex'>
+                <form onSubmit={(e)=>{e.preventDefault(); dispatch(setFilterValue({keyword: keyword}))}} className='w-full xl:max-w-[320px] flex'>
                     <TextField
                         fullWidth
                         size='small'
-                        value={filter.keyword}
-                        onChange={e => dispatch(setFilterValue({ keyword: e.target.value, manager: 0 }))}
+                        value={keyword}
+                        onChange={e => setKeyword(e.target.value)}
                         InputProps={{
                             startAdornment: (
                                 <InputAdornment position='start'>
@@ -105,7 +110,7 @@ const Filter = () => {
                         }}
                         placeholder='検索ワードを入力'
                     />
-                </div>
+                </form>
                 <div className='w-full flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                     <FormLabel className='min-w-[54px] mt-[10px]'>状態</FormLabel>
                     <div className='w-full xl:max-w-[420px]'>
@@ -113,7 +118,7 @@ const Filter = () => {
                             fullWidth
                             size='small'
                             value={filter.status}
-                            onChange={e => dispatch(setFilterValue({ status: e.target.value, manager: 0 }))}
+                            onChange={e => dispatch(setFilterValue({ status: e.target.value }))}
                         >
                             <MenuItem value={0}>選択する</MenuItem>
                             {shared_data.status_data.map(status => (
@@ -132,7 +137,7 @@ const Filter = () => {
                             fullWidth
                             size='small'
                             value={filter.property}
-                            onChange={e => dispatch(setFilterValue({ property: e.target.value, manager: 0 }))}
+                            onChange={e => dispatch(setFilterValue({ property: e.target.value }))}
                         >
                             <MenuItem value={0}>選択する</MenuItem>
                             {shared_data.property_data.map(property => (
