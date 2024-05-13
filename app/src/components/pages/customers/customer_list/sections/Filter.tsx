@@ -21,13 +21,13 @@ const Filter = () => {
     const ref = useRef<HTMLInputElement | null>(null);
     const [currentDialog, setCurrentDialog] = useState<string>('');
     const [items, setItems] = useState<ICsvCustomer[]>([]);
-    const [keyword, setKeyword] = useState("")
+    const [keyword, setKeyword] = useState('');
     const filter = useAppSelector(state => state.customer.items.filter);
     const shared_data = useAppSelector(state => state.shared_data);
 
-    useEffect(()=>{
-        setKeyword(filter.keyword)
-    }, [filter.keyword])
+    useEffect(() => {
+        setKeyword(filter.keyword);
+    }, [filter.keyword]);
 
     const handleImport = (e: ChangeEvent<HTMLInputElement>) => {
         if (!(e.target.files && e.target.files.length > 0)) return;
@@ -95,7 +95,13 @@ const Filter = () => {
     return (
         <div className='w-full flex flex-col-reverse xl:flex-row items-end xl:items-center justify-between gap-[16px] mb-[16px]'>
             <div className='w-full flex flex-col xl:flex-row items-center gap-[20px]'>
-                <form onSubmit={(e)=>{e.preventDefault(); dispatch(setFilterValue({keyword: keyword}))}} className='w-full xl:max-w-[320px] flex'>
+                <form
+                    onSubmit={e => {
+                        e.preventDefault();
+                        dispatch(setFilterValue({ keyword: keyword }));
+                    }}
+                    className='w-full xl:max-w-[320px] flex'
+                >
                     <TextField
                         fullWidth
                         size='small'

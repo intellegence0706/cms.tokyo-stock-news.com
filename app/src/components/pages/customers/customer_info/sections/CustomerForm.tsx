@@ -106,7 +106,7 @@ const CustomerForm = () => {
 
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                <FormLabel className='min-w-[134px] mt-[10px]'>アドレス</FormLabel>
+                <FormLabel className='min-w-[134px] mt-[10px]'>メールアドレス</FormLabel>
                 <div className='w-full flex gap-[8px]'>
                     <TextField
                         size='small'
@@ -121,7 +121,7 @@ const CustomerForm = () => {
 
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
-                <FormLabel className='min-w-[134px] mt-[10px]'>アドレス2</FormLabel>
+                <FormLabel className='min-w-[134px] mt-[10px]'>メールアドレス2</FormLabel>
                 <div className='w-full flex gap-[8px]'>
                     <TextField
                         size='small'
