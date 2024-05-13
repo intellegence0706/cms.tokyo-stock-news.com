@@ -70,7 +70,7 @@ export const getPublicRequest = async (path: string, params?: any): Promise<IRes
     if ((response.status === 400 || response.status == 404) && response.data.msg)
         dispatch(appendMessage({ type: 'warning', message: response.data.msg }));
     if (response.status === 403) window.location.href = '/accounts/sign_in';
-    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: 'Internal Server Error' }));
+    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: response.data.msg }));
     dispatch(loading(false));
     return response;
 };
@@ -93,7 +93,7 @@ export const getRequest = async (path: string, params?: any): Promise<IResponse>
     if ((response.status === 400 || response.status == 404) && response.data.msg)
         dispatch(appendMessage({ type: 'warning', message: response.data.msg }));
     if (response.status === 403) window.location.href = '/accounts/sign_in';
-    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: 'Internal Server Error' }));
+    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: response.data.msg }));
     dispatch(loading(false));
     return response;
 };
@@ -120,7 +120,7 @@ export const getBlobRequest = async (path: string, params?: any): Promise<IRespo
     if ((response.status === 400 || response.status == 404) && response.data.msg)
         dispatch(appendMessage({ type: 'warning', message: response.data.msg }));
     if (response.status === 403) window.location.href = '/accounts/sign_in';
-    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: 'Internal Server Error' }));
+    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: response.data.msg }));
     dispatch(loading(false));
     return response;
 };
@@ -144,7 +144,7 @@ export const postRequest = async (path: string, payload: any): Promise<IResponse
         dispatch(appendMessage({ type: 'warning', message: response.data.msg }));
 
     if (response.status === 403) window.location.href = '/accounts/sign_in';
-    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: 'Internal Server Error' }));
+    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: response.data.msg }));
     dispatch(loading(false));
     return response;
 };
@@ -176,7 +176,7 @@ export const postFormdata = async (path: string, formData: FormData): Promise<IR
         dispatch(appendMessage({ type: 'warning', message: response.data.msg }));
 
     if (response.status === 403) window.location.href = '/accounts/sign_in';
-    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: 'Internal Server Error' }));
+    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: response.data.msg }));
     dispatch(loading(false));
     return response;
 };
@@ -200,7 +200,7 @@ export const patchRequest = async (path: string, payload: any): Promise<IRespons
         dispatch(appendMessage({ type: 'warning', message: response.data.msg }));
 
     if (response.status === 403) window.location.href = '/accounts/sign_in';
-    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: 'Internal Server Error' }));
+    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: response.data.msg }));
     dispatch(loading(false));
     return response;
 };
@@ -232,7 +232,7 @@ export const patchFormData = async (path: string, formData: FormData): Promise<I
         dispatch(appendMessage({ type: 'warning', message: response.data.msg }));
 
     if (response.status === 403) window.location.href = '/accounts/sign_in';
-    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: 'Internal Server Error' }));
+    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: response.data.msg }));
     dispatch(loading(false));
     return response;
 };
@@ -256,7 +256,7 @@ export const deleteRequest = async (path: string, params: any): Promise<IRespons
         dispatch(appendMessage({ type: 'warning', message: response.data.msg }));
 
     if (response.status === 403) window.location.href = '/accounts/sign_in';
-    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: 'Internal Server Error' }));
+    if (response.status === 500) dispatch(appendMessage({ type: 'error', message: response.data.msg }));
     dispatch(loading(false));
     return response;
 };

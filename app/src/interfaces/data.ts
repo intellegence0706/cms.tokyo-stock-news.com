@@ -1,8 +1,3 @@
-export interface IIMAP {
-    id?: number;
-    name: string;
-}
-
 export interface IDomain {
     id?: number;
     name: string;

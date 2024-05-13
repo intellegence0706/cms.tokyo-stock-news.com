@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setCurrentItemValue } from '@/store/features/domain';
-import { fetchIMAPData } from '@/store/features/shared_data';
 
-import { MenuItem, Select, Switch, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import FormLabel from '@/components/atoms/FormLabel';
 
 const DomainForm = () => {
@@ -12,17 +10,6 @@ const DomainForm = () => {
     const currentItem = useAppSelector(state => state.domain.item.form);
     const errors = useAppSelector(state => state.domain.item.errors);
     const shared_data = useAppSelector(state => state.shared_data);
-
-    useEffect(() => {
-        dispatch(fetchIMAPData());
-    }, []);
-
-    const imap_host_data = [
-        { id: 1, name: 'imap.gmail.com' },
-        { id: 2, name: 'imap.yahoo.com' },
-        { id: 3, name: 'imap.outlook.com' },
-        { id: 4, name: 'imap.office365.com' }
-    ];
 
     return (
         <>
@@ -92,23 +79,6 @@ const DomainForm = () => {
             {/* ************************************************************************ */}
             <div className='flex flex-col sm:flex-row sm:items-start gap-[4px] sm:gap-[16px]'>
                 <FormLabel className='min-w-[134px] mt-[10px]'>IMAP ホスト</FormLabel>
-                {/* <div className='w-full lg:max-w-[420px]'>
-                    <Select
-                        fullWidth
-                        size='small'
-                        value={currentItem.imap_host}
-                        onChange={e => dispatch(setCurrentItemValue({ imap_host: e.target.value }))}
-                        error={errors.imap_host ? true : false}
-                    >
-                        {shared_data.imap_data.map(imap => (
-                            <MenuItem value={imap.name} key={imap.id}>
-                                {imap.name}
-                            </MenuItem>
-                        ))}
-                    </Select>
-
-                    {errors.role && <p className='text-[12px] mt-[4px] ml-[14px] text-[#f44336]'>{errors.role}</p>}
-                </div> */}
                 <div className='w-full lg:max-w-[420px] flex gap-[8px]'>
                     <TextField
                         size='small'

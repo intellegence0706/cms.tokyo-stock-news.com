@@ -26,9 +26,13 @@ const CustomerListPage = () => {
 
         for (let key in filter) {
             if (filter[key] == 0 || filter[key] == '') continue;
+            if (key == 'page' && filter[key] == 1) continue;
+            if (key == 'pageSize' && filter[key] == 10) continue;
+            if (key == 'order_by' && filter[key] == 'id') continue;
+            if (key == 'enable') continue;
             new_params.append(key, filter[key] as string);
         }
-        
+
         return new_params.toString();
     }, [filter]);
 

@@ -29,9 +29,9 @@ const CustomerEditPage = () => {
     useEffect(() => {
         dispatch(fetchCustomer(`${id}?${params.toString()}`));
 
-        return(()=>{        
+        return () => {
             dispatch(clearCurrentItem());
-        })
+        };
     }, []);
 
     const handleSubmit = async (e: FormEvent) => {

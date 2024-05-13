@@ -35,7 +35,7 @@ type State = {
             property: number;
             page: number;
             pageSize: number;
-            enable: boolean
+            enable: boolean;
         };
         result: {
             data: ICustomer[];
