@@ -90,8 +90,6 @@ const MailSendForm = ({}: Props) => {
                     setDone(i + 1);
                     setCurrentContact(data[i]);
 
-                    if(i < total - 1) await sleep(6000)
-
                     if (i == total - 1) {
                         dispatch(clearCurrentItem());
                     }
