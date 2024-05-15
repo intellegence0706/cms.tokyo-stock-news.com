@@ -79,6 +79,8 @@ const MailSendForm = ({}: Props) => {
             setTotal(total);
 
             for (let i = 0; i < total; i++) {
+                setCurrentContact(data[i]);
+                
                 const payload = {
                     domain: currentItem.domain,
                     recipients: [data[i].id],
@@ -90,7 +92,6 @@ const MailSendForm = ({}: Props) => {
                 const res = await postRequest(`/v0/mails/new_send`, payload);
                 if (res.status == 200) {
                     setDone(i + 1);
-                    setCurrentContact(data[i]);
 
                     if (i == total - 1) {
                         dispatch(clearCurrentItem());
