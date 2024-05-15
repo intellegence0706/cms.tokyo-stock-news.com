@@ -1,5 +1,5 @@
-import { ChangeEvent, useEffect } from 'react';
-import { postFormdata, postRequest } from '@/utils/axios';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { getRequest, postFormdata, postRequest } from '@/utils/axios';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, setCurrentItemValue, setError } from '@/store/features/mail';
@@ -14,8 +14,11 @@ interface Props {
 
 const MailSendForm = ({ onReload }: Props) => {
     const dispatch = useAppDispatch();
-    const { setPending } = useAuth();
+    const { pending, setPending } = useAuth();
 
+    const [total, setTotal] = useState(0);
+    const [done, setDone] = useState(0);
+    const [currentContact, setCurrentContact] = useState<any>(null);
     const currentItem = useAppSelector(state => state.mail.item.form);
     const errors = useAppSelector(state => state.mail.item.errors);
     const templates = useAppSelector(state => state.mail_template.items.result);
@@ -28,6 +31,8 @@ const MailSendForm = ({ onReload }: Props) => {
     }, []);
 
     const handleClose = () => {
+        if (pending) return;
+
         dispatch(clearCurrentItem());
     };
 
@@ -52,23 +57,52 @@ const MailSendForm = ({ onReload }: Props) => {
     };
 
     const handleSubmit = async () => {
-        const payload = {
-            domain: currentItem.domain,
-            recipients: currentItem.recipients.map(item => item.id),
-            subject: currentItem.subject,
-            body: currentItem.body,
-            attachments: currentItem.attachments.map(item => item.id)
-        };
-
         setPending!(true);
-        const res = await postRequest(`/v0/mails/new_send`, payload);
-        if (res.status == 200) {
-            dispatch(clearCurrentItem());
-            onReload();
-        }
 
-        if (res.status == 422 && res.data.errors) {
-            dispatch(setError(res.data.errors));
+        setTotal(0);
+        setDone(0);
+        setCurrentContact(null);
+
+        const c_res = await getRequest('/v0/customers', {
+            customer_ids: currentItem.recipients.map(item => item.id),
+            expanded: 'False'
+        });
+
+        if (c_res.status == 200) {
+            const { data, total } = c_res.data;
+
+            if (total == 0) {
+                dispatch(setError({ recipients: '受け取る人を選択してください。' }));
+                return;
+            }
+
+            setTotal(total);
+
+            for (let i = 0; i < total; i++) {
+                const payload = {
+                    domain: currentItem.domain,
+                    recipients: [data[i].id],
+                    subject: currentItem.subject,
+                    body: currentItem.body,
+                    attachments: currentItem.attachments.map(item => item.id)
+                };
+
+                const res = await postRequest(`/v0/mails/new_send`, payload);
+                if (res.status == 200) {
+                    setDone(i + 1);
+                    setCurrentContact(data[i]);
+
+                    if (i == total - 1) {
+                        dispatch(clearCurrentItem());
+                        onReload();
+                    }
+                }
+
+                if (res.status == 422 && res.data.errors) {
+                    dispatch(setError(res.data.errors));
+                    break;
+                }
+            }
         }
 
         setPending!(false);
@@ -135,6 +169,7 @@ const MailSendForm = ({ onReload }: Props) => {
                                 )
                             }
                             error={errors.domain}
+                            readOnly={pending}
                         >
                             <MenuItem value={0}>選択する</MenuItem>
                             {shared_data.domain_data.map(domain => (
@@ -159,6 +194,7 @@ const MailSendForm = ({ onReload }: Props) => {
                             size='small'
                             defaultValue={0}
                             onChange={e => handleSelectTemplate(e.target.value as number)}
+                            readOnly={pending}
                         >
                             <MenuItem value={0}>選択する</MenuItem>
                             {templates.data.map(template => (
@@ -227,6 +263,21 @@ const MailSendForm = ({ onReload }: Props) => {
                     </Button>
                     <Button onClick={handleClose}>キャンセル</Button>
                 </div>
+
+                {/* *************************************************************************************** */}
+                {pending && (
+                    <div className='w-full flex flex-col items-center justify-center gap-1'>
+                        <p className='font-bold'>
+                            {total} 件中 {done} 件 送信完了
+                        </p>
+                        {currentContact && (
+                            <p>
+                                <span className=' font-bold'>{currentContact?.name}</span>(
+                                <span className=' italic'>{currentContact?.email}</span>) に送信中。。。
+                            </p>
+                        )}
+                    </div>
+                )}
             </div>
         </Drawer>
     );
