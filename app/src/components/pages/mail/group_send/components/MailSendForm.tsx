@@ -56,6 +56,8 @@ const MailSendForm = ({}: Props) => {
     };
 
     const handleSubmit = async () => {
+        setPending!(true);
+        
         setTotal(0);
         setDone(0);
         setCurrentContact(null);
