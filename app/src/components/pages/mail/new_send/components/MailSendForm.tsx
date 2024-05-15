@@ -3,6 +3,7 @@ import { getRequest, postFormdata, postRequest } from '@/utils/axios';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { clearCurrentItem, setCurrentItemValue, setError } from '@/store/features/mail';
+import { sleep } from '@/utils/time';
 
 import { IoClose } from 'react-icons/io5';
 import { Button, Chip, Drawer, IconButton, MenuItem, Select, TextField } from '@mui/material';
@@ -91,6 +92,8 @@ const MailSendForm = ({ onReload }: Props) => {
                 if (res.status == 200) {
                     setDone(i + 1);
                     setCurrentContact(data[i]);
+
+                    if(i < total - 1) await sleep(6000)
 
                     if (i == total - 1) {
                         dispatch(clearCurrentItem());
