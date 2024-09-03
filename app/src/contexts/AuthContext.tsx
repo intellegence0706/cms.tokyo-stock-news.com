@@ -115,6 +115,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
             apiInstance.defaults.headers.Authorization = `Bearer ${response.data.access}`;
             const res = await apiInstance.get(`/me`);
             if (res.status === 200) {
+                console.log("me setuser")
                 setUser(res.data.me);
                 callback(res.data.me);
             } else {
@@ -133,7 +134,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         const res = await apiInstance.get(`/me`);
         if (res.status === 200) {
             setUser(res.data.me);
-        }
+        } 
     };
 
     const logout = () => {

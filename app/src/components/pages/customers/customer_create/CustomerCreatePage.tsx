@@ -35,7 +35,7 @@ const CustomerCreatePage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin', 'member']}>
+            <PermissionLayout permission={['owner', 'super', 'customer']} role={['admin', 'member']}>
                 <MainLayout>
                     <TitleBar href='/customers'>顧客新規登録</TitleBar>
 

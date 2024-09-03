@@ -57,7 +57,7 @@ const UserEditPage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin']}>
+            <PermissionLayout permission={['customer', 'owner', 'super']} role={['admin', 'member']}>
                 <MainLayout>
                     <TitleBar href='/admin/users'>担当情報</TitleBar>
 

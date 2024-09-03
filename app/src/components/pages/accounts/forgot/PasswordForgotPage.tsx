@@ -55,7 +55,7 @@ const PasswordForgotPage = () => {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component='h1' variant='h1'>
-                            STOCK NEWS
+                            Log in
                         </Typography>
 
                         <Typography component='p' sx={{ fontSize: 14, mt: 4, lineHeight: 1.5 }}>

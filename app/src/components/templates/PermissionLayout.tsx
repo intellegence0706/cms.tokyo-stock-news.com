@@ -17,6 +17,7 @@ const PermissionLayout = ({ children, permission, role }: Props) => {
     const pathname = usePathname()!;
     const { user, logout } = useAuth();
 
+
     useEffect(() => {
         if (user) {
             if (!permission.includes(user.permission)) {

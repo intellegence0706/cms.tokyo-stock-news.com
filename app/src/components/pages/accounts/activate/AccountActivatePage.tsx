@@ -79,7 +79,7 @@ const AccountActivatePage = () => {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component='h1' variant='h1'>
-                            STOCK NEWS
+                            Log in
                         </Typography>
 
                         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ width: '100%', mt: 1 }}>

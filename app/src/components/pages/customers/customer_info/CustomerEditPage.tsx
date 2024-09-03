@@ -57,7 +57,7 @@ const CustomerEditPage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin', 'member']}>
+            <PermissionLayout permission={['owner', 'super', 'customer']} role={['admin', 'member']}>
                 <MainLayout>
                     <TitleBar href='/customers'>顧客情報</TitleBar>
 

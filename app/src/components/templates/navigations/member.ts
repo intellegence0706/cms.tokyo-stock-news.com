@@ -108,7 +108,7 @@ const pages = {
                     target: true
                 }
             ]
-        }
+        }   
     ]
 };
 

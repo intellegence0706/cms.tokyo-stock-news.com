@@ -31,7 +31,7 @@ const Header = ({ handleLeftDrawerToggle }: Props) => {
                 <Box component='div' sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1 }}>
                     <div className='flex items-center gap-[8px]'>
                         <LogoSection />
-                        <h3 className='text-[20px] font-bold mt-[4px]'>顧客管理</h3>
+                        <h3 className='text-[20px] font-bold mt-[4px]'>Social Feed</h3>
                     </div>
                 </Box>
                 <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>

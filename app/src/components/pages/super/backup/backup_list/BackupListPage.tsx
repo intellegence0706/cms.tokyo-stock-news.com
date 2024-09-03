@@ -29,7 +29,7 @@ const CustomerListPage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['owner', 'super']} role={['admin', 'member']}>
+            <PermissionLayout permission={['owner', 'super', 'customer']} role={['admin', 'member']}>
                 <MainLayout>
                     <TitleBar>バックアップ一覧</TitleBar>
 

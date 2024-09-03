@@ -28,7 +28,7 @@ const Filter = () => {
             <Link href='/admin/users/create'>
                 <Button variant='contained' size='small' color='secondary'>
                     <IoAdd className='mr-2' />
-                    新規作成
+                    新規登録
                 </Button>
             </Link>
         </div>

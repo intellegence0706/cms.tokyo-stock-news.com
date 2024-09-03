@@ -35,7 +35,7 @@ const DomainCreatePage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin']}>
+            <PermissionLayout permission={['owner', 'super', 'customer']} role={['admin']}>
                 <MainLayout>
                     <TitleBar href='/admin/domains'>新規ドメイン登録</TitleBar>
 

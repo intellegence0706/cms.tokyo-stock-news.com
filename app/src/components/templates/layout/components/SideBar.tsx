@@ -23,7 +23,7 @@ const Sidebar = ({ drawerOpen, drawerToggle, window }: Props) => {
                 <Box sx={{ display: 'flex', p: 2, mx: 'auto' }}>
                     <div className='flex items-center gap-[8px]'>
                         <LogoSection />
-                        <h3 className='text-[20px] font-bold mt-[4px]'>顧客管理</h3>
+                        <h3 className='text-[20px] font-bold mt-[4px]'>Social Feed</h3>
                     </div>
                 </Box>
             </Box>

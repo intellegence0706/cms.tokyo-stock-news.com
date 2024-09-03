@@ -62,7 +62,7 @@ const CustomerListPage = () => {
 
     return (
         <AuthLayout>
-            <PermissionLayout permission={['customer']} role={['admin', 'member']}>
+            <PermissionLayout permission={['owner', 'super', 'customer']} role={['admin', 'member']}>
                 <MainLayout>
                     <TitleBar>顧客一覧</TitleBar>
 

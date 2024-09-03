@@ -57,7 +57,7 @@ const SignInPage = () => {
                             <LockOutlinedIcon />
                         </Avatar>
                         <Typography component='h1' variant='h1'>
-                            STOCK NEWS
+                            Log in
                         </Typography>
                         <Box component='form' onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                             <TextField
