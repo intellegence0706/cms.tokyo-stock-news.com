@@ -31,108 +31,30 @@ const CustomerTable = ({ search_url }: Props) => {
                         <TableRow>
                             <TableCell style={{ minWidth: 50 }}>
                                 <SorterItem
-                                    label='ID'
+                                    label='No'
                                     value='id'
                                     current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
                                 />
                             </TableCell>
                             <TableCell style={{ minWidth: 100 }}>
                                 <SorterItem
-                                    label='広告媒体'
+                                    label='social type'
                                     value='ads'
                                     current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
-                            <TableCell style={{ minWidth: 100 }}>
-                                <SorterItem
-                                    label='名前'
-                                    value='name'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
-                            <TableCell style={{ minWidth: 100 }}>
-                                <SorterItem
-                                    label='電話番号'
-                                    value='phone'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
                                 />
                             </TableCell>
                             <TableCell style={{ minWidth: 130 }}>
                                 <SorterItem
-                                    label='メールアドレス'
-                                    value='email'
+                                    label='User ID'
+                                    value='userid'
                                     current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
-                            {user?.user_info.role.role_id == 'admin' && (
-                                <TableCell style={{ minWidth: 100 }}>
-                                    <SorterItem
-                                        label='担当者'
-                                        value='manager__user_info__name'
-                                        current={filter.order_by}
-                                        onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                    />
-                                </TableCell>
-                            )}
-                            <TableCell style={{ minWidth: 120 }}>
-                                <SorterItem
-                                    label='入金日'
-                                    value='deposit_date'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
-                            <TableCell style={{ minWidth: 120 }}>
-                                <SorterItem
-                                    label='契約開始日'
-                                    value='contract_start_date'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
                                 />
                             </TableCell>
                             <TableCell style={{ minWidth: 100 }}>
                                 <SorterItem
-                                    label='契約日数'
-                                    value='contract_days'
+                                    label='Password'
+                                    value='password'
                                     current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
-                            <TableCell style={{ minWidth: 100 }}>
-                                <SorterItem
-                                    label='有効日数'
-                                    value='valid_days'
-                                    current={filter.order_by}
-                                    onClick={() => {}}
-                                />
-                            </TableCell>
-                            <TableCell style={{ minWidth: 100 }}>
-                                <SorterItem
-                                    label='属性'
-                                    value='property__name'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
-                            <TableCell style={{ minWidth: 120 }}>
-                                <SorterItem
-                                    label='ステータス'
-                                    value='status__name'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
-                                />
-                            </TableCell>
-                            <TableCell style={{ minWidth: 140 }}>
-                                <SorterItem
-                                    label='システム提供'
-                                    value='system_provided'
-                                    current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
                                 />
                             </TableCell>
                             <TableCell style={{ minWidth: 100 }}>
@@ -140,7 +62,6 @@ const CustomerTable = ({ search_url }: Props) => {
                                     label='登録日'
                                     value='created_at'
                                     current={filter.order_by}
-                                    onClick={sort => dispatch(setFilterValue({ order_by: sort }))}
                                 />
                             </TableCell>
                             <TableCell style={{ minWidth: 100 }}>編集</TableCell>
@@ -148,17 +69,7 @@ const CustomerTable = ({ search_url }: Props) => {
                     </TableHead>
                     <TableBody>
                         {result.data.map(customer => {
-                            let valid_days = 0;
-                            if (customer.contract_start_date && customer.contract_days) {
-                                valid_days = moment(customer.contract_start_date)
-                                    .add(customer.contract_days, 'days')
-                                    .diff(moment(), 'days');
-
-                                if (valid_days < 0) valid_days = 0;
-                            } else {
-                                valid_days = 0;
-                            }
-
+                            
                             return (
                                 <TableRow
                                     hover
@@ -170,42 +81,11 @@ const CustomerTable = ({ search_url }: Props) => {
                                 >
                                     <TableCell>{customer.id}</TableCell>
                                     <TableCell>{customer.ads}</TableCell>
-                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{customer?.name}</TableCell>
-                                    <TableCell>{customer.phone}</TableCell>
-                                    <TableCell>{customer.email}</TableCell>
-                                    {user?.user_info.role.role_id == 'admin' && (
-                                        <TableCell sx={{ whiteSpace: 'nowrap' }}>
-                                            <Button
-                                                color='secondary'
-                                                onClick={e => {
-                                                    e.stopPropagation();
-                                                    setCurrentUserId(customer.manager.id);
-                                                }}
-                                            >
-                                                {customer.manager.name}
-                                            </Button>
-                                        </TableCell>
-                                    )}
-                                    <TableCell>
-                                        {customer?.deposit_date
-                                            ? moment(customer?.deposit_date).format('YYYY/MM/DD')
-                                            : ''}
-                                    </TableCell>
-                                    <TableCell>
-                                        {customer?.contract_start_date
-                                            ? moment(customer?.contract_start_date).format('YYYY/MM/DD')
-                                            : ''}
-                                    </TableCell>
-                                    <TableCell>
-                                        {customer.contract_days > 0 ? `${customer.contract_days}日` : ''}
-                                    </TableCell>
-                                    <TableCell>{valid_days > 0 ? `${valid_days}日` : ''}</TableCell>
-                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{customer.property?.name}</TableCell>
-                                    <TableCell sx={{ whiteSpace: 'nowrap' }}>{customer.status?.name}</TableCell>
-                                    <TableCell>{customer.system_provided ? 'OK' : 'NG'}</TableCell>
+                                    <TableCell>{customer.userid}</TableCell>
+                                    <TableCell>{customer.password}</TableCell>
                                     <TableCell>{moment(customer?.created_at).format('YYYY/MM/DD  HH:mm')}</TableCell>
                                     <TableCell>
-                                        <Link href={`/customers/${customer.id}?${search_url}`} color='secondary'>
+                                        <Link href={`/snsaccounts/${customer.id}?${search_url}`} color='secondary'>
                                             編集
                                         </Link>
                                     </TableCell>
@@ -218,11 +98,8 @@ const CustomerTable = ({ search_url }: Props) => {
                                 <TableCell colSpan={user?.user_info.role.role_id == 'admin' ? 15 : 14} align='center'>
                                     <div className='w-full flex flex-col items-center justify-center gap-3'>
                                         <FolderOpenIcon sx={{ fontSize: 100 }} className='text-[#697586]' />
-
                                         <p>
-                                            顧客情報が見つかりませんでした。
-                                            <br />
-                                            検索条件を変更して再度検索してください。
+                                            接続されているアカウントがありません。
                                         </p>
                                     </div>
                                 </TableCell>

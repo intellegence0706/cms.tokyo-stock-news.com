@@ -7,19 +7,11 @@ type State = {
         form: {
             id?: number;
             email: string;
-            last_name: string;
-            first_name: string;
-            phone: string;
-            email_2: string;
-            phone_2: string;
+            userid: string;
+            api_key: string;
+            password: string;
             ads: string;
-            deposit_date: string | null;
-            contract_start_date: string | null;
-            contract_days: number;
-            property: number;
             status: number;
-            manager?: IName;
-            system_provided: boolean;
         };
         prev: number;
         next: number;
@@ -49,18 +41,11 @@ const initialState: State = {
         form: {
             id: 0,
             email: '',
-            last_name: '',
-            first_name: '',
-            phone: '',
-            email_2: '',
-            phone_2: '',
+            userid: '',
+            api_key: '',
+            password: '',
             ads: '',
-            deposit_date: null,
-            contract_start_date: null,
-            contract_days: 0,
-            property: 0,
             status: 0,
-            system_provided: false
         },
         prev: 0,
         next: 0,

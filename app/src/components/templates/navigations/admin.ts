@@ -3,12 +3,13 @@ import { MdKey, MdDashboard } from 'react-icons/md';
 import { LuUsers, LuMail } from 'react-icons/lu';
 import { AiOutlineHome } from 'react-icons/ai';
 import { RiCustomerService2Line } from 'react-icons/ri';
+import { LuClipboardEdit } from "react-icons/lu";
 
 // constant
 const icons = {
     MdDashboard,
     LuUsers,
-    LuMail,
+    LuClipboardEdit,
     RiCustomerService2Line,
     AiOutlineHome
 };
@@ -28,7 +29,7 @@ const pages = {
             breadcrumbs: false
         },
         {
-            id: 'customers',
+            id: 'snsaccounts',
             title: 'SNSアカウント管理',
             type: 'collapse',
             icon: icons.RiCustomerService2Line,
@@ -36,16 +37,16 @@ const pages = {
             children: [
                 {
                     id: 'customers-list',
-                    title: 'SNSアカウント一覧',
+                    title: '接続されたSNSアカウントリスト',
                     type: 'item',
-                    url: '/customers',
+                    url: '/snsaccounts',
                     target: true
                 },
                 {
                     id: 'customers-create',
                     title: 'SNSアカウント新規登録',
                     type: 'item',
-                    url: '/customers/create',
+                    url: '/snsaccounts/create',
                     target: true
                 }
             ]
@@ -77,23 +78,23 @@ const pages = {
             id: 'domains',
             title: '新規投稿',
             type: 'collapse',
-            icon: icons.LuMail,
+            icon: icons.LuClipboardEdit,
 
             children: [
                 {
                     id: 'domains-list',
                     title: '新規投稿',
                     type: 'item',
-                    url: '/admin/domains/',
+                    url: '/new_post',
                     target: true
                 },
-                {
-                    id: 'domains-create',
-                    title: '新規投稿',
-                    type: 'item',
-                    url: '/admin/domains/create',
-                    target: true
-                }
+                // {
+                //     id: 'domains-create',
+                //     title: '新規投稿',
+                //     type: 'item',
+                //     url: '/admin/domains/create',
+                //     target: true
+                // }
             ]
         }
     ]

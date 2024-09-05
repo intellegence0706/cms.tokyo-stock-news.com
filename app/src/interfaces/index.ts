@@ -26,21 +26,11 @@ export interface ICustomer {
     id: number;
     email: string;
     name?: string;
-    last_name: string;
-    first_name: string;
-    phone: string;
-    email_2: string;
-    phone_2: string;
+    userid: string;
+    password: string;
     ads: string;
-    deposit_date: string | null;
-    contract_start_date: string | null;
-    contract_days: number;
-
-    property: IProperty;
     status: IStatus;
     manager: IName;
-    system_provided: boolean;
-
     created_at?: string;
     updated_at?: string;
 }

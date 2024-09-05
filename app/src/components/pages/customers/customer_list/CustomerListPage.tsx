@@ -9,9 +9,9 @@ import PermissionLayout from '@/components/templates/PermissionLayout';
 import MainLayout from '@/components/templates/layout/MainLayout';
 import TitleBar from '@/components/atoms/TitleBar';
 import MainPannel from '@/components/atoms/MainPannel';
-import Filter from './sections/Filter';
+// import Filter from './sections/Filter';
 import CustomerTable from './sections/CustomerTable';
-import TablePagination from './sections/TablePagination';
+// import TablePagination from './sections/TablePagination';
 
 const CustomerListPage = () => {
     const router = useRouter();
@@ -57,19 +57,19 @@ const CustomerListPage = () => {
     }, [params]);
 
     useEffect(() => {
-        router.push(`/customers?${search_parmam_url}`);
+        router.push(`/snsaccounts?${search_parmam_url}`);
     }, [search_parmam_url]);
 
     return (
         <AuthLayout>
             <PermissionLayout permission={['owner', 'super', 'customer']} role={['admin', 'member']}>
                 <MainLayout>
-                    <TitleBar>顧客一覧</TitleBar>
+                    <TitleBar>接続されたSNSアカウントリスト</TitleBar>
 
                     <MainPannel>
-                        <Filter />
+                        {/* <Filter /> */}
                         <CustomerTable search_url={search_parmam_url} />
-                        <TablePagination />
+                        {/* <TablePagination /> */}
                     </MainPannel>
                 </MainLayout>
             </PermissionLayout>

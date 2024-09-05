@@ -203,7 +203,7 @@ const ProfileSection = () => {
                                                         }
                                                     />
                                                 </ListItemButton>
-                                                {user.permission == 'customer' && (
+                                                {/* {user.permission == 'customer' && (
                                                     <ListItemButton
                                                         sx={{
                                                             borderRadius: `${customization.borderRadius}px`
@@ -230,7 +230,7 @@ const ProfileSection = () => {
                                                             }
                                                         />
                                                     </ListItemButton>
-                                                )}
+                                                )} */}
                                                 <ListItemButton
                                                     sx={{
                                                         borderRadius: `${customization.borderRadius}px`
